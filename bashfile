@@ -1,0 +1,37 @@
+# .bash_profile
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+fi
+
+# User specific environment and startup programs
+alias vibash='vi ~/.bash_profile'
+alias sourcemy='source ~/.bash_profile'
+alias l="ls -lhtcr"
+alias les='less -S'
+alias proj='cd /home/public/project'
+
+PATH=$PATH:/usr/bin/:/home/lxgui/test_kobas/kobas2.0-20150126/scripts/:/home/zxchen/software/biosoft/hmmer/src/:/home/public/software/PfamScan/:/home/public/software/hmmer-2.3.1/squid/:/home/public/software/kallisto-0.42.4/:/home/public/software/dos2unix-7.3.3/:/home/lxgui/scripts/:/home/public/software/dos2unix-7.3.3/:/home/public/python_packages/keggrest-master/keggrest:/home/public/software/lastz-distrib-1.03.73/bin:/home/public/software/source/PhyloCSF/:/home/public/software/source/FEELnc-master/scripts/:/home/public/software/assemblyline/build/lib.linux-x86_64-2.7/assemblyline/pipeline/:/home/public/software/source/geneid/bin:/home/public/software/source/SalmonBeta-0.6.1_DebianSqueeze/bin:/home/public/software/source/trinityrnaseq-master/util/:/home/public/software/source/trinityrnaseq-master/Analysis/DifferentialExpression/:/home/public/software/source/mirdeep2_0_0_8/bin/:/usr/local/texlive/2016/bin/x86_64-linux/:/home/public/software/CAP-miRSEQ/scripts/:/home/public/software/TargetFinder-master:/home/public/software/source/trinityrnaseq-master/util/support_scripts/:/home/public/software/miRanda-3.3a/bin/bin:/home/public/software/fasta-35.4.12/bin/:/home/public/software/meme_4.11.2/binary/meme/bin/:/home/public/software/circos-0.69-3/current/bin/:/home/public/software/targetscan/:/home/zxchen/software/biosoft/sratoolkit.2.5.2/bin/:/home/public/software/bbmap:/home/public/software/pita_prediction/:$HOME/bin/
+
+PYTHONPATH=/home/lxgui/chencheng/env/lib/python3.4:/home/lxgui/test_kobas/kobas2.0-20150126/src/:/home/public/python_packages/keggrest-master/keggrest:/home/public/software/galaxy/lib/:/home/public/python_packages/lib/python/:/home/public/software/assemblyline/build/lib.linux-x86_64-2.7:$PYTHONPATH
+
+##'/home/lxgui/chencheng/env/lib/python3.4', '/home/lxgui/chencheng/env/lib/python3.4/plat-x86_64-linux-gnu', '/home/lxgui/chencheng/env/lib/python3.4/lib-dynload', '/usr/lib/python3.4', '/usr/lib/python3.4/plat-x86_64-linux-gnu', '/home/lxgui/chencheng/env/lib/python3.4/site-packages'
+JAVA_HOME=$JAVA_HOME:/usr/lib/jvm/java-8-oracle/jre
+
+PERL5LIB=/home/lxgui/perl5/lib/perl5/:/home/public/software/PfamScan/:/home/public/software/source/FEELnc-master/lib/:$PATH 
+export PATH
+export PYTHONPATH
+export JAVA_HOME
+export PERL5LIB
+
+#export LANG="en_US.UTF-8"
+export LANG="zh_CN.UTF-8"
+export PATH=$PATH:/home/public/software/source/mirdeep2_0_0_8/bin
+
+PERL_MB_OPT="--install_base /home/lxgui/perl5";export PERL_MB_OPT
+PERL_MM_OPT="INSTALL_BASE=/home/lxgui/perl5";export PERL_MM_OPT
+export PERL5LIB=$PERL5LIB:/home/public/software/source/mirdeep2_0_0_8/lib/perl5
+
+MANPATH=/usr/local/texlive/2016/texmf-dist/doc/man/:$MANPATH
+INFOPATH=/usr/local/texlive/2016/texmf-dist/doc/info/:$INFOPATH

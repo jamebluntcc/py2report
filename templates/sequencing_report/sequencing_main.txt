@@ -1,0 +1,12 @@
+{% extends "sequencing_base.txt" %}
+
+{% block author %}
+\author{%
+    \textbf{项目编号:}
+    {{project_num }}\\
+    \textbf{项目名称:} 
+    {{project_name}}\\
+    \textbf{联系地址:} 四川省成都市温江区惠民路299号\\
+    \textbf{联系电话:} 028-68636933\\
+    }
+{% endblock %}

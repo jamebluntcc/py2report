@@ -1,0 +1,304 @@
+%%%%%---mRNA_report version2.0 template------%%%%%%
+%%%create on 2016-11-1
+%%%------------------------------------------------
+\documentclass[a4paper]{ctexart}
+\usepackage{colortbl}
+\definecolor{mygreen}{rgb}{0.168,0.835,0.701}
+\usepackage[colorlinks,
+           linkcolor=black,
+           anchorcolor=blue,
+           citecolor=black
+           ]{hyperref}
+\usepackage{indentfirst}
+\usepackage{booktabs} %三线表
+\usepackage{times} %切换字体
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{epigraph}
+\usepackage{graphicx}
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{longtable}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{fancyhdr,graphicx}
+\usepackage{geometry}  
+\geometry{left=1.5cm,right=1.5cm,top=2cm,bottom=4cm}
+\setlength{\parskip}{0.5\baselineskip}
+\setlength{\parindent}{2.45em}
+\CTEXsetup[format={\Large\bfseries}]{section}
+% Save graphics in LaTeX box
+\newsavebox{\headpic}
+\sbox{\headpic}{\includegraphics[scale=0.2]{/home/lxgui/chencheng/report/latex2pdf/public_picture/logo.png}}
+\pagestyle{fancy}
+\fancyhead{} 
+\lhead{\usebox{\headpic}}
+\chead{\today}
+\rhead{昂迈思科技有限公司}
+\fancyfoot{} 
+\lfoot{\emph{www.onmath.cn}}
+\rfoot{page \thepage}
+\newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
+\newcolumntype{C}[1]{>{\PreserveBackslash\centering}p{#1}}
+\newcolumntype{R}[1]{>{\PreserveBackslash\raggedleft}p{#1}}
+\newcolumntype{L}[1]{>{\PreserveBackslash\raggedright}p{#1}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headwidth}{\textwidth}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\headwidth}{\textwidth}
+\renewcommand\epigraphflush{flushleft}
+\renewcommand\epigraphsize{\normalsize}
+\setlength\epigraphwidth{0.7\textwidth}
+\definecolor{titlepagecolor}{rgb}{0.168,0.835,0.701}
+\DeclareFixedFont{\titlefont}{T1}{ppl}{b}{it}{0.4in}
+\makeatletter
+\def\printauthor{%
+    {\large \@author}}
+\makeatother
+{% block author %}
+{% endblock %}
+\newcommand\titlepagedecoration[1]{%
+\begin{tikzpicture}[remember picture,overlay,shorten >= -10pt]
+\coordinate (tp1) at ([yshift=0.5cm]current page.west);
+\coordinate (tp2) at ([yshift=0.5cm,xshift=9cm]current page.west);
+\coordinate (tp3) at ([yshift=-15pt,xshift=7cm]current page.north);
+\coordinate (tp4) at ([yshift=-15pt]current page.north west);
+
+\filldraw[draw=titlepagecolor,fill=titlepagecolor] (tp1)--(tp2)--(tp3)--(tp4)--cycle;
+\filldraw[draw=titlepagecolor!30!white,fill=titlepagecolor!30!white,opacity=0.2] ([xshift=-5cm]tp1)--([xshift=-5cm]tp2)--([xshift=-5cm]tp3)--([xshift=-5cm]tp4)--cycle;
+\node[right] at ([xshift=1cm,yshift=-5cm]current page.north west) {\parbox{\textwidth}{\color{white}#1}};
+\end{tikzpicture}%
+}
+\begin{document}
+\renewcommand\contentsname{目录}
+\begin{titlepage}
+    \titlepagedecoration{%
+        \titlefont {{report_name}} \par
+        \epigraph{我们专注于开拓生物学、计算机科学和信息技术在动植物研究以及人类健康领域的应用,旨在建立一个服务于科研工作和医疗机构的信息数据云计算中心。
+        \tikz[remember picture,overlay]{%
+            \node (X) at (0,-1ex) {};
+        }
+        }%
+        {\textsc{OnMath}}
+
+    }
+    \null\vfill
+    \noindent
+   \begin{minipage}[b]{0.5\linewidth}
+        \begin{flushleft}
+            \printauthor
+        \end{flushleft}
+    \end{minipage} \\[6cm]
+    \vspace{-3cm} 
+    \hspace{10cm} 
+    \begin{minipage}[t]{0.4\linewidth}
+         \begin{flushright}
+    \includegraphics[scale=0.45]{/home/lxgui/chencheng/report/latex2pdf/public_picture/logo.png}
+	    \end{flushright}
+    \end{minipage}
+\end{titlepage}
+\newpage
+\tableofcontents
+\newpage
+
+\section{生物信息分析流程}
+获得测序序列(Sequenced Reads)后，按如下流程进行生物信息分析:\\[1cm]
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.8]{/home/lxgui/chencheng/report/latex2pdf/public_picture/mRNAworkflow.pdf}
+\caption{生物信息分析流程} \label{fig:graph}
+\end{figure}
+\newpage
+
+\section{数据质控}
+获得测序序列(Sequenced Reads)后，我们使用 FastQC\cite{FastQC} (Andrews S. 2010) 对本次测序所有样品进行数据质控，下表展示了数据的基本情况 ：
+\begin{table}[H]
+\centering
+\caption{\label{tab:table}数据过滤统计分析表}
+{% include '01mRNA_qc_data.txt' %}
+\end{table}
+各样品测序序列质量值分布如下图所示：
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.65]{{all_quality_data_barplot_01}}
+\caption{测序序列质量值分布，x轴为质量值，y轴为不同质量值序列的比例。由于页面限制，我们最多会展示9个样品的情况，全部信息参见结果文件。} \label{fig:graph}
+\end{figure}
+\newpage
+
+\section{定量分析}
+\subsection{表达量统计}
+数据质控合格的样品，我们使用 Kallisto\cite{Kallisto} (Bray N, et al. 2015) 对它们进行定量分析。各样品基因表达 tpm\footnotemark[1] 如下表所示：
+\begin{table}[H]
+\centering
+\caption{\label{tab:table}基因表达统计表}
+{% include '02mRNA_gene_count.txt' %}  %add a new table
+\end{table}
+
+基因整体表达情况如下图所示：
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{{Gene_merge_plot_02}}
+\caption{基因表达整体情况，左上角和右上角分别为基因表达盒形图和小提琴图，横坐标为样品，纵坐标为 log10(tpm+1)；下图为基因表达密度图，横坐标为log10(tpm+1)，纵坐标为不同表达值密度值。} \label{fig:graph}
+\end{figure}
+\newpage
+
+\subsection{相关性分析}
+我们对所有样品两两之间进行相关性分析以及主成分分析(Principal components analysis，PCA)来反映样品间整体表达差异，分析结果如下图所示。
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.12]{{sample_correlation_plot_03}}
+\caption{相关性图} 
+\label{fig:graph}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.25]{{PCA_plot_04}}
+\caption{PCA图}          
+\label{fig:graph}
+\end{figure}
+\newpage
+
+\subsection{差异性分析}
+通过定量分析得到每个样品所有基因的表达数据后，我们使用 edgeR\cite{edgeR}（Robinson MD, et al. 2010）对各组生物学重复两两进行差异分析，差异分析统计如下表所示：
+\href{{diff_table_href}}{查看差异性表达结果文件}
+\begin{table}[H]
+\small
+\centering
+\caption{\label{tab:table}差异分析统计表}
+{% include '03mRNA_diff_table.txt' %}
+\end{table}
+\newpage
+
+\subsection{差异分析火山图}
+火山图（Volcano Plot）可以非常直观且合理地筛选出在两样本间发生差异表达的基因，如下图所示：
+\href{{volcano_plot_href}}{查看样本差异性火山图文件}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.10]{{volcano_plot_05}}
+\caption{差异性分析火山图} \label{fig:graph}
+\end{figure}
+\newpage
+\subsection{差异表达聚类}
+通过对差异表达基因进行聚类分析，我们能够获得表达模式相近的基因集，这些基因可能行使者相似的生物学功能或者在生物过程中受到相同的影响，我们分别用热图和折线图展示聚类结果，如下面两张图所示：
+\href{{heatmap_plot_href}}{查看样本差异性聚类热图文件}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.12]{{heatmap_plot_06}}
+\caption{聚类分析热图} 
+\label{fig:graph}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.18]{{cluster_plot_07}}
+\caption{聚类分析折线图}          
+\label{fig:graph}
+\end{figure}
+\newpage
+
+\section{功能富集}
+\subsection{GO富集分析}
+我们利用 goseq\cite{goseq}（Young et al, 2010）对差异基因进行 GO 富集分析，老师可以根据实验目的筛选相关功能的差异基因，并进行功能研究。
+\href{{GO_enrichment_table_href}}{查看样本GO富集分析文件}
+\begin{table}[H]
+\footnotesize
+\centering
+\caption{\label{tab:table}GO 富集分析结果}
+{% include '04mRNA_GO_enrichment_table.txt' %}
+\end{table}
+\newpage
+
+我们挑选了富集最显著的30个 GO Term 在该图中进行展示，若富集的 GO Term 条目不足30条，则全部展示。
+\href{{GO_barplot_href}}{查看样本GO富集分析柱状图文件} 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{{GO_barplot_08}}
+\caption{GO 富集分析柱状图} \label{fig:graph}
+\end{figure}
+
+我们使用 topGO\cite{topGO} 分别绘制生物过程 (biological process)、分子功能 (molecular function) 和细胞组分 (cellular component) 的有向无环图(directed acyclic graph, DAG)。从上至下所定义的功能范围精细，颜色约深代表富集程度越高。
+\href{{GO_dagplot_href}}{查看样本GO富集分析DAG图文件} 
+\begin{figure}[H]
+\begin{minipage}[b]{0.3\linewidth}
+\includegraphics[scale=0.06]{{GO_dagplot_BP}}
+\caption{GO DAG图(BP)}\label{fig:graph}
+\end{minipage}
+\hspace{0.2cm}
+\begin{minipage}[b]{0.3\linewidth}
+\includegraphics[scale=0.06]{{GO_dagplot_CC}}
+\caption{GO DAG图(CC)}\label{fig:graph}
+\end{minipage}
+\hspace{0.2cm}
+\begin{minipage}[b]{0.3\linewidth}
+\includegraphics[scale=0.06]{{GO_dagplot_MF}}
+\caption{GO DAG图(MF)}\label{fig:graph}
+\end{minipage}
+\end{figure}
+
+\subsection{KEGG 富集分析}
+通过使用 KOBAS\cite{KOBAS} (Chen Xie, et al. 2011)对差异基因进行 KEGG Pathway 富集分析，找出差异基因显著富集的 KEGG Pathway。帮助老师进行后续的功能分析。
+\href{run:./Analysis_results/enrichment_analysis/KEGG/KEGG_enrich_table}{查看样本KEGG富集分析文件} 
+\begin{table}[H]
+\footnotesize
+\centering
+\caption{\label{tab:table}KEGG 富集分析结果}
+{% include '05mRNA_KEGG_enrichment_table.txt' %}
+\end{table}
+\newpage
+
+我们挑选了富集最显著的30条 pathway 条目在该图中进行展示，若富集的 pathway 条目不足30条，则全部展示。
+\href{{KEGG_barplot_href}}{查看样本KEGG富集分析柱状图文件}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.45]{{KEGG_barplot_09}}
+\caption{KEGG 富集分析柱状图} \label{fig:graph}
+\end{figure}
+我们对差异基因所在的 KEGG Pathway 通路进行下载，并使用 pathview\cite{pathview} （Luo,et al. 2013）对差异基因进行标注，如下图所示：\href{run:./Analysis_results/enrichment_analysis/KEGG/KEGG_pathway}{样本KEGG通路图文件}
+\begin{figure}[H]
+\begin{minipage}[b]{0.3\linewidth}
+\includegraphics[scale=0.5]{{KEGG_pathway1}}
+\caption{KEGG pathway(a)} \label{fig:graph}
+\end{minipage}
+\hspace{0.2cm}
+\begin{minipage}[b]{0.3\linewidth}
+\includegraphics[scale=0.5]{{KEGG_pathway2}}
+\caption{KEGG pathway(b)} \label{fig:graph}
+\end{minipage}
+\hspace{0.2cm}
+\begin{minipage}[b]{0.3\linewidth}
+\includegraphics[scale=0.5]{{KEGG_pathway3}}
+\caption{KEGG pathway(c)} \label{fig:graph}
+\end{minipage}
+\end{figure}
+
+\newpage
+\section{附录}
+\subsection{软件列表}
+\begin{table}[H]
+\centering
+\small
+\caption{\label{tab:table}软件列表}
+\begin{tabular}{lllll}
+\toprule
+软件名称 & 软件版本 & 功能 & 参数 & 链接 \\
+\midrule
+FastQC & v0.11.5 & 数据质控 & 默认参数 & \href{http://www.bioinformatics.babraham.ac.uk/projects/fastqc/}{http://www.bioinformatics.babraham.ac.uk/projects/fastqc/} \\
+Kallisto & v0.43.0 & 转录本定量 & 默认参数 & \href{http://pachterlab.github.io/kallisto/}{https://pachterlab.github.io/kallisto/} \\
+edgeR & 3.12.1 & 差异分析 & 默认参数 & \href{http://bioinf.wehi.edu.au/edgeR/}{http://bioinf.wehi.edu.au/edgeR/}\\
+goseq & 1.22.0 & GO 富集分析 & 默认参数 & \href{http://bioconductor.org/packages/goseq/}{http://bioconductor.org/packages/goseq/}\\
+topGO & 2.22.0  & GO 富集 DAG 绘制 & 默认参数 & \href{http://bioconductor.org/packages/topGO/}{http://bioconductor.org/packages/topGO/}\\
+KOBAS & 2.0 & KEGG Pathway 富集分析 & 默认参数 & \href{http://kobas.cbi.pku.edu.cn/index.php}{http://kobas.cbi.pku.edu.cn/index.php}\\
+pathview & 1.10.1 & KEGG Pathway 通路图处理 & 默认参数 & \href{http://pathview.uncc.edu/}{http://pathview.uncc.edu/}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%%%%%reference%%%%%%%%%
+\newpage
+\renewcommand\refname{参考文献}
+\bibliographystyle{unsrt}
+\bibliography{ref}
+
+\end{document}
