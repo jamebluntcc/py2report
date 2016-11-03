@@ -2,7 +2,8 @@
 '''
 changed on 2016-10-28(add qc dir)
 changed on 2016-11-1(update)
-version = 1.20
+changed on 2016-11-3(add report_tmp dir)
+version = 1.21
 template engine using django templates
 function:create mRNA_report
 running on linux
@@ -145,31 +146,51 @@ if __name__ == '__main__':
     if qc_table_01 == None:
         print('No qc.summary data file')
         sys.exit(1)
+    #for report_tmp
+    report_tmp_dir = os.path.join(REPORT_DIR,'report_tmp')
+    list_file = os.listdir(report_tmp_dir)
+    all_quality_data_barplot_01 = volcano_plot_05 = None
+    cluster_plot_07 = GO_barplot_08 = KEGG_barplot_09 = None
+    for each_one in list_file:
+        if re.search('all_quality_data_barplot.png', each_one):
+            all_quality_data_barplot_01 = os.path.join(report_tmp_dir, each_one)
+        elif re.search('volcano_merge_plot.png',each_one):
+            volcano_plot_05 = os.path.join(report_tmp_dir,each_one)
+        elif re.search('cluster_plot.png',each_one):
+            cluster_plot_07 = os.path.join(report_tmp_dir,each_one)
+        elif re.search('GO_merge_barplot.png',each_one):
+            GO_barplot_08 = os.path.join(report_tmp_dir,each_one)
+        elif re.search('KEGG_merge_barplot.png',each_one):
+            KEGG_barplot_09 = os.path.join(report_tmp_dir,each_one)
+
+    report_tmp_plot = (all_quality_data_barplot_01,volcano_plot_05,
+                        cluster_plot_07,GO_barplot_08,KEGG_barplot_09)
+    for each_one in report_tmp_dir:
+        if each_one == None:
+            print('some plot not in report_tmp_dir:%s'%report_tmp_dir)
+            exit(1)
 
     # for quantification
     quantification_dir = os.path.join(REPORT_DIR,'quantification')
     list_file = os.listdir(quantification_dir)
-    Gene_merge_plot_02 = sample_correlation_plot_03 = None
-    all_quality_data_barplot_01 = gene_count_table_02 = PCA_plot_04 = None
+    sample_correlation_plot_03 = gene_count_table_02 = None
+    Gene_merge_plot_02 = PCA_plot_04 = None
     for each_one in list_file:
+        if re.search('Gene.expression.png',each_one):
+            Gene_merge_plot_02 = os.path.join(quantification_dir, each_one)
         if re.search('Gene.tpm.xls', each_one):
             gene_count_table_02 = os.path.join(quantification_dir, each_one)
             three_line_table(gene_count_table_02,'templates/data_table/02mRNA_gene_count.txt', '\t', colunms=6)
-        elif re.search('Gene_merge_plot.png', each_one):
-            Gene_merge_plot_02 = os.path.join(quantification_dir, each_one)
         elif re.search('sample_correlation.plot.png', each_one):
             sample_correlation_plot_03 = os.path.join(quantification_dir, each_one)
-        elif re.search('all_quality_data_barplot.png',each_one):
-            all_quality_data_barplot_01 = os.path.join(quantification_dir,each_one)
         elif re.search('PCA_plot.png',each_one):
             PCA_plot_04 = os.path.join(quantification_dir,each_one)
 
-    quantification_files = (all_quality_data_barplot_01,gene_count_table_02,Gene_merge_plot_02,
-                            PCA_plot_04,sample_correlation_plot_03)
-    for each_one in quantification_files:
+    plot_files = (gene_count_table_02,Gene_merge_plot_02,PCA_plot_04,sample_correlation_plot_03)
+    for each_one in plot_files:
         if each_one == None:
-            print('files NoExist,please checkout quantication dir')
-            print(quantification_files)
+            print('files NoExist,please checkout quantication dir:%s'%quantification_dir)
+            print(plot_files)
             exit(1)
     # for enrichment and differential
     difftable_dir = GO_enrichtable_dir = KEGG_enrichtable_dir = None
@@ -222,20 +243,20 @@ if __name__ == '__main__':
                'sample_correlation_plot_03': '{./' + sample_correlation_plot_03.replace(REPORT_DIR_SHORT,'') + '}',
                'PCA_plot_04': '{./' + PCA_plot_04.replace(REPORT_DIR_SHORT,'') + '}',
                'diff_table_href': '{run:./' + difftable_dir.replace(REPORT_DIR_SHORT,'') + '}',
-               'volcano_plot_05': '{./' + find_merge_plot(volcano_plot_dir,pattern='Volcano_mege_plot.png').replace(REPORT_DIR_SHORT,'') + '}',
+               'volcano_plot_05': '{./' + volcano_plot_05.replace(REPORT_DIR_SHORT,'') + '}',
                'volcano_plot_href': '{run:./' + volcano_plot_dir.replace(REPORT_DIR_SHORT,'') + '}',
                'heatmap_plot_06': '{./' + find_merge_plot(heatmap_dir,pattern='Heatmap.png').replace(REPORT_DIR_SHORT,'') + '}',
-               'cluster_plot_07': '{./' + find_merge_plot(heatmap_dir,pattern='cluster_plot.png').replace(REPORT_DIR_SHORT,'') + '}',
+               'cluster_plot_07': '{./' + cluster_plot_07.replace(REPORT_DIR_SHORT,'') + '}',
                'heatmap_plot_href': '{run:./' + heatmap_dir.replace(REPORT_DIR_SHORT,'') + '}',
                'GO_enrichment_table_href': '{run:./' + GO_enrichtable_dir.replace(REPORT_DIR_SHORT,'') + '}',
-               'GO_barplot_08': '{./' + find_merge_plot(GO_barplot_dir, pattern='GO_merge_barplot.png').replace(REPORT_DIR_SHORT,'') + '}',
+               'GO_barplot_08': '{./' + GO_barplot_08.replace(REPORT_DIR_SHORT,'') + '}',
                'GO_barplot_href': '{run:./' + GO_barplot_dir.replace(REPORT_DIR_SHORT,'') + '}',
                'GO_dagplot_BP': '{./' + find_sample_file(GO_dagplot_dir, pattern='ALL.BP.GO.DAG.png').replace(REPORT_DIR_SHORT,'') + '}',
                'GO_dagplot_CC': '{./' + find_sample_file(GO_dagplot_dir, pattern='ALL.CC.GO.DAG.png').replace(REPORT_DIR_SHORT,'') + '}',
                'GO_dagplot_MF': '{./' + find_sample_file(GO_dagplot_dir, pattern='ALL.MF.GO.DAG.png').replace(REPORT_DIR_SHORT,'') + '}',
                'GO_dagplot_href': '{run:./' + GO_dagplot_dir.replace(REPORT_DIR_SHORT,'') + '}',
                'KEGG_enrichment_table_href': '{run:./' + KEGG_enrichtable_dir.replace(REPORT_DIR_SHORT,'') + '}',
-               'KEGG_barplot_09': '{./' + find_merge_plot(KEGG_barplot_dir, pattern='KEGG_merge_barplot.png').replace(REPORT_DIR_SHORT,'') + '}',
+               'KEGG_barplot_09': '{./' + KEGG_barplot_09.replace(REPORT_DIR_SHORT,'') + '}',
                'KEGG_barplot_href': '{run:./' + KEGG_barplot_dir.replace(REPORT_DIR_SHORT,'') + '}',
                'KEGG_pathway1': '{./' + find_sample_file(KEGG_pathway_dir, pattern='ALL_pathway').replace(REPORT_DIR_SHORT,'') + '/' +
                                os.listdir(find_sample_file(KEGG_pathway_dir, pattern='ALL_pathway'))[0] + '}',
@@ -254,7 +275,8 @@ if __name__ == '__main__':
     os.chdir(REPORT_DIR_SHORT)
     output_aux_file = output_tex_file.replace('tex','aux')
     tex_list = glob.glob(os.path.join(REPORT_DIR_SHORT,output_tex_file))
-    rm_set = ('.aux','.log','.out','.tex','.toc','.tmp','.bib','.bbl','.blg')
+    rm_set = ('.aux','.log','.out','.toc','.tex','.tmp','.bib','.bbl','.blg')
+    
     if len(tex_list) == 1:
         subprocess.call('cp %s ./' %ref_file,shell=True)
         subprocess.call('xelatex %s > summary.tmp' %output_tex_file,shell=True)
@@ -264,8 +286,11 @@ if __name__ == '__main__':
         for each_file in os.listdir(REPORT_DIR_SHORT):
             if os.path.splitext(each_file)[1] in rm_set:
                 subprocess.call('rm %s' %each_file,shell=True)
-        subprocess.call('echo all done!',shell=True)
     else:
         print('Not one tex file in %s!'%REPORT_DIR_SHORT)
         sys.exit(1)
+
+   # os.chdir(REPORT_DIR)
+   # subprocess.call('rm -rf report_tmp/',shell=True)
+    subprocess.call('echo mRNA report done!', shell=True)
 

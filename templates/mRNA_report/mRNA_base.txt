@@ -160,7 +160,7 @@
 \end{figure}
 \newpage
 
-\subsection{差异性分析}
+\section{差异性分析}
 通过定量分析得到每个样品所有基因的表达数据后，我们使用 edgeR\cite{edgeR}（Robinson MD, et al. 2010）对各组生物学重复两两进行差异分析，差异分析统计如下表所示：
 \href{{diff_table_href}}{查看差异性表达结果文件}
 \begin{table}[H]
@@ -297,7 +297,8 @@ pathview & 1.10.1 & KEGG Pathway 通路图处理 & 默认参数 & \href{http://p
 
 %%%%%reference%%%%%%%%%
 \newpage
-\renewcommand\refname{参考文献}
+\subsection{参考文献}
+\renewcommand\refname{}
 \bibliographystyle{unsrt}
 \bibliography{ref}
 
