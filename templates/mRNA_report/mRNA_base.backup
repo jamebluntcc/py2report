@@ -1,0 +1,221 @@
+\documentclass[a4paper]{ctexart}
+\usepackage{colortbl}
+\definecolor{mygreen}{rgb}{0.168,0.835,0.701}
+\usepackage[colorlinks,
+           linkcolor=black,
+           anchorcolor=blue,
+           citecolor=green
+           ]{hyperref}
+\usepackage{indentfirst}
+\usepackage{booktabs} %三线表
+\usepackage{times} %切换字体
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{epigraph}
+\usepackage{graphicx}
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{longtable}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{fancyhdr,graphicx}
+\usepackage{geometry}  %geo
+\geometry{left=1.5cm,right=1.5cm,top=2cm,bottom=4cm}
+\setlength{\parskip}{0.5\baselineskip}
+\setlength{\parindent}{2.45em}
+\CTEXsetup[format={\Large\bfseries}]{section}
+% Save graphics in LaTeX box
+\newsavebox{\headpic}
+\sbox{\headpic}{\includegraphics[scale=0.2]{/home/lxgui/chencheng/report/latex2pdf/MRNAReport/logo.png}}
+\pagestyle{fancy}
+\fancyhead{} 
+\lhead{\usebox{\headpic}}
+\chead{\today}
+\rhead{昂迈思科技有限公司}
+\fancyfoot{} 
+\lfoot{\emph{www.onmath.cn}}
+\rfoot{page \thepage}
+\newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
+\newcolumntype{C}[1]{>{\PreserveBackslash\centering}p{#1}}
+\newcolumntype{R}[1]{>{\PreserveBackslash\raggedleft}p{#1}}
+\newcolumntype{L}[1]{>{\PreserveBackslash\raggedright}p{#1}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headwidth}{\textwidth}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\headwidth}{\textwidth}
+\renewcommand\epigraphflush{flushleft}
+\renewcommand\epigraphsize{\normalsize}
+\setlength\epigraphwidth{0.7\textwidth}
+\definecolor{titlepagecolor}{rgb}{0.168,0.835,0.701}
+\DeclareFixedFont{\titlefont}{T1}{ppl}{b}{it}{0.4in}
+\makeatletter
+\def\printauthor{%
+    {\large \@author}}
+\makeatother
+{% block author %}
+{% endblock %}
+\newcommand\titlepagedecoration[1]{%
+\begin{tikzpicture}[remember picture,overlay,shorten >= -10pt]
+\coordinate (tp1) at ([yshift=0.5cm]current page.west);
+\coordinate (tp2) at ([yshift=0.5cm,xshift=9cm]current page.west);
+\coordinate (tp3) at ([yshift=-15pt,xshift=7cm]current page.north);
+\coordinate (tp4) at ([yshift=-15pt]current page.north west);
+
+\filldraw[draw=titlepagecolor,fill=titlepagecolor] (tp1)--(tp2)--(tp3)--(tp4)--cycle;
+\filldraw[draw=titlepagecolor!30!white,fill=titlepagecolor!30!white,opacity=0.2] ([xshift=-5cm]tp1)--([xshift=-5cm]tp2)--([xshift=-5cm]tp3)--([xshift=-5cm]tp4)--cycle;
+\node[right] at ([xshift=1cm,yshift=-5cm]current page.north west) {\parbox{\textwidth}{\color{white}#1}};
+\end{tikzpicture}%
+}
+\begin{document}
+\begin{titlepage}
+    \titlepagedecoration{%
+        \titlefont {{report_name}} \par
+        \epigraph{我们专注于开拓生物学、计算机科学和信息技术在动植物研究以及人类健康领域的应用旨在建立一个服务于科研工作和医疗机构的信息数据云计算中心。
+        \tikz[remember picture,overlay]{%
+            \node (X) at (0,-1ex) {};
+        }
+        }%
+        {\textit{www.onmath.cn}\\ \textsc{OnMath}}
+
+    }
+    \null\vfill
+    \noindent
+   \begin{minipage}[b]{0.5\linewidth}
+        \begin{flushleft}
+            \printauthor
+        \end{flushleft}
+    \end{minipage} \\[6cm]
+    \vspace{-3cm} 
+    \hspace{10cm} 
+    \begin{minipage}[t]{0.4\linewidth}
+         \begin{flushright}
+    \includegraphics[scale=0.45]{/home/lxgui/chencheng/report/latex2pdf/MRNAReport/logo.png}
+	    \end{flushright}
+    \end{minipage}
+\end{titlepage}
+\newpage
+\tableofcontents
+\newpage
+
+\section{生物信息分析流程}
+获得测序序列(Sequenced Reads)后，按如下流程进行生物信息分析：
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.8]{/home/lxgui/chencheng/report/latex2pdf/MRNAReport/mRNAworkflow.pdf}
+\caption{生物信息分析流程} \label{fig:graph}
+\end{figure}
+\newpage
+
+\section{数据产出情况}
+\begin{table}[H]
+\centering
+\caption{\label{tab:table}数据过滤统计分析表}
+{% include 'readcount.txt' %}
+\end{table}
+\newpage
+
+\section{表达分析}
+\subsection{表达量统计}
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{{gene_expression_plot}}
+\caption{基因表达整体情况} \label{fig:graph}
+\end{figure}
+\newpage
+
+\subsection{相关性分析}
+Encode计划建议皮尔逊相关系数的平方($R^{2}$)大于0.92(理想的取样和实验条件下)。具体的项目操作中，我们要求$R^{2}$至少要大于0.8，否则需要对样品做出合适的解释，或者重新进行实验。
+
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.2]{{sample_cor_matrix}}
+\caption{相关性图} \label{fig:graph}
+\end{figure}
+\newpage
+
+\subsection{差异性分析}
+基因差异表达的输入数据为基因表达水平分析中得到的 readcount 数据，我们采用edgeR（Robinson MD et al,2010）进行分析。
+\href{{diff_table_href}}{查看差异性表达结果文件}
+\begin{table}[H]
+\small
+\centering
+\caption{\label{tab:table}差异表达结果}
+{% include 'diff_table.txt' %}
+\end{table}
+\newpage
+
+火山图（Volcano Plot）可以非常直观且合理地筛选出在两样本间发生差异表达的基因，进行后续研究。
+\href{{volcano_plot_href}}{查看样本差异性火山图文件}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.18]{{volcano_plot}}
+\caption{差异性分析火山图} \label{fig:graph}
+\end{figure}
+\newpage
+差异性分析聚类热图。
+\href{{heatmap_plot_href}}{查看样本差异性聚类热图文件}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.2]{{heatmap_plot}}
+\caption{差异性分析聚类热图} \label{fig:graph}
+\end{figure}
+\newpage
+
+\section{功能分析}
+\subsection{GO富集分析}
+利用 GOseq（Young et al, 2010）对样品进行 GO 富集，根据实验目的筛选差异基因在 Gene Ontology 中的分布状况，并进行功能研究。
+\href{{GO_enrichment_table_href}}{查看样本GO富集分析文件}
+\begin{table}[H]
+\footnotesize
+\centering
+\caption{\label{tab:table}GO 富集分析结果}
+{% include 'GO_enrichment_table.txt' %}
+\end{table}
+\newpage
+
+我们挑选了富集最显著的30个 GO Term 在该图中进行展示，若富集的 GO Term 条目不足30条，则全部展示。
+\href{{GO_barplot_href}}{查看样本GO富集分析柱状图文件} 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.15]{{GO_barplot}}
+\caption{GO 富集分析柱状图} \label{fig:graph}
+\end{figure}
+\newpage
+
+我们的项目中分别绘制生物过程 (biological process)、分子功能 (molecular function) 和细胞组分 (cellular component) 的DAG图。从上至下所定义的功能范围越来越小，颜色的深浅代表富集程度。
+\href{{GO_dagplot_href}}{查看样本GO富集分析DAG图文件} 
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.15]{{GO_dagplot}}
+\caption{GO 富集分析 DAG 图} \label{fig:graph}
+\end{figure}
+\newpage
+
+\subsection{KEGG 分析}
+Pathway 显著性富集分析以KEGG Pathway为单位，应用超几何检验，找出与整个基因组背景相比，在差异表达基因中显著性富集的Pathway。
+\href{{KEGG_enrichment_table_href}}{查看样本KEGG富集分析文件} 
+\begin{table}[H]
+\footnotesize
+\centering
+\caption{\label{tab:table}KEGG 富集分析结果}
+{% include 'KEGG_enrichment_table.txt' %}
+\end{table}
+\newpage
+
+我们挑选了富集最显著的30条 pathway 条目在该图中进行展示，若富集的 pathway 条目不足30条，则全部展示。
+\href{{KEGG_barplot_href}}{查看样本KEGG富集分析柱状图文件}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.2]{{KEGG_barplot}}
+\caption{KEGG 富集分析柱状图} \label{fig:graph}
+\end{figure}
+\newpage
+
+KEGG 富集分析通路图。\href{{KEGG_pathway_href}}{样本KEGG通路图文件}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=1.5]{{KEGG_pathway}}
+\caption{KEGG 富集分析通路图} \label{fig:graph}
+\end{figure}
+\end{document}

@@ -1,0 +1,300 @@
+%%%---sequencing report templates---%%%
+%%%%%%---create on 2016-11-20---%%%%%%%
+%-------------------------------------%
+\documentclass[a4paper]{ctexart}
+\usepackage{colortbl}
+\definecolor{mygreen}{rgb}{0.168,0.835,0.701}
+\usepackage[colorlinks,
+           linkcolor=black,
+           anchorcolor=blue,
+           citecolor=black
+		   urlcolor=blue
+           ]{hyperref}
+\usepackage{indentfirst}
+\usepackage{booktabs} %三线表
+\usepackage{times} %切换字体
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{epigraph}
+\usepackage{graphicx}
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{longtable}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{fancyhdr,graphicx}
+\usepackage{geometry}  
+\geometry{left=1.5cm,right=1.5cm,top=2cm,bottom=4cm}
+\setlength{\parskip}{0.5\baselineskip}
+\setlength{\parindent}{2.45em}
+\CTEXsetup[format={\Large\bfseries}]{section}
+% Save graphics in LaTeX box
+\newsavebox{\headpic}
+\sbox{\headpic}{\includegraphics[scale=0.2]{/home/lxgui/chencheng/report/latex2pdf/public_picture/logo.png}}
+\pagestyle{fancy}
+\fancyhead{} 
+\lhead{\usebox{\headpic}}
+\chead{\today}
+\rhead{昂迈思科技有限公司}
+\fancyfoot{} 
+\lfoot{\emph{www.onmath.cn}}
+\rfoot{page \thepage}
+\newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
+\newcolumntype{C}[1]{>{\PreserveBackslash\centering}p{#1}}
+\newcolumntype{R}[1]{>{\PreserveBackslash\raggedleft}p{#1}}
+\newcolumntype{L}[1]{>{\PreserveBackslash\raggedright}p{#1}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headwidth}{\textwidth}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\headwidth}{\textwidth}
+\renewcommand\epigraphflush{flushleft}
+\renewcommand\epigraphsize{\normalsize}
+\setlength\epigraphwidth{0.7\textwidth}
+\definecolor{titlepagecolor}{rgb}{0.168,0.835,0.701}
+\DeclareFixedFont{\titlefont}{T1}{ppl}{b}{it}{0.4in}
+\makeatletter
+\def\printauthor{%
+    {\large \@author}}
+\makeatother
+{% block author %}
+{% endblock %}
+\newcommand\titlepagedecoration[1]{%
+\begin{tikzpicture}[remember picture,overlay,shorten >= -10pt]
+\coordinate (tp1) at ([yshift=0.5cm]current page.west);
+\coordinate (tp2) at ([yshift=0.5cm,xshift=9cm]current page.west);
+\coordinate (tp3) at ([yshift=-15pt,xshift=7cm]current page.north);
+\coordinate (tp4) at ([yshift=-15pt]current page.north west);
+
+\filldraw[draw=titlepagecolor,fill=titlepagecolor] (tp1)--(tp2)--(tp3)--(tp4)--cycle;
+\filldraw[draw=titlepagecolor!30!white,fill=titlepagecolor!30!white,opacity=0.2] ([xshift=-5cm]tp1)--([xshift=-5cm]tp2)--([xshift=-5cm]tp3)--([xshift=-5cm]tp4)--cycle;
+\node[right] at ([xshift=1cm,yshift=-5cm]current page.north west) {\parbox{\textwidth}{\color{white}#1}};
+\end{tikzpicture}%
+}
+\begin{document}
+\renewcommand\contentsname{目录}
+\begin{titlepage}
+    \titlepagedecoration{%
+        \titlefont {{report_name}} \par
+        \epigraph{我们专注于开拓生物学、计算机科学和信息技术在动植物研究以及人类健康领域的应用,旨在建立一个服务于科研工作和医疗机构的信息数据云计算中心。
+        \tikz[remember picture,overlay]{%
+            \node (X) at (0,-1ex) {};
+        }
+        }%
+        {\textsc{OnMath}}
+
+    }
+    \null\vfill
+    \noindent
+   \begin{minipage}[b]{0.5\linewidth}
+        \begin{flushleft}
+            \printauthor
+        \end{flushleft}
+    \end{minipage} \\[6cm]
+    \vspace{-3cm} 
+    \hspace{10cm} 
+    \begin{minipage}[t]{0.4\linewidth}
+         \begin{flushright}
+    \includegraphics[scale=0.45]{/home/lxgui/chencheng/report/latex2pdf/public_picture/logo.png}
+	    \end{flushright}
+    \end{minipage}
+\end{titlepage}
+\newpage
+\tableofcontents
+\newpage
+\section{项目信息}
+\subsection{上机测序}
+构建{{library_name}}文库，文库质检合格后，用HiseqX10进行高通量测序，测序读长为{{reads_length}}。
+\subsection{项目完成情况}
+测序共获得{{data_count}}数据量，平均Q30为{{q30_avg}}\%。
+\newpage
+\section{数据过滤}
+\subsection{原始数据}
+Illumina高通量测序结果最初以原始图像数据文件存在，经CASAVA软件进
+行序列碱基识别后转化为原始测序序列（Sequenced Reads），我们称之为Raw
+Data或Raw Reads，其结果以FASTQ（简称为fq）文件格式存储。FQ文件包含每
+条测序序列（Read）的名称、碱基序列以及其对应的测序质量信息。在FASTQ格
+式文件中，每个碱基对应一个碱基质量字符，每个碱基质量字符对应的ASCII码
+值减去33（Sanger质量值体系），即为该碱基的测序质量得分（Phred Quality
+Score）。不同Phred Quality Score代表不同的碱基测序错误率，如Phred
+Quality Score值为20和30分别表示碱基测序错误率为1\% 和0.1\% 。其中FASTQ格
+式示例如下：
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.5]{/home/lxgui/chencheng/report/latex2pdf/public_picture/fastq-eg.png}
+\caption{FASTQ文件格式示意图} \label{fig:graph}
+\end{figure}
+\begin{enumerate}
+\item 第一行以“@”开头，随后为Illumina测序标识别符（Sequence Identifiers）和描述文字（选择性部分）;
+\item 第二行是碱基序列;
+\item 第三行以“+”开头，随后为Illumina测序标识别符（选择性部分）;
+\item 第四行是对应碱基的测序质量，该行中每个字符对应的ASCII值减去33，即为对应第二行碱基的测序质量值。
+\end{enumerate}
+Illumina测序识别符（Sequence Identifiers）详细信息如下： \\
+\begin{table}[H]
+\centering
+\caption{\label{tab:table}Illumina测序识别符信息}
+\begin{tabular}{p{7cm}p{7cm}}
+\toprule
+HWI-ST1268 & Unique instrument name \\
+\midrule
+544 & Run ID \\
+H8Y02ADXX & Flowcell ID \\
+1 & lane number \\
+1101 & Tile number \\
+1480 & 'x'-coordinate of cluster \\
+2221 & 'Y'-coordinate of cluster \\
+1 & Read number \\
+N & Y if the read is filtered, N otherwise \\
+0 & 0 when none of the control bits are on, otherwise it is an even number \\
+TATGGTT & Index sequence \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{数据过滤统计}
+测序得到的某些原始下机序列，会含有测序接头序列以及低质量序列。为了
+保证信息分析数据的质量，我们对原始序列进行过滤，得到高质量的Clean
+Reads，再进行后续分析，后续分析都基于Clean Reads。
+数据处理如下:
+\begin{enumerate}
+\item 去除接头污染的Reads（Reads中接头污染的碱基数大于5bp。对于双端测
+序，若一端受到接头污染，则去掉两端的Reads);
+\item 去除低质量的Reads（Reads中质量值Q≤19的碱基占总碱基的50\% 以上，
+对于双端测序，若一端为低质量Reads，则会去掉两端Reads）；
+\item 去除含N比例大于50\% 的Reads（对于双端测序，若一端含N比例大于50\% ，
+则会去掉两端Reads）。
+\end{enumerate}
+\newpage
+数据过滤统计结果见下表：%\href{{data_filter_table_href}}{查看样本数据过滤统计结果}
+\begin{table}[H]
+\centering
+\caption{\label{tab:table}数据过滤统计分析表}
+\begin{tabular}{p{8cm}p{8cm}}
+{% include 'data_filter_table.txt' %}
+\end{tabular}
+\end{table}
+
+\begin{enumerate}
+\item Raw Reads Number：原始未过滤数据的Reads数；
+\item Raw Base Number：原始未过滤数据的碱基数；
+\item Clean Reads Number：过滤后剩余的Reads数；
+\item Clean Reads Rate (\%)：过滤后剩余的Reads数占原始未过滤Reads数的比例，这个值越
+大，说明测序质量或者文库质量越好；
+\item Clean Base Number：过滤后剩余的碱基数；
+\item Low-quality Reads Number：被低质量过滤标准去掉的Reads数；
+\item Low-quality Reads Rate (\%)：被低质量过滤标准去掉的Reads的比例；
+\item Adapter Polluted Reads Number：去掉含有接头污染的Reads数；
+\item Adapter Polluted Reads Rate (\%)：去掉含有接头污染的Reads数占原始未过
+滤Reads数的比例；
+\item Raw Q 30 Base Rate (\%)：过滤前，原始序列中质量值大于30（错误率小于0.1\%）的碱
+基数占总碱基数的比例；
+\item Clean Q 30 Base Rate (\%)：过滤后，总序列中质量值大于30（错误率小于0.1\%）的碱
+基数的比例，该值越大说明测序质量越好；
+\item Ns Reads Number：由于含N过高，被去掉的序列数；
+\item Ns Reads Rate (\%)：由于含N过高，被去掉的序列占原始下机序列的比例。
+\end{enumerate}
+
+由于Raw Data包含低质量的序列、接头污染的序列、含N比例大于5\%的序列
+以及Clean Reads。Clean Reads所占的比例越高，数据质量越好，根据每种序
+列所占的比例绘制如下柱状图，可以直观地反映数据过滤情况：
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.4]{{filter_distrbution_plot}}
+\caption{数据过滤统计图} \label{fig:graph}
+\end{figure}
+横坐标为样品名，纵坐标为四种序列所占的比例。
+\subsection{数据量统计}
+数据经过过滤得到Clean Data，下图为本项目全部样本的Clean Data和Raw Data数据量统计图：
+%%%  并排插入图片   %%%
+\begin{figure}[H]
+\begin{minipage}[b]{0.5\linewidth}
+\includegraphics[scale=0.4]{{clean_data_barplot}}
+\caption{Clean Data样品数据质量分布图}
+\label{fig:graph}
+\end{minipage}
+\hspace{0.2cm}
+\begin{minipage}[b]{0.5\linewidth}
+\includegraphics[scale=0.4]{{raw_data_barplot}}
+\caption{Raw Data样品数据质量分布图}
+\label{fig:graph}
+\end{minipage}
+\end{figure}
+横坐标是样本名，纵坐标为Clean/Raw Data数据量。
+\newpage
+\subsection{碱基质量分布}
+碱基测序质量反映了测序错误率，质量值越大，错误率越小，它受测序仪本
+身、测序试剂、样品等多个因素共同影响。碱基测序错误率是利用Phred数值
+（Phred Score，Qphred）通过公式
+$$Phred = -10\log_{10}e$$ %单独一行
+转化得到（其中e为碱基测序错误率）。Phred数值是在碱基识别（Base
+Calling）过程中，通过一种预测碱基发生错误概率模型计算得到的，对应关系
+如下表所示：
+\begin{table}[htbp]
+\centering
+\caption{Illumina Casava碱基识别与Phred分值之间的简明对应关系表\label{tab:table}}
+\begin{tabular}{p{6cm}p{6cm}}
+\toprule
+Phred & 分值不正确的碱基识别 \\
+\midrule
+10 & 1/10 \\
+20 & 1/100 \\
+30 & 1/1000 \\
+40 & 1/10000 \\
+\bottomrule
+\end{tabular}
+\end{table}
+为了反映测序过程中测序质量的稳定性，以Clean Reads的碱基位置作为横
+坐标，每个位置的平均测序质量值作为纵坐标，得到每个样本测序质量分布图。
+\href{{mean_quality_distrbution_plot_href}}{样本测序质量分布图文件}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{{mean_quality_distrbution_plot}}
+\caption{碱基质量分布图} \label{fig:graph}
+\end{figure}
+横坐标为Clean Reads的碱基位置，纵坐标为平均碱基质量。从该图上可以看出，碱基的质量值
+基本在30以上，说明测序质量较好。
+\subsection{碱基类型分布}
+碱基含量分布图用以检查有无AT、GC分离现象，而这种现象可能是测序或者
+建库所带来的，它会影响后续的定量分析。理论上G碱基和C碱基及A碱基和T碱基
+含量每个测序循环上应分别相等，且整个测序过程稳定不变，呈水平线。
+以Clean Reads中的碱基位置作为横坐标，以每个位置的ATCGN碱基的比例作为
+纵坐标，得到相应的分布图。\href{{base_distrbution_plot_href}}{样本碱基含量分布图文件}
+\begin{figure}[H]
+\centering
+\includegraphics[scale=0.5]{{base_distrbution_plot}}
+\caption{碱基含量分布图} \label{fig:graph}
+\end{figure}
+横轴为Reads的碱基位置，纵轴为单碱基的所占的比例，不同颜色代表不同的碱基类型。每
+个Cycle代表测序的每个碱基，如第一Cycle即表示该样品所有测序reads在第一个碱基
+的A、T、G、C、N的分布情况。
+\newpage
+\subsection{数据产出统计}
+各样品测序产出数据评估结果见下表:
+\begin{longtable}{p{3cm}p{3cm}p{3cm}p{3cm}}
+\caption{\label{tab:table}数据评估统计表} \\
+{% include 'data_count_table.txt' %}
+\end{longtable}
+
+\begin{enumerate}
+\item Sample：项目样品的统一编号；
+\item ReadSum：原始测序Reads数目；
+\item BaseSum：原始测序Bases数目；
+\item Q 30(\%)：质量值大于等于30的碱基所占百分比。
+\end{enumerate}
+\newpage
+\subsection{NT库对比}
+对过滤后的高质量数据随机抽取10000条Reads数据，通过Blast软件比
+对NT库。具体结果如下表所示：
+\begin{longtable}{p{5cm}p{5cm}p{5cm}}
+\caption{\label{tab:table}NT对比结果} \\ 
+{% include 'nt_table.txt' %}
+\end{longtable}
+
+\begin{enumerate}
+\item Sample：样品名；
+\item Hit1：比对第一物种；
+\item Hit2：比对第二物种。
+\end{enumerate}
+
+\end{document}

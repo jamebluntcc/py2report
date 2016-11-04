@@ -1,0 +1,17 @@
+\toprule
+Sample&ID2016060105\\
+\midrule
+Raw Reads Number&83,251,986\\
+Raw Bases Number&12,487,797,900\\
+Clean Reads Number&81,934,214\\
+Clean Reads Rate(\%)&98.42\\
+Clean Bases Number&12,290,132,100\\
+Low-quality Reads Nu...&828,086\\
+Low-quality Reads Ra...&0.99\\
+Adapter polluted Rea...&489,686\\
+Adapter polluted Rea...&0.59\\
+Raw Q30 Bases Rate(\%...&90.73\\
+Clean Q30 Bases Rate...&91.28\\
+Ns Reads Number&0\\
+Ns Reads Rate(\%)&0.00\\
+\bottomrule

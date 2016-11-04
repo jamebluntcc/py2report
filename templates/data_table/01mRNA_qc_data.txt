@@ -1,0 +1,11 @@
+\begin{tabular}{cccc}
+\toprule
+Sample&Clean Reads Number&Clean Data size&Clean Q30(\%)\\
+\midrule
+N42\_1&40.16 &6.02 &94.08\\
+N42\_2&41.21 &6.18 &94.66\\
+N7\_1&40.21 &6.03 &93.78\\
+N7\_2&40.67 &6.10 &94.06\\
+N7\_3&41.44 &6.22 &94.19\\
+\bottomrule
+\end{tabular}
