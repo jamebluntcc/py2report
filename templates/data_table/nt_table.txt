@@ -1,0 +1,19 @@
+\toprule
+Sample&Hit1&Hit2\\
+\midrule
+SW2016050505&Stegastes partitus&Unknown\\
+SW2016050502&Stegastes partitus&Unknown\\
+SW2016050503&Stegastes partitus&Unknown\\
+ID2016060103&Stegastes partitus&Unknown\\
+SW2016050501&Unknown&Stegastes partitus\\
+ID2016060102&Stegastes partitus&Unknown\\
+ID2016060101&Stegastes partitus&Unknown\\
+P2016021804&Unknown&Stegastes partitus\\
+P2016021805&Unknown&Stegastes partitus\\
+ID2016060104&Stegastes partitus&Unknown\\
+P2016021803&Stegastes partitus&Unknown\\
+M2016021805&Stegastes partitus&Unknown\\
+M2016021804&Stegastes partitus&Unknown\\
+M2016021803&Stegastes partitus&Unknown\\
+ID2016060105&Stegastes partitus&Unknown\\
+\bottomrule
