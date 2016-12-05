@@ -30,11 +30,11 @@
 \CTEXsetup[format={\Large\bfseries}]{section}
 % Save graphics in LaTeX box
 \newsavebox{\headpic}
-\sbox{\headpic}{\includegraphics[scale=0.2]{/home/lxgui/chencheng/report/latex2pdf/public_picture/logo.png}}
+\sbox{\headpic}{\includegraphics[scale=0.05]{/home/lxgui/chencheng/report/latex2pdf/public_picture/logo.jpg}}
 \pagestyle{fancy}
 \fancyhead{} 
 \lhead{\usebox{\headpic}}
-\chead{\today}
+%\chead{\today}
 \rhead{昂迈思科技有限公司}
 \fancyfoot{} 
 \lfoot{\emph{www.onmath.cn}}
@@ -94,7 +94,7 @@
     \hspace{10cm} 
     \begin{minipage}[t]{0.4\linewidth}
          \begin{flushright}
-    \includegraphics[scale=0.45]{/home/lxgui/chencheng/report/latex2pdf/public_picture/logo.png}
+    \includegraphics[scale=0.1]{/home/lxgui/chencheng/report/latex2pdf/public_picture/logo.jpg}
 	    \end{flushright}
     \end{minipage}
 \end{titlepage}

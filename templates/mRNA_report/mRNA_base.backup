@@ -27,7 +27,7 @@
 \CTEXsetup[format={\Large\bfseries}]{section}
 % Save graphics in LaTeX box
 \newsavebox{\headpic}
-\sbox{\headpic}{\includegraphics[scale=0.2]{/home/lxgui/chencheng/report/latex2pdf/MRNAReport/logo.png}}
+\sbox{\headpic}{\includegraphics[scale=0.05]{/home/lxgui/chencheng/report/latex2pdf/public_picture/logo.jpg}}
 \pagestyle{fancy}
 \fancyhead{} 
 \lhead{\usebox{\headpic}}
@@ -76,7 +76,7 @@
             \node (X) at (0,-1ex) {};
         }
         }%
-        {\textit{www.onmath.cn}\\ \textsc{OnMath}}
+        {\textsc{OnMath}}
 
     }
     \null\vfill
@@ -90,7 +90,7 @@
     \hspace{10cm} 
     \begin{minipage}[t]{0.4\linewidth}
          \begin{flushright}
-    \includegraphics[scale=0.45]{/home/lxgui/chencheng/report/latex2pdf/MRNAReport/logo.png}
+    \includegraphics[scale=0.1]{/home/lxgui/chencheng/report/latex2pdf/public_picture/logo.jpg}
 	    \end{flushright}
     \end{minipage}
 \end{titlepage}
@@ -102,7 +102,7 @@
 获得测序序列(Sequenced Reads)后，按如下流程进行生物信息分析：
 \begin{figure}[htbp]
 \centering
-\includegraphics[scale=0.8]{/home/lxgui/chencheng/report/latex2pdf/MRNAReport/mRNAworkflow.pdf}
+\includegraphics[scale=0.7]{/home/lxgui/chencheng/report/latex2pdf/public_picture/mRNAworkflow.pdf}
 \caption{生物信息分析流程} \label{fig:graph}
 \end{figure}
 \newpage

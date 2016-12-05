@@ -99,6 +99,7 @@ def find_sample_file(dir,pattern):
     #print(first_dir)
     file_list = glob.glob(os.path.join(first_dir,pattern))
     if len(file_list)!=1:
+        print(dir)
         print('THERE IS NOT ONE TABLE YOU NEED,BUT WE ONLY NEED ONE!')
         sys.exit(1)
     else:
@@ -151,7 +152,7 @@ if __name__ == '__main__':
         sys.exit(1)
 
     # for enrichment and differential
-    # Õë¶ÔÓÚ´æÔÚ³¬Á´½ÓµÄÎÄ¼þ
+    # ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½Ú³ï¿½ï¿½ï¿½ï¿½Óµï¿½ï¿½Ä¼ï¿½
     difftable_dir = GO_enrichtable_dir = KEGG_enrichtable_dir = None
     volcano_plot_dir = heatmap_dir = None
     GO_barplot_dir = GO_dagplot_dir = None
@@ -194,7 +195,7 @@ if __name__ == '__main__':
             print('%s is empty'%k)
             sys.exit(1)
 
-    context = {'project_num': 'OM-mRNA-8-Citrus\_sinensis-P161031',
+    context = {'project_num': 'OM-mRNA-36-Sus\_scrofa-P161109',
                'report_name': 'mRNA Analysis Report',
                'project_name': 'mRNA Report',
                'gene_expression_plot': '{./' + Gene_expression_plot.replace(REPORT_DIR_SHORT,'') + '}',
@@ -217,7 +218,7 @@ if __name__ == '__main__':
                'KEGG_pathway_href': '{run:./' + KEGG_pathway_dir.replace(REPORT_DIR_SHORT,'') + '}'
                }
     output_tex_file = time.strftime("%Y-%m-%d", time.localtime()) + '_mRNA_report.tex'
-    create_template('mRNA_main.txt',os.path.join(REPORT_DIR_SHORT,output_tex_file), context)
+    create_template('mRNA_main.backup',os.path.join(REPORT_DIR_SHORT,output_tex_file), context)
     #print(os.path.join(REPORT_DIR_SHORT,output_tex_file))
 
 #run xelatex:
