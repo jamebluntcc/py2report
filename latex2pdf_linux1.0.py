@@ -195,7 +195,7 @@ if __name__ == '__main__':
             print('%s is empty'%k)
             sys.exit(1)
 
-    context = {'project_num': 'OM-mRNA-36-Sus\_scrofa-P161109',
+    context = {'project_num': 'OM-mRNA-15-Medicago\_truncatula',
                'report_name': 'mRNA Analysis Report',
                'project_name': 'mRNA Report',
                'gene_expression_plot': '{./' + Gene_expression_plot.replace(REPORT_DIR_SHORT,'') + '}',
@@ -217,7 +217,7 @@ if __name__ == '__main__':
                                os.listdir(find_sample_file(KEGG_pathway_dir, pattern='ALL_pathway'))[0] + '}',
                'KEGG_pathway_href': '{run:./' + KEGG_pathway_dir.replace(REPORT_DIR_SHORT,'') + '}'
                }
-    output_tex_file = time.strftime("%Y-%m-%d", time.localtime()) + '_mRNA_report.tex'
+    output_tex_file = 'mRNA_analysis_report.tex'
     create_template('mRNA_main.backup',os.path.join(REPORT_DIR_SHORT,output_tex_file), context)
     #print(os.path.join(REPORT_DIR_SHORT,output_tex_file))
 

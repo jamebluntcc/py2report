@@ -31,7 +31,7 @@
 \pagestyle{fancy}
 \fancyhead{} 
 \lhead{\usebox{\headpic}}
-\chead{\today}
+%\chead{\today}
 \rhead{昂迈思科技有限公司}
 \fancyfoot{} 
 \lfoot{\emph{www.onmath.cn}}
