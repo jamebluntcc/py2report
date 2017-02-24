@@ -61,7 +61,7 @@ def create_template(template_file,output_file,context):
         print(e)
         sys.exit(1)
 
-def cut_overlong_table(row_list,max_len=20):
+def cut_overlong_table(row_list,max_len=30):
     for i in range(len(row_list)):
         if len(row_list[i]) > max_len:
            row_list[i] = row_list[i][:max_len] + '...'
@@ -145,6 +145,23 @@ if __name__ == '__main__':
     if qc_table_01 == None:
         print('No qc.summary data file')
         sys.exit(1)
+        # assembly
+    Gene_length_plot = Isoform_length_plot = assembly_stat_table =  None
+    if 'assembly' in os.listdir(REPORT_DIR):
+        assembly_dir = os.path.join(REPORT_DIR, 'assembly')
+        for each_one in os.listdir(assembly_dir):
+            if re.search('Trinity.stat.txt', each_one):
+                assembly_stat_table = each_one
+                three_line_table(os.path.join(assembly_dir, each_one), 'templates/data_table/Trinity_stat.txt','\t', colunms=3)
+            elif re.search('Isoform_length_distribution.png', each_one):
+                Isoform_length_plot = os.path.join(assembly_dir, each_one)
+            elif re.search('Gene_length_distribution.png', each_one):
+                Gene_length_plot = os.path.join(assembly_dir, each_one)
+
+        for each_one in (assembly_stat_table, Isoform_length_plot, Gene_length_plot):
+            if each_one == None:
+                print('The lack of document in assembly dir')
+                sys.exit(1)
     #for report_tmp
     report_tmp_dir = os.path.join(REPORT_DIR,'report_tmp')
     list_file = os.listdir(report_tmp_dir)
@@ -157,9 +174,9 @@ if __name__ == '__main__':
             volcano_plot_05 = os.path.join(report_tmp_dir,each_one)
         elif re.search('cluster_plot.png',each_one):
             cluster_plot_07 = os.path.join(report_tmp_dir,each_one)
-        elif re.search('GO_example_barplot.png',each_one):
+        elif re.search('GO_merge_barplot.png',each_one):
             GO_barplot_08 = os.path.join(report_tmp_dir,each_one)
-        elif re.search('KEGG_example_barplot.png',each_one):
+        elif re.search('KEGG_merge_barplot.png',each_one):
             KEGG_barplot_09 = os.path.join(report_tmp_dir,each_one)
 
     report_tmp_plot = (all_quality_data_barplot_01,volcano_plot_05,
@@ -234,8 +251,11 @@ if __name__ == '__main__':
             print('%s is empty'%k)
             sys.exit(1)
 
-    context = {'project_name': project_name,
+    context = {
                'report_name': report_name,
+               'project_name': project_name,
+               'Isoform_length_plot': '{./' + Isoform_length_plot.replace(REPORT_DIR_SHORT, '') + '}',
+               'Gene_length_plot': '{./' + Gene_length_plot.replace(REPORT_DIR_SHORT, '') + '}',
                'all_quality_data_barplot_01': '{./' + all_quality_data_barplot_01.replace(REPORT_DIR_SHORT,'') + '}',
                'Gene_merge_plot_02': '{./' + Gene_merge_plot_02.replace(REPORT_DIR_SHORT,'') + '}',
                'sample_correlation_plot_03': '{./' + sample_correlation_plot_03.replace(REPORT_DIR_SHORT,'') + '}',
@@ -266,7 +286,7 @@ if __name__ == '__main__':
                                os.listdir(find_sample_file(KEGG_pathway_dir, pattern='ALL_pathway'))[2] + '}',
                'KEGG_pathway_href': '{run:./' + KEGG_pathway_dir.replace(REPORT_DIR_SHORT,'') + '}'
                }
-    output_tex_file = project_num + '_mRNA_report.tex'
+    output_tex_file = 'mRNA_analysis_report.tex'
     create_template('mRNA_main.txt',os.path.join(REPORT_DIR_SHORT,output_tex_file), context)
 #run xelatex:
     ref_file= os.path.join(template_dir,'templates/mRNA_report/')+'ref.bib'
@@ -277,10 +297,10 @@ if __name__ == '__main__':
     
     if len(tex_list) == 1:
         subprocess.call('cp %s ./' %ref_file,shell=True)
-        subprocess.call('xelatex %s > summary.tmp' %output_tex_file,shell=True)
-        subprocess.call('bibtex %s > summary.tmp' %output_aux_file, shell=True)
-        subprocess.call('xelatex %s > summary.tmp' % output_tex_file, shell=True)
-        subprocess.call('xelatex %s > summary.tmp' % output_tex_file, shell=True)
+        subprocess.call('xelatex %s' %output_tex_file,shell=True)
+        subprocess.call('bibtex %s' %output_aux_file, shell=True)
+        subprocess.call('xelatex %s' % output_tex_file, shell=True)
+        subprocess.call('xelatex %s' % output_tex_file, shell=True)
         for each_file in os.listdir(REPORT_DIR_SHORT):
             if os.path.splitext(each_file)[1] in rm_set:
                 subprocess.call('rm %s' %each_file,shell=True)
