@@ -2,30 +2,36 @@
 
 import os
 import sys
+import argparse
 import glob
 import subprocess
 import configparser
 from copy import deepcopy
-
 from mRNA_report_interface import three_line_table,find_sample_file,create_template,create_mRNA_dir_map,create_mRNA_file_map
-template_dir = '/home/lxgui/chencheng/report/latex2pdf'
 
 if __name__ == '__main__':
-    if len(sys.argv) != 2:
-        print 'python + {argv} + mRNA_report_dir'.format(argv=sys.argv[0])
-        sys.exit(1)
+    parser = argparse.ArgumentParser(description='this is a script to create mRNA analysis report')
+    parser.add_argument('mRNA_report_path',help='a dir where include your mRNA analysis results')
+    parser.add_argument('--assembly',action='store_true',help='assembly part')
+    args = parser.parse_args()
 
-    mRNA_report_dir = os.path.abspath(sys.argv[1])
+    mRNA_report_dir = os.path.abspath(args.mRNA_report_path)
     replace_dir = os.path.dirname(mRNA_report_dir)
+    assembly = args.assembly
 
     command = configparser.ConfigParser()
     command.read('report_conf.conf')
+    template_dir = command.get('mRNA','template_dir')
     report_name = command.get('mRNA', 'report_name')
     project_name = command.get('mRNA', 'project_name')
-    assembly = command.get('mRNA', 'assembly')
+    template_table_dir = command.get('mRNA','templates_data_table')
 
     mRNA_report_file_info = create_mRNA_file_map(mRNA_report_dir)
     mRNA_report_dir_info = create_mRNA_dir_map(mRNA_report_dir)
+
+    its_warnings = ['volcano_example_plot','cluster_example_plot','sample_correlation_plot',
+                    'PCA_plot','GO_example_plot','KEGG_example_plot']
+
     assembly_files = (mRNA_report_file_info['Trinity_stat_txt'],
                       mRNA_report_file_info['Isoform_length_distribution'],
                       mRNA_report_file_info['Gene_length_distribution'])
@@ -35,10 +41,13 @@ if __name__ == '__main__':
                 print '{file} is not exists in assembly dir'.format(file=each)
                 sys.exit(1)
 
+        three_line_table(mRNA_report_file_info['Trinity_stat_txt'],os.path.join(template_table_dir, 'Trinity_stat.txt'), split='\t', colunms=3)
+
     for key,value in mRNA_report_file_info.items():
         if not os.path.exists(value) and value not in assembly_files:
             print '{file} is not exists in report dir'.format(file=key)
-            sys.exit(1)
+            if key not in its_warnings:
+                sys.exit(1)
 
     for key,value in mRNA_report_dir_info.items():
         if value == None:
@@ -46,9 +55,7 @@ if __name__ == '__main__':
             sys.exit(1)
 
     #for create temp table
-    template_table_dir = 'templates/data_table'
     three_line_table(mRNA_report_file_info['qc_summary_txt'],os.path.join(template_table_dir,'01mRNA_qc_data.txt'),split='\t',colunms=6)
-    three_line_table(mRNA_report_file_info['Trinity_stat_txt'],os.path.join(template_table_dir,'Trinity_stat.txt'),split='\t',colunms=3)
     three_line_table(mRNA_report_file_info['Gene_tmp_xls'],os.path.join(template_table_dir,'02mRNA_gene_count.txt'),split='\t',colunms=6)
     three_line_table(find_sample_file(mRNA_report_dir_info['difftable_dir'],pattern='*results.txt'),
                  os.path.join(template_table_dir,'03mRNA_diff_table.txt'),split='\t',colunms=5)
@@ -70,7 +77,7 @@ if __name__ == '__main__':
            'assembly':assembly,
            'report_name': report_name,
            'Isoform_length_plot':'{.' + mRNA_report_file_info_cp['Isoform_length_distribution'] + '}',
-	   'Gene_length_plot': '{.' + mRNA_report_file_info_cp['Gene_length_distribution']+ '}',
+	       'Gene_length_plot': '{.' + mRNA_report_file_info_cp['Gene_length_distribution']+ '}',
            'all_quality_data_barplot_01': '{.' + mRNA_report_file_info_cp['all_quality_data_barplot'] + '}',
            'Gene_merge_plot_02': '{./' + mRNA_report_file_info_cp['Gene_expression_plot'] + '}',
            'sample_correlation_plot_03': '{.' + mRNA_report_file_info_cp['sample_correlation_plot'] + '}',
@@ -96,6 +103,7 @@ if __name__ == '__main__':
            'KEGG_pathway3': '{.' + find_sample_file(mRNA_report_dir_info['kegg_pathway_dir'], pattern='ALL_pathway')[2].replace(replace_dir,'') + '}',
            'KEGG_pathway_href': '{run:.' + mRNA_report_dir_info_cp['kegg_pathway_dir'] + '}'
            }
+
     output_tex_file = 'mRNA_analysis_report.tex'
     REPORT_DIR_SHORT = os.path.dirname(mRNA_report_dir)
     create_template('mRNA_main.txt', os.path.join(REPORT_DIR_SHORT, output_tex_file), context)
