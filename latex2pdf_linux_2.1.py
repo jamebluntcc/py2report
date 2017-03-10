@@ -12,7 +12,7 @@ from mRNA_report_interface import three_line_table,find_sample_file,create_templ
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='this is a script to create mRNA analysis report')
     parser.add_argument('mRNA_report_path',help='a dir where include your mRNA analysis results')
-    parser.add_argument('--assembly',action='store_true',help='assembly part')
+    parser.add_argument('--assembly',action='store_true',help='assembly part')  #default False
     args = parser.parse_args()
 
     mRNA_report_dir = os.path.abspath(args.mRNA_report_path)
@@ -24,13 +24,13 @@ if __name__ == '__main__':
     template_dir = command.get('mRNA','template_dir')
     report_name = command.get('mRNA', 'report_name')
     project_name = command.get('mRNA', 'project_name')
-    template_table_dir = command.get('mRNA','templates_data_table')
+    template_table_dir = command.get('mRNA','template_data_table')
 
     mRNA_report_file_info = create_mRNA_file_map(mRNA_report_dir)
     mRNA_report_dir_info = create_mRNA_dir_map(mRNA_report_dir)
 
-    its_warnings = ['volcano_example_plot','cluster_example_plot','sample_correlation_plot',
-                    'PCA_plot','GO_example_plot','KEGG_example_plot']
+    its_warnings = dict.fromkeys(['volcano_example_plot','cluster_example_plot','sample_correlation_plot',
+                    'PCA_plot','GO_example_plot','KEGG_example_plot'],'exist')
 
     assembly_files = (mRNA_report_file_info['Trinity_stat_txt'],
                       mRNA_report_file_info['Isoform_length_distribution'],
@@ -48,6 +48,8 @@ if __name__ == '__main__':
             print '{file} is not exists in report dir'.format(file=key)
             if key not in its_warnings:
                 sys.exit(1)
+            its_warnings[key] = None
+
 
     for key,value in mRNA_report_dir_info.items():
         if value == None:
@@ -72,10 +74,30 @@ if __name__ == '__main__':
 
     for key,value in mRNA_report_dir_info_cp.items():
         mRNA_report_dir_info_cp[key] = value.replace(replace_dir,'')
-    
+
+    #for key,value in its_warnings.items():
+    #    print '%s:%s' %(key,value)
+
     context = {'project_name': project_name,
            'assembly':assembly,
            'report_name': report_name,
+           'all_quality_data_barplot_size':command.get('mRNA','all_quality_data_barplot_size'),
+           'Isoform_length_plot_size':command.get('mRNA','Isoform_length_plot_size'),
+           'Gene_length_plot_size': command.get('mRNA', 'Gene_length_plot_size'),
+           'Gene_merge_plot_size': command.get('mRNA', 'Gene_merge_plot_size'),
+           'sample_correlation_plot_size': command.get('mRNA', 'sample_correlation_plot_size'),
+           'PCA_plot_size': command.get('mRNA', 'PCA_plot_size'),
+           'volcano_plot_size': command.get('mRNA', 'volcano_plot_size'),
+           'heatmap_plot_size': command.get('mRNA', 'heatmap_plot_size'),
+           'cluster_plot_size': command.get('mRNA', 'cluster_plot_size'),
+           'GO_barplot_size': command.get('mRNA', 'GO_barplot_size'),
+           'KEGG_barplot_size': command.get('mRNA', 'KEGG_barplot_size'),
+           'sample_correlation_plot': its_warnings['sample_correlation_plot'],
+           'PCA_plot':its_warnings['PCA_plot'],
+           'volcano_plot':its_warnings['volcano_example_plot'],
+           'cluster_plot': its_warnings['cluster_example_plot'],
+           'GO_barplot': its_warnings['GO_example_plot'],
+           'KEGG_barplot': its_warnings['KEGG_example_plot'],
            'Isoform_length_plot':'{.' + mRNA_report_file_info_cp['Isoform_length_distribution'] + '}',
 	       'Gene_length_plot': '{.' + mRNA_report_file_info_cp['Gene_length_distribution']+ '}',
            'all_quality_data_barplot_01': '{.' + mRNA_report_file_info_cp['all_quality_data_barplot'] + '}',
@@ -128,6 +150,11 @@ if __name__ == '__main__':
         sys.exit(1)
 
     subprocess.call('echo mRNA report done!', shell=True)
+    for key,value in its_warnings.items():
+        if value == None:
+            subprocess.call('echo -------------------------',shell=True)
+            subprocess.call('echo warning:lack of %s' %(key),shell=True)
+            subprocess.call('echo -------------------------',shell=True)
 
 
 
