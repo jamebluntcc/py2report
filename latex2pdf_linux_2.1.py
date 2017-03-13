@@ -74,6 +74,7 @@ if __name__ == '__main__':
 
     for key,value in mRNA_report_dir_info_cp.items():
         mRNA_report_dir_info_cp[key] = value.replace(replace_dir,'')
+#	print key + ':' + value
 
     #for key,value in its_warnings.items():
     #    print '%s:%s' %(key,value)

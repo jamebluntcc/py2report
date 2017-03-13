@@ -34,6 +34,7 @@
 {% block Data_quality_control %}
 \section{数据质控}
 获得测序序列(Sequenced Reads)后，我们使用 FastQC\cite{FastQC} (Andrews S. 2010) 对本次测序所有样品进行数据质控，下表展示了数据的基本情况 ：
+\href{run:./mRNA_analysis_results/qc}{查看数据过滤统计分析表}
 \begin{table}[H]
 \centering
 \caption{\label{tab:table}数据过滤统计分析表}
@@ -42,8 +43,8 @@
 各样品测序序列质量值分布如下图所示：
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.15]{{all_quality_data_barplot_01}}
-\caption{测序序列质量值分布，x轴为质量值，y轴为不同质量值序列的比例。由于页面限制，我们最多会展示9个样品的情况，全部信息参见结果文件。} \label{fig:graph}
+\includegraphics[scale={{all_quality_data_barplot_size}}]{{all_quality_data_barplot_01}}
+\caption{测序序列质量值分布，x轴为质量值，y轴为不同质量值序列的比例。由于页面限制，我们最多会展示9个样品的情况，全部信息参见结果文件。\href{run:./mRNA_analysis_results/qc/reads_quality}{查看全部样品测序质量分布图}} \label{fig:graph}
 \end{figure}
 \newpage
 {% if assembly %}
@@ -58,12 +59,12 @@
 拼接得到的转录本及基因长度分布如下图所示：
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{{Isoform_length_plot}}
+\includegraphics[width={{Isoform_length_plot_size}}\textwidth]{{Isoform_length_plot}}
 \caption{转录本长度分布} \label{fig:graph}
 \end{figure}
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{{Gene_length_plot}}
+\includegraphics[width={{Gene_length_plot_size}}\textwidth]{{Gene_length_plot}}
 \caption{基因长度分布(基因长度来自该基因下最长的转录本)} \label{fig:graph}
 \end{figure}
 \newpage
@@ -73,7 +74,7 @@
 {% block Quantitative_analysis %}
 \section{定量分析}
 \subsection{表达量统计}
-数据质控合格的样品，我们使用 Kallisto\cite{Kallisto} (Bray N, et al. 2015) 对它们进行定量分析。各样品基因表达 tpm\footnotemark[1] 如下表所示：
+数据质控合格的样品，我们使用 Kallisto\cite{Kallisto} (Bray N, et al. 2015) 对它们进行定量分析。各样品基因表达 tpm\footnotemark[1] 如下表所示:\href{run:./mRNA_analysis_results/quantification}{查看基因表达数据结果}
 \begin{table}[H]
 \centering
 \caption{\label{tab:table}基因表达统计表}
@@ -83,26 +84,26 @@
 基因整体表达情况如下图所示：
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.8\textwidth]{{Gene_merge_plot_02}}
+\includegraphics[width={{Gene_merge_plot_size}}\textwidth]{{Gene_merge_plot_02}}
 \caption{基因表达整体情况，左上角和右上角分别为基因表达盒形图和小提琴图，横坐标为样品，纵坐标为 log10(tpm+1)；下图为基因表达密度图，横坐标为log10(tpm+1)，纵坐标为不同表达值密度值。} \label{fig:graph}
 \end{figure}
 \newpage
 
-{% if sample_correlation_plot_03 %}
+{% if sample_correlation_plot %}
 \subsection{相关性分析}
 我们对所有样品两两之间进行相关性分析以及主成分分析(Principal components analysis，PCA)来反映样品间整体表达差异，分析结果如下图所示。
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.15]{{sample_correlation_plot_03}}
+\includegraphics[scale={{sample_correlation_plot_size}}]{{sample_correlation_plot_03}}
 \caption{相关性图}
 \label{fig:graph}
 \end{figure}
 {% endif %}
 
-{% if PCA_plot_04 %}
+{% if PCA_plot %}
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.10]{{PCA_plot_04}}
+\includegraphics[scale={{PCA_plot_size}}]{{PCA_plot_04}}
 \caption{PCA图}
 \label{fig:graph}
 \end{figure}
@@ -111,7 +112,7 @@
 {% endblock %}
 
 {% block Diff_analysis %}
-\section{差异性分析}
+\section{差异分析}
 通过定量分析得到每个样品所有基因的表达数据后，我们使用 edgeR\cite{edgeR}（Robinson MD, et al. 2010）对各组生物学重复两两进行差异分析，差异分析统计如下表所示：
 \href{{diff_table_href}}{查看差异性表达结果文件}
 \begin{table}[H]
@@ -122,13 +123,13 @@
 \end{table}
 \newpage
 
-{%if volcano_plot_05 %}
+{%if volcano_plot %}
 \subsection{差异分析火山图}
 火山图（Volcano Plot）可以非常直观且合理地筛选出在两样本间发生差异表达的基因，如下图所示：
 \href{{volcano_plot_href}}{查看样本差异性火山图文件}
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.15]{{volcano_plot_05}}
+\includegraphics[scale={{volcano_plot_size}}]{{volcano_plot_05}}
 \caption{差异性分析火山图} \label{fig:graph}
 \end{figure}
 \newpage
@@ -139,15 +140,15 @@
 \href{{heatmap_plot_href}}{查看样本差异性聚类热图文件}
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.20]{{heatmap_plot_06}}
+\includegraphics[scale={{heatmap_plot_size}}]{{heatmap_plot_06}}
 \caption{聚类分析热图}
 \label{fig:graph}
 \end{figure}
 
-{% if cluster_plot_07 %}
+{% if cluster_plot %}
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.09]{{cluster_plot_07}}
+\includegraphics[scale={{cluster_plot_size}}]{{cluster_plot_07}}
 \caption{聚类分析折线图}
 \label{fig:graph}
 \end{figure}
@@ -169,12 +170,12 @@
 \end{table}
 \newpage
 
-{% if GO_barplot_08 %}
+{% if GO_barplot %}
 对于每个比较组，我们对该比较中所有差异基因，以及分别在两组中上调表达的基因进行 GO 富集分析。对于富集结果，我们各挑选显著富集（Pvalue < 0.05）的15条进行绘图，若不足15条，则全部展示。
 \href{{GO_barplot_href}}{查看样本GO富集分析柱状图文件}
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.15]{{GO_barplot_08}}
+\includegraphics[scale={{GO_barplot_size}}]{{GO_barplot_08}}
 \caption{GO 富集分析柱状图，其中*号表示该 GO Term 在BH校正后，依然显著富集(Qvalue < 0.05)} \label{fig:graph}
 \end{figure}
 \newpage
@@ -201,7 +202,7 @@
 \newpage
 \subsection{KEGG 富集分析}
 通过使用 KOBAS\cite{KOBAS} (Chen Xie, et al. 2011)对差异基因进行 KEGG Pathway 富集分析，找出差异基因显著富集的 KEGG Pathway。帮助老师进行后续的功能分析。
-\href{run:./Analysis_results/enrichment_analysis/KEGG/KEGG_enrich_table}{查看样本KEGG富集分析文件}
+\href{{KEGG_enrichment_table_href}}{查看样本KEGG富集分析文件}
 \begin{table}[H]
 \footnotesize
 \centering
@@ -210,17 +211,17 @@
 \end{table}
 \newpage
 
-{% if KEGG_barplot_09 %}
+{% if KEGG_barplot %}
 对于每个比较组，我们对该比较中所有差异基因，以及分别在两组中上调表达的基因进行 KEGG 富集分析。对于富集结果，我们各挑选显著富集（Pvalue < 0.05）的15条进行绘图，若不足15条，则全部展示。
 \href{{KEGG_barplot_href}}{查看样本KEGG富集分析柱状图文件}
 \begin{figure}[H]
 \centering
-\includegraphics[scale=0.12]{{KEGG_barplot_09}}
+\includegraphics[scale={{KEGG_barplot_size}}]{{KEGG_barplot_09}}
 \caption{KEGG 富集分析柱状图，其中*号表示该 KEGG Pathway 在BH校正后，依然显著富集(Corrected P-Value < 0.05)} \label{fig:graph}
 \end{figure}
 {% endif %}
 
-我们对差异基因所在的 KEGG Pathway 通路进行下载，并使用 pathview\cite{pathview} （Luo,et al. 2013）对差异基因进行标注，如下图所示：\href{run:./Analysis_results/enrichment_analysis/KEGG/KEGG_pathway}{样本KEGG通路图文件}
+我们对差异基因所在的 KEGG Pathway 通路进行下载，并使用 pathview\cite{pathview} （Luo,et al. 2013）对差异基因进行标注，如下图所示：\href{{KEGG_pathway_href}}{样本KEGG通路图文件}
 \begin{figure}[H]
 \begin{minipage}[b]{0.3\linewidth}
 \includegraphics[scale=0.5]{{KEGG_pathway1}}

@@ -27,7 +27,7 @@
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage{fancyhdr,graphicx}
 \usepackage{geometry}  
-\geometry{left=1.5cm,right=1.5cm,top=2cm,bottom=4cm}
+\geometry{left=1.5cm,right=1.5cm,top=2cm,bottom=3.5cm}
 \setlength{\parskip}{0.5\baselineskip}
 \setlength{\parindent}{2.45em}
 \CTEXsetup[format={\Large\bfseries}]{section}
