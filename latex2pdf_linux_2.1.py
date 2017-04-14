@@ -59,8 +59,7 @@ if __name__ == '__main__':
     #for create temp table
     three_line_table(mRNA_report_file_info['qc_summary_txt'],os.path.join(template_table_dir,'01mRNA_qc_data.txt'),split='\t',colunms=6)
     three_line_table(mRNA_report_file_info['Gene_tmp_xls'],os.path.join(template_table_dir,'02mRNA_gene_count.txt'),split='\t',colunms=6)
-    three_line_table(find_sample_file(mRNA_report_dir_info['difftable_dir'],pattern='*results.txt'),
-                 os.path.join(template_table_dir,'03mRNA_diff_table.txt'),split='\t',colunms=5)
+    three_line_table(mRNA_report_file_info['diff_table_txt'],os.path.join(template_table_dir,'03mRNA_diff_table.txt'),split='\t',colunms=5)
     three_line_table(find_sample_file(mRNA_report_dir_info['go_enrichtable_dir'],pattern='*ALL.GO.enrich.xls'),
                  os.path.join(template_table_dir,'04mRNA_GO_enrichment_table.txt'),split='\t',colunms=7)
     three_line_table(find_sample_file(mRNA_report_dir_info['kegg_enrichtable_dir'],pattern='*ALL.KEGG.enrich.xls'),

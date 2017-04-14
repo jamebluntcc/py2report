@@ -53,7 +53,7 @@ def create_mRNA_file_map(mRNA_report_dir):
     cluster_example_plot = os.path.join(report_tmp_dir, 'cluster_plot.png')
     go_example_plot = os.path.join(report_tmp_dir, 'GO_example_barplot.png')
     kegg_example_plot = os.path.join(report_tmp_dir, 'KEGG_example_barplot.png')
-
+    diff_table = os.path.join(report_tmp_dir,'diff.table.txt')
     # quantification
     quantification_dir = os.path.join(mRNA_report_dir, 'quantification')
     sample_correlation_plot = os.path.join(quantification_dir, 'sample_correlation.plot.png')
@@ -62,6 +62,7 @@ def create_mRNA_file_map(mRNA_report_dir):
     gene_count_table = os.path.join(quantification_dir, 'Gene.tpm.xls')
 
     mRNA_report_file_info = {'qc_summary_txt': qc_file, 'Trinity_stat_txt': assembly_stat_table,
+                             'diff_table_txt':diff_table,
                              'Isoform_length_distribution': assembly_isoform_length_plot,
                              'Gene_length_distribution': assembly_gene_length_plot,
                              'all_quality_data_barplot': all_quality_data_barplot,
