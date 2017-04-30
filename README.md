@@ -1,13 +1,10 @@
 #latex2pdf
-- latex2pdf×ÔÊö£ºÖ÷ÒªÓÃÓÚ²úÉúonmathµÄmRNA reportºÍsequencing report,ÓÉpythonµÄ
-django×÷ÎªÄ£°åÒıÇæ£¬²úÉúlatexÎÄµµ¡£
-- latex2pdf¹¹³É£º
- - templates´¢´æmRNAºÍsequencing reportÄ£°å
- - testÓÃÓÚ²âÊÔÎÄ¼ş
- - report_conf.confĞ´ÈëreportµÄ»ù±¾ĞÅÏ¢
-- Run£º(±£Ö¤ÌáÇ°½øÈëpython env Õı³£Ê¹ÓÃdjangoÄ£¿é)
- - mRNA report: python latex2pdf_linux1.2.py mRNA_report_dir(²»°üÀ¨×îºóµÄĞ±¸Ü)
- - sequencing report:python sequencing_report1.1.py sequencing_report_dir
-- test report dir£º
- - onmath 34 address:/home/lxgui/chencheng/report/test_report_dir
- 
+- latex2pdf:äº§ç”ŸmRNA analysis results,sequencing reportçš„æŠ¥å‘Šã€‚é‡‡ç”¨python djangoæ¡†æ¶é‡Œçš„æ¨¡æ¿å¼•æ“è¾“å‡ºlatexæ–‡æ¡£ã€‚
+##è¿è¡Œ
+- ç¡®å®šè¿è¡Œå‰å¯¼å…¥python djangoæ¨¡å—ä¿è¯æ­£å¸¸çš„è¿è¡Œç¯å¢ƒ;
+- report_confä¸­å¯ä»¥æ›´æ”¹åŸºæœ¬çš„é…ç½®ä¿¡æ¯;
+- python latex2pdf_linux_2.1.py -h æŸ¥çœ‹å‚æ•°è¯´æ˜å…¶ä¸­å¯ä»¥é€‰æ‹©æœ‰æ— assemblyéƒ¨åˆ†;
+- è„šæœ¬ä½ç½®:onmath 34 address:/home/lxgui/chencheng/report/latex2pdf;
+```
+- python latex2pdf_linux_2.1.py report_dir #è¿è¡Œè„šæœ¬
+```
