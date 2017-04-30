@@ -1,5 +1,6 @@
 #latex2pdf
 - latex2pdf:产生mRNA analysis results,sequencing report的报告。采用python django框架里的模板引擎输出latex文档。
+
 ##运行
 - 确定运行前导入python django模块保证正常的运行环境;
 - report_conf中可以更改基本的配置信息;
