@@ -223,19 +223,14 @@
 
 我们对差异基因所在的 KEGG Pathway 通路进行下载，并使用 pathview\cite{pathview} （Luo,et al. 2013）对差异基因进行标注，如下图所示：\href{{KEGG_pathway_href}}{样本KEGG通路图文件}
 \begin{figure}[H]
-\begin{minipage}[b]{0.3\linewidth}
+\begin{minipage}[b]{0.4\linewidth}
 \includegraphics[scale=0.5]{{KEGG_pathway1}}
 \caption{KEGG pathway(a)} \label{fig:graph}
 \end{minipage}
 \hspace{0.2cm}
-\begin{minipage}[b]{0.3\linewidth}
+\begin{minipage}[b]{0.4\linewidth}
 \includegraphics[scale=0.5]{{KEGG_pathway2}}
 \caption{KEGG pathway(b)} \label{fig:graph}
-\end{minipage}
-\hspace{0.2cm}
-\begin{minipage}[b]{0.3\linewidth}
-\includegraphics[scale=0.5]{{KEGG_pathway3}}
-\caption{KEGG pathway(c)} \label{fig:graph}
 \end{minipage}
 \end{figure}
 \newpage
