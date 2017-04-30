@@ -19,11 +19,12 @@ if __name__ == '__main__':
     replace_dir = os.path.dirname(mRNA_report_dir)
     assembly = args.assembly
 
+    project_name = replace_dir.rsplit('/',1)[1]
+    
     command = configparser.ConfigParser()
     command.read('report_conf.conf')
     template_dir = command.get('mRNA','template_dir')
     report_name = command.get('mRNA', 'report_name')
-    project_name = command.get('mRNA', 'project_name')
     template_table_dir = command.get('mRNA','template_data_table')
 
     mRNA_report_file_info = create_mRNA_file_map(mRNA_report_dir)
@@ -64,7 +65,7 @@ if __name__ == '__main__':
                  os.path.join(template_table_dir,'04mRNA_GO_enrichment_table.txt'),split='\t',colunms=7)
     three_line_table(find_sample_file(mRNA_report_dir_info['kegg_enrichtable_dir'],pattern='*ALL.KEGG.enrich.xls'),
                  os.path.join(template_table_dir,'05mRNA_KEGG_enrichment_table.txt'),split='\t',colunms=7)
-    
+
     mRNA_report_file_info_cp = deepcopy(mRNA_report_file_info)
     mRNA_report_dir_info_cp = deepcopy(mRNA_report_dir_info)
 
@@ -155,15 +156,3 @@ if __name__ == '__main__':
             subprocess.call('echo -------------------------',shell=True)
             subprocess.call('echo warning:lack of %s' %(key),shell=True)
             subprocess.call('echo -------------------------',shell=True)
-
-
-
-
-
-
-
-
-
-
-
-
