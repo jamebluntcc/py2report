@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1200, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>差异分析</title>
+  <link rel="stylesheet" href="../static/Bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../static/css/single_page.css">
+  <link rel="stylesheet" href="../static/css/main.css">
+  <!-- data.table -->
+  <script src="../static/js/jquery-1.9.0.min.js"></script>
+  <link rel="stylesheet" href="../static/DataTable/dataTables.bootstrap.min.css">
+  <script src="../static/DataTable/jquery.dataTables.min.js"></script>
+  <script src="../static/DataTable/dataTables.bootstrap.min.js"></script>
+  <!--fancybox -->
+  <link rel="stylesheet" href="../static/fancybox/jquery.fancybox.css" media="screen"/>
+  <link rel="stylesheet" href="../static/fancybox/fancybox.css"/>
+  <script src="../static/js/jquery.albumSlider.min.js"></script>
+  <script src="../static/fancybox/jquery.mousewheel-3.0.6.pack.js"></script>
+  <script src="../static/fancybox/jquery.fancybox.js"></script>
+  <script src="../static/fancybox/jquery.fancybox.pack.js"></script>
+</head>
+<script>
+  $(document).ready(function(){
+    $(".table").DataTable();
+
+    $(".fancybox-effects-d").fancybox({
+      padding:0,
+      openEffect:'elastic',
+      openSpeed:150,
+      closeEffect:'elastic',
+      closeSpeed:150,
+      closeClick:true,
+      helpers:{
+        overlay:null
+      }
+    });
+
+    $("a.example2").fancybox({
+        'overlayShow'	: true,
+        'transitionIn'	: 'elastic',
+        'transitionOut'	: 'elastic'
+    });
+
+    $("a[rel=example_group]").fancybox({
+        'transitionIn'		: 'none',
+        'transitionOut'		: 'none',
+        'titlePosition' 	: 'over',
+        'titleFormat'		: function(title, currentArray, currentIndex, currentOpts) {
+            return '<span id="fancybox-title-over">Image ' + (currentIndex + 1) + ' / ' + currentArray.length + (title.length ? ' &nbsp; ' + title : '') + '</span>';
+        }
+    });
+
+    $("div.albumSlider").albumSlider();
+  });
+
+</script>
+<body>
+  <div class="container">
+    <div class="header clearfix">
+      <nav>
+        <ul class="nav nav-pills pull-right">
+          <li role="presentation" class="active"><a href="../mRNA_report.html">主页</a></li>
+          <li role="presentation"><a href="http://www.onmath.com">关于我们</a></li>
+        </ul>
+      </nav>
+      <h3 class="text-muted">差异分析</h3>
+    </div>
+        
+        
+        
+        
+    <div class="each_part">
+  <p>
+    通过定量分析得到每个样品所有基因的表达数据后，我们使用<a href="http://bioinf.wehi.edu.au/edgeR/">edgeR</a>
+    (Robinson MD,et al.2010)对各组生物学重复两两进行差异分析，差异分析统计如下表所示：
+  </p>
+</div>
+<div class="part myTable">
+    <table class="table table-striped table-bordered" cellspacing="0" width="100%">
+      <caption>差异分析统计表</caption>
+        <thead>
+          <tr>
+                    <th style="text-align:center;">id</th>
+                    <th style="text-align:center;">logFC</th>
+                    <th style="text-align:center;">logCPM</th>
+                    <th style="text-align:center;">PValue</th>
+                    <th style="text-align:center;">FDR</th>
+                    <th style="text-align:center;">Gene name</th>
+                    <th style="text-align:center;">InterPro description</th>
+                    <th style="text-align:center;">KO_ID</th>
+                    </tr>
+        </thead>
+        <tbody>
+                        <tr>
+                           <th style="text-align:center;">OS03G0115800</th>
+                           <th style="text-align:center;">10.9093667383399</th>
+                           <th style="text-align:center;">6.87900606185554</th>
+                           <th style="text-align:center;">3.72567911540381e-23</th>
+                           <th style="text-align:center;">1.22459346844208e-18</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS07G0635200</th>
+                           <th style="text-align:center;">-13.7746647907734</th>
+                           <th style="text-align:center;">5.67804717020949</th>
+                           <th style="text-align:center;">2.26584870180049e-21</th>
+                           <th style="text-align:center;">3.72380904897402e-17</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">Cytochrome P450||Cytochrome P450, E-class, group I</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS02G0620566</th>
+                           <th style="text-align:center;">13.6367093740656</th>
+                           <th style="text-align:center;">5.53944073399821</th>
+                           <th style="text-align:center;">5.85546280418709e-21</th>
+                           <th style="text-align:center;">6.41544023036084e-17</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS05G0576800</th>
+                           <th style="text-align:center;">8.43112772886114</th>
+                           <th style="text-align:center;">9.22452735636518</th>
+                           <th style="text-align:center;">1.67443887685551e-20</th>
+                           <th style="text-align:center;">1.37592828608409e-16</th>
+                           <th style="text-align:center;">MPK17</th>
+                           <th style="text-align:center;">Protein kinase domain||Mitogen-activated protein (</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS02G0765600</th>
+                           <th style="text-align:center;">-12.7226987227632</th>
+                           <th style="text-align:center;">4.62996391956347</th>
+                           <th style="text-align:center;">3.04738288628455e-18</th>
+                           <th style="text-align:center;">2.00328856178574e-14</th>
+                           <th style="text-align:center;">AMY1.1</th>
+                           <th style="text-align:center;">Alpha amylase||Glycosyl hydrolase, family 13, cata</th>
+                           <th style="text-align:center;">osa01100||osa00500</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS01G0907600</th>
+                           <th style="text-align:center;">-9.65668636635752</th>
+                           <th style="text-align:center;">4.75350087091726</th>
+                           <th style="text-align:center;">1.42396443470951e-17</th>
+                           <th style="text-align:center;">7.80071450074446e-14</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">Cysteine peptidase, cysteine active site||Peptidas</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS02G0112600</th>
+                           <th style="text-align:center;">7.08613428029408</th>
+                           <th style="text-align:center;">7.26673505811136</th>
+                           <th style="text-align:center;">2.39741710053956e-16</th>
+                           <th style="text-align:center;">1.12572432396621e-12</th>
+                           <th style="text-align:center;">NRT2.1</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS03G0168800</th>
+                           <th style="text-align:center;">11.9899879724822</th>
+                           <th style="text-align:center;">3.89917528089347</th>
+                           <th style="text-align:center;">4.42144531370315e-16</th>
+                           <th style="text-align:center;">1.81660607520136e-12</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS03G0291500</th>
+                           <th style="text-align:center;">6.75900617516377</th>
+                           <th style="text-align:center;">11.8227038298668</th>
+                           <th style="text-align:center;">7.09664462051881e-16</th>
+                           <th style="text-align:center;">2.59177346702036e-12</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">Asparagine synthase||Asparagine synthase, glutamin</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS07G0451300</th>
+                           <th style="text-align:center;">11.4890740014489</th>
+                           <th style="text-align:center;">3.40223516374317</th>
+                           <th style="text-align:center;">1.26935748299526e-14</th>
+                           <th style="text-align:center;">4.17225111085711e-11</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">Cytochrome P450||Cytochrome P450, E-class, group I</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS02G0765400</th>
+                           <th style="text-align:center;">-11.328623087228</th>
+                           <th style="text-align:center;">3.24788698534886</th>
+                           <th style="text-align:center;">3.71189348496683e-14</th>
+                           <th style="text-align:center;">1.10914751779432e-10</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">Alpha amylase||Glycosyl hydrolase, family 13, cata</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS05G0576750</th>
+                           <th style="text-align:center;">11.2883299494541</th>
+                           <th style="text-align:center;">3.20352261493755</th>
+                           <th style="text-align:center;">4.87189355306296e-14</th>
+                           <th style="text-align:center;">1.33445224329689e-10</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS02G0661050</th>
+                           <th style="text-align:center;">-11.2087622377838</th>
+                           <th style="text-align:center;">3.12968039846714</th>
+                           <th style="text-align:center;">8.05251179868101e-14</th>
+                           <th style="text-align:center;">2.03598469469882e-10</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS03G0245800</th>
+                           <th style="text-align:center;">-10.7875052621101</th>
+                           <th style="text-align:center;">2.71540108108621</th>
+                           <th style="text-align:center;">1.2787202118164e-12</th>
+                           <th style="text-align:center;">3.00216104587094e-09</th>
+                           <th style="text-align:center;">HSP26.7</th>
+                           <th style="text-align:center;">Alpha crystallin/Hsp20 domain||HSP20-like chaperon</th>
+                           <th style="text-align:center;">osa04141</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS01G0208800</th>
+                           <th style="text-align:center;">10.6657110536747</th>
+                           <th style="text-align:center;">2.58939848333063</th>
+                           <th style="text-align:center;">2.83235525517309e-12</th>
+                           <th style="text-align:center;">6.07384766205844e-09</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS09G0482800</th>
+                           <th style="text-align:center;">5.88493290253576</th>
+                           <th style="text-align:center;">5.04981695196243</th>
+                           <th style="text-align:center;">2.95663277230628e-12</th>
+                           <th style="text-align:center;">6.07384766205844e-09</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">EF-hand domain||EF-hand domain pair||EF-Hand 1, ca</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS01G0825800</th>
+                           <th style="text-align:center;">5.724408201073</th>
+                           <th style="text-align:center;">4.81537409257913</th>
+                           <th style="text-align:center;">9.57300682365946e-12</th>
+                           <th style="text-align:center;">1.85091271345213e-08</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">Amino acid transporter, transmembrane</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS06G0714366</th>
+                           <th style="text-align:center;">10.4228972020472</th>
+                           <th style="text-align:center;">2.35105598333514</th>
+                           <th style="text-align:center;">1.3913717292875e-11</th>
+                           <th style="text-align:center;">2.54072207610838e-08</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS01G0124700</th>
+                           <th style="text-align:center;">10.3796018102846</th>
+                           <th style="text-align:center;">2.30864190603767</th>
+                           <th style="text-align:center;">1.82868754697511e-11</th>
+                           <th style="text-align:center;">3.14582526975422e-08</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS11G0255300</th>
+                           <th style="text-align:center;">-7.53980050962598</th>
+                           <th style="text-align:center;">2.66413770416887</th>
+                           <th style="text-align:center;">1.91415940232694e-11</th>
+                           <th style="text-align:center;">3.14582526975422e-08</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">Cysteine peptidase, cysteine active site||Peptidas</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS11G0232400</th>
+                           <th style="text-align:center;">-10.26590830706</th>
+                           <th style="text-align:center;">2.20560308296809</th>
+                           <th style="text-align:center;">3.6390972728395e-11</th>
+                           <th style="text-align:center;">5.69588039337912e-08</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS02G0268100</th>
+                           <th style="text-align:center;">-10.1704109004463</th>
+                           <th style="text-align:center;">2.11273469745554</th>
+                           <th style="text-align:center;">6.71092252866998e-11</th>
+                           <th style="text-align:center;">1.00264232997661e-07</th>
+                           <th style="text-align:center;">GLUB5</th>
+                           <th style="text-align:center;">Lipoprotein, type 6||11-S seed storage protein, pl</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS02G0756850</th>
+                           <th style="text-align:center;">-10.1303687259281</th>
+                           <th style="text-align:center;">2.07384418789027</th>
+                           <th style="text-align:center;">8.66617546199184e-11</th>
+                           <th style="text-align:center;">1.23847183156613e-07</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS02G0595900</th>
+                           <th style="text-align:center;">4.9937585401304</th>
+                           <th style="text-align:center;">7.54841030956326</th>
+                           <th style="text-align:center;">1.24415593890496e-10</th>
+                           <th style="text-align:center;">1.70392339816113e-07</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">Transporter, high affinity nitrate, Nar2</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS06G0155750</th>
+                           <th style="text-align:center;">6.62624218643888</th>
+                           <th style="text-align:center;">2.6309781241245</th>
+                           <th style="text-align:center;">1.31885309416386e-10</th>
+                           <th style="text-align:center;">1.73397529408288e-07</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS06G0232200</th>
+                           <th style="text-align:center;">10.0110499591736</th>
+                           <th style="text-align:center;">1.9487943802775</th>
+                           <th style="text-align:center;">1.81431567742922e-10</th>
+                           <th style="text-align:center;">2.29364392313158e-07</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">Ribokinase||Carbohydrate/puine kinase, PfkB, conse</th>
+                           <th style="text-align:center;">osa01100||osa00500||osa00520||osa00051</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS02G0249900</th>
+                           <th style="text-align:center;">-9.86352642557181</th>
+                           <th style="text-align:center;">1.81548546548358</th>
+                           <th style="text-align:center;">4.69146900019469e-10</th>
+                           <th style="text-align:center;">5.50728194883569e-07</th>
+                           <th style="text-align:center;">GLUB1-B</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS02G0249800</th>
+                           <th style="text-align:center;">-9.86352642557181</th>
+                           <th style="text-align:center;">1.81548546548358</th>
+                           <th style="text-align:center;">4.69146900019469e-10</th>
+                           <th style="text-align:center;">5.50728194883569e-07</th>
+                           <th style="text-align:center;">GLUB1-B</th>
+                           <th style="text-align:center;">11-S seed storage protein, plant||Cupin 1||RmlC-li</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS01G0845950</th>
+                           <th style="text-align:center;">7.05053100003206</th>
+                           <th style="text-align:center;">2.14450840605704</th>
+                           <th style="text-align:center;">5.45325204181934e-10</th>
+                           <th style="text-align:center;">6.18079108146759e-07</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS06G0279900</th>
+                           <th style="text-align:center;">5.67862325617298</th>
+                           <th style="text-align:center;">2.96142700196859</th>
+                           <th style="text-align:center;">6.15748139720605e-10</th>
+                           <th style="text-align:center;">6.74634186815885e-07</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">NB-ARC||P-loop containing nucleoside triphosphate </th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS02G0306401</th>
+                           <th style="text-align:center;">-4.76982937889221</th>
+                           <th style="text-align:center;">5.89773164107192</th>
+                           <th style="text-align:center;">7.9907481112435e-10</th>
+                           <th style="text-align:center;">8.42520304394093e-07</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">Aminotransferase, class I/classII||Tyrosine/nicoti</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS09G0457800</th>
+                           <th style="text-align:center;">-5.59639384723469</th>
+                           <th style="text-align:center;">2.9271898539162</th>
+                           <th style="text-align:center;">8.20245512203322e-10</th>
+                           <th style="text-align:center;">8.42520304394093e-07</th>
+                           <th style="text-align:center;">AMY1.7</th>
+                           <th style="text-align:center;">Alpha amylase||Glycosyl hydrolase, family 13, cata</th>
+                           <th style="text-align:center;">osa01100||osa00500</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS02G0453600</th>
+                           <th style="text-align:center;">-6.28259614453298</th>
+                           <th style="text-align:center;">2.34315540557738</th>
+                           <th style="text-align:center;">8.82535154690325e-10</th>
+                           <th style="text-align:center;">8.790317575611e-07</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">Cupin 1||RmlC-like cupin domain||RmlC-like jelly r</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS03G0191900</th>
+                           <th style="text-align:center;">-9.69532062049652</th>
+                           <th style="text-align:center;">1.65342438245287</th>
+                           <th style="text-align:center;">1.23155699184124e-09</th>
+                           <th style="text-align:center;">1.19058961073029e-06</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">AP2/ERF domain||DNA-binding domain</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS03G0114550</th>
+                           <th style="text-align:center;">9.54645902852065</th>
+                           <th style="text-align:center;">1.49895142077129</th>
+                           <th style="text-align:center;">3.26458618107822e-09</th>
+                           <th style="text-align:center;">3.065819519596e-06</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS07G0418600</th>
+                           <th style="text-align:center;">4.47535784855566</th>
+                           <th style="text-align:center;">6.52918639915899</th>
+                           <th style="text-align:center;">3.9421663517118e-09</th>
+                           <th style="text-align:center;">3.59930738373376e-06</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS03G0427300</th>
+                           <th style="text-align:center;">-6.02316434491051</th>
+                           <th style="text-align:center;">2.09386630924164</th>
+                           <th style="text-align:center;">4.49746247209564e-09</th>
+                           <th style="text-align:center;">3.99532686473815e-06</th>
+                           <th style="text-align:center;">GLUA3</th>
+                           <th style="text-align:center;">11-S seed storage protein, plant||Cupin 1||RmlC-li</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS07G0496401</th>
+                           <th style="text-align:center;">9.44929642453112</th>
+                           <th style="text-align:center;">1.40552973752906</th>
+                           <th style="text-align:center;">5.80017778437832e-09</th>
+                           <th style="text-align:center;">5.01700114722976e-06</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS01G0762500</th>
+                           <th style="text-align:center;">-4.7092742156718</th>
+                           <th style="text-align:center;">3.70885062468094</th>
+                           <th style="text-align:center;">6.45382958705126e-09</th>
+                           <th style="text-align:center;">5.43925447940482e-06</th>
+                           <th style="text-align:center;">GLUA1</th>
+                           <th style="text-align:center;">11-S seed storage protein, plant||Cupin 1||RmlC-li</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS07G0297400</th>
+                           <th style="text-align:center;">-5.60191848911901</th>
+                           <th style="text-align:center;">2.23295483878852</th>
+                           <th style="text-align:center;">7.49026607640659e-09</th>
+                           <th style="text-align:center;">6.15493889163521e-06</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS06G0158500</th>
+                           <th style="text-align:center;">4.39052008273481</th>
+                           <th style="text-align:center;">5.53205779831138</th>
+                           <th style="text-align:center;">9.02348817614727e-09</th>
+                           <th style="text-align:center;">7.23397641126304e-06</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS11G0489250</th>
+                           <th style="text-align:center;">-4.30378583880963</th>
+                           <th style="text-align:center;">7.96578295643192</th>
+                           <th style="text-align:center;">9.35624294442423e-09</th>
+                           <th style="text-align:center;">7.32215117476857e-06</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">Cytochrome P450||Cytochrome P450, E-class, group I</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS03G0183600</th>
+                           <th style="text-align:center;">4.3640640228431</th>
+                           <th style="text-align:center;">5.70864116426826</th>
+                           <th style="text-align:center;">1.00602643015907e-08</th>
+                           <th style="text-align:center;">7.69001924020893e-06</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">Aminotransferase, class I/classII||Pyridoxal phosp</th>
+                           <th style="text-align:center;">osa01100||osa01200||osa01210||osa01230||osa00250||</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS05G0531200</th>
+                           <th style="text-align:center;">9.34511453616412</th>
+                           <th style="text-align:center;">1.30565134846191</th>
+                           <th style="text-align:center;">1.06731771875554e-08</th>
+                           <th style="text-align:center;">7.9731059313127e-06</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS07G0206500</th>
+                           <th style="text-align:center;">-6.50674377317092</th>
+                           <th style="text-align:center;">1.66683778076716</th>
+                           <th style="text-align:center;">1.15607446653484e-08</th>
+                           <th style="text-align:center;">8.4442248090075e-06</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">Gliadin/LMW glutenin||Bifunctional trypsin/alpha-a</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS11G0113700</th>
+                           <th style="text-align:center;">4.33359180953247</th>
+                           <th style="text-align:center;">5.71348331805628</th>
+                           <th style="text-align:center;">1.20728199946956e-08</th>
+                           <th style="text-align:center;">8.62655479142718e-06</th>
+                           <th style="text-align:center;">CIPK15</th>
+                           <th style="text-align:center;">Protein kinase domain||NAF domain||Serine/threonin</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">EPlOSAG00000044109</th>
+                           <th style="text-align:center;">9.29005940555555</th>
+                           <th style="text-align:center;">1.25299973420079</th>
+                           <th style="text-align:center;">1.46906090502869e-08</th>
+                           <th style="text-align:center;">9.85440058926286e-06</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS08G0496700</th>
+                           <th style="text-align:center;">9.29005940555555</th>
+                           <th style="text-align:center;">1.25299973420079</th>
+                           <th style="text-align:center;">1.46906090502869e-08</th>
+                           <th style="text-align:center;">9.85440058926286e-06</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS11G0582400</th>
+                           <th style="text-align:center;">-9.28542845224643</th>
+                           <th style="text-align:center;">1.26157292981288</th>
+                           <th style="text-align:center;">1.46906090502869e-08</th>
+                           <th style="text-align:center;">9.85440058926286e-06</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">Plant antimicrobial peptide</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                        <tr>
+                           <th style="text-align:center;">OS03G0823400</th>
+                           <th style="text-align:center;">4.63878270287988</th>
+                           <th style="text-align:center;">3.50582465542313</th>
+                           <th style="text-align:center;">1.50097718496695e-08</th>
+                           <th style="text-align:center;">9.86712381853572e-06</th>
+                           <th style="text-align:center;">--</th>
+                           <th style="text-align:center;">Proteinase inhibitor I12, Bowman-Birk</th>
+                           <th style="text-align:center;">--</th>
+                        </tr>
+                    </tbody>
+    </table>
+</div>
+
+    <div class="part group_plot">
+  <div class="each_part">
+    <p>火山图(Volcano Plot)可以非常直观并且合理地筛选出在两个样本间发生差异表达的基因，如下图所示：</p>
+  </div>
+  <div class="albumSlider">
+    <div class="fullview"><img src="../mRNA_analysis_results/differential_analysis/volcano_plot/CKWT_3_vs_WT_3h_Nacl/CKWT_3_vs_WT_3h_Nacl.Volcano_plot.png" alt="volcano plot"></div>
+    <div class="slider">
+      <div class="button movebackward" title="向上滚动"></div>
+        <div class="imglistwrap">
+          <ul class="imglist">
+                          <li><a href="../mRNA_analysis_results/differential_analysis/volcano_plot/CKWT_3_vs_WT_3h_Nacl/CKWT_3_vs_WT_3h_Nacl.Volcano_plot.png" class="example2" title="火山图." rel="example_group3"><img src="../mRNA_analysis_results/differential_analysis/volcano_plot/CKWT_3_vs_WT_3h_Nacl/CKWT_3_vs_WT_3h_Nacl.Volcano_plot.png" alt="example2"></a></li>
+                          <li><a href="../mRNA_analysis_results/differential_analysis/volcano_plot/248_3h_PEG_vs_WT_3h_Nacl/248_3h_PEG_vs_WT_3h_Nacl.Volcano_plot.png" class="example2" title="火山图." rel="example_group3"><img src="../mRNA_analysis_results/differential_analysis/volcano_plot/248_3h_PEG_vs_WT_3h_Nacl/248_3h_PEG_vs_WT_3h_Nacl.Volcano_plot.png" alt="example2"></a></li>
+                          <li><a href="../mRNA_analysis_results/differential_analysis/volcano_plot/248_3h_Nacl_vs_CK248_1/248_3h_Nacl_vs_CK248_1.Volcano_plot.png" class="example2" title="火山图." rel="example_group3"><img src="../mRNA_analysis_results/differential_analysis/volcano_plot/248_3h_Nacl_vs_CK248_1/248_3h_Nacl_vs_CK248_1.Volcano_plot.png" alt="example2"></a></li>
+                          <li><a href="../mRNA_analysis_results/differential_analysis/volcano_plot/248_3h_Nacl_vs_WT_3h_PEG/248_3h_Nacl_vs_WT_3h_PEG.Volcano_plot.png" class="example2" title="火山图." rel="example_group3"><img src="../mRNA_analysis_results/differential_analysis/volcano_plot/248_3h_Nacl_vs_WT_3h_PEG/248_3h_Nacl_vs_WT_3h_PEG.Volcano_plot.png" alt="example2"></a></li>
+                          <li><a href="../mRNA_analysis_results/differential_analysis/volcano_plot/248_3h_PEG_vs_CK248_1/248_3h_PEG_vs_CK248_1.Volcano_plot.png" class="example2" title="火山图." rel="example_group3"><img src="../mRNA_analysis_results/differential_analysis/volcano_plot/248_3h_PEG_vs_CK248_1/248_3h_PEG_vs_CK248_1.Volcano_plot.png" alt="example2"></a></li>
+                          <li><a href="../mRNA_analysis_results/differential_analysis/volcano_plot/248_3h_PEG_vs_WT_3h_PEG/248_3h_PEG_vs_WT_3h_PEG.Volcano_plot.png" class="example2" title="火山图." rel="example_group3"><img src="../mRNA_analysis_results/differential_analysis/volcano_plot/248_3h_PEG_vs_WT_3h_PEG/248_3h_PEG_vs_WT_3h_PEG.Volcano_plot.png" alt="example2"></a></li>
+                          <li><a href="../mRNA_analysis_results/differential_analysis/volcano_plot/CK248_1_vs_CKWT_3/CK248_1_vs_CKWT_3.Volcano_plot.png" class="example2" title="火山图." rel="example_group3"><img src="../mRNA_analysis_results/differential_analysis/volcano_plot/CK248_1_vs_CKWT_3/CK248_1_vs_CKWT_3.Volcano_plot.png" alt="example2"></a></li>
+                          <li><a href="../mRNA_analysis_results/differential_analysis/volcano_plot/203_4_vs_WT_3h_Nacl/203_4_vs_WT_3h_Nacl.Volcano_plot.png" class="example2" title="火山图." rel="example_group3"><img src="../mRNA_analysis_results/differential_analysis/volcano_plot/203_4_vs_WT_3h_Nacl/203_4_vs_WT_3h_Nacl.Volcano_plot.png" alt="example2"></a></li>
+                      </ul>
+        </div>
+    </div>
+  </div>
+</div>
+
+    <div class="part row">
+    <div class="col-lg-5">
+        <h3>差异性分析聚类热图</h3>
+        <p style="text-indent:32px;font-size:16px">
+          通过对差异表达基因进行聚类分析，我们能够获得表达模式相近的基因集，用热图展示结果:
+        </p>
+        <p><a class="btn btn-primary" href="#" role="button">更多详情 &raquo;</a></p>
+    </div>
+    <div class="col-lg-6">
+        <a class="fancybox-effects-d" href="../mRNA_analysis_results/differential_analysis/heatmap/Heatmap.png" title="聚类分析热图"><img src= "../mRNA_analysis_results/differential_analysis/heatmap/Heatmap.png" alt="" class="maxWidth" style="max-width: 450px"/></a>
+    </div>
+</div>
+
+        
+        
+        
+        
+        
+          </div>
+
+  <footer class="footer">
+    <div>
+      <p>&copy;
+        <a href="http://www.onmath.com">2014-2017 onmath,Inc.All rights reserved</a>
+        <img src="..static/img/cp_logo/logo.jpg" alt="onmath" class="page_logo">
+      </p>
+    </div>
+    <div class="contact">
+      <p>联系电话：028-68636933</p>
+      <p>联系地址: 四川省成都市温江区惠民路299号</p>
+    </div>
+  </footer>
+</body>
+</html>

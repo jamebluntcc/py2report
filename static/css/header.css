@@ -1,0 +1,29 @@
+.header{
+	position:relative;
+	left: 500px;
+	width:1000px;
+	height:80px;
+	background-color:#54bb98; //使用16进制编码
+	/*box-shadow: 0 -1px 3px white inset;*/
+}
+.logo{   
+	height:50px;
+	margin-top:5px;
+}
+.rTitle{
+	position: absolute;
+	left:380px;
+	bottom:20px;
+	margin-top:0px;
+	color:white;
+	font-size: 30px;
+	font-weight: 400;
+}
+.cpName{
+	position: absolute;
+	bottom:5px;
+	right:10px;
+}
+.cpName a{
+	color:white;
+}

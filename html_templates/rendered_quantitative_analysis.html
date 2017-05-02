@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1200, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>定量分析</title>
+  <link rel="stylesheet" href="../static/Bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../static/css/single_page.css">
+  <link rel="stylesheet" href="../static/css/main.css">
+  <!-- data.table -->
+  <script src="../static/js/jquery-1.9.0.min.js"></script>
+  <link rel="stylesheet" href="../static/DataTable/dataTables.bootstrap.min.css">
+  <script src="../static/DataTable/jquery.dataTables.min.js"></script>
+  <script src="../static/DataTable/dataTables.bootstrap.min.js"></script>
+  <!--fancybox -->
+  <link rel="stylesheet" href="../static/fancybox/jquery.fancybox.css" media="screen"/>
+  <link rel="stylesheet" href="../static/fancybox/fancybox.css"/>
+  <script src="../static/js/jquery.albumSlider.min.js"></script>
+  <script src="../static/fancybox/jquery.mousewheel-3.0.6.pack.js"></script>
+  <script src="../static/fancybox/jquery.fancybox.js"></script>
+  <script src="../static/fancybox/jquery.fancybox.pack.js"></script>
+</head>
+<script>
+  $(document).ready(function(){
+    $(".table").DataTable();
+
+    $(".fancybox-effects-d").fancybox({
+      padding:0,
+      openEffect:'elastic',
+      openSpeed:150,
+      closeEffect:'elastic',
+      closeSpeed:150,
+      closeClick:true,
+      helpers:{
+        overlay:null
+      }
+    });
+
+    $("a.example2").fancybox({
+        'overlayShow'	: true,
+        'transitionIn'	: 'elastic',
+        'transitionOut'	: 'elastic'
+    });
+
+    $("a[rel=example_group]").fancybox({
+        'transitionIn'		: 'none',
+        'transitionOut'		: 'none',
+        'titlePosition' 	: 'over',
+        'titleFormat'		: function(title, currentArray, currentIndex, currentOpts) {
+            return '<span id="fancybox-title-over">Image ' + (currentIndex + 1) + ' / ' + currentArray.length + (title.length ? ' &nbsp; ' + title : '') + '</span>';
+        }
+    });
+
+    $("div.albumSlider").albumSlider();
+  });
+
+</script>
+<body>
+  <div class="container">
+    <div class="header clearfix">
+      <nav>
+        <ul class="nav nav-pills pull-right">
+          <li role="presentation" class="active"><a href="../mRNA_report.html">主页</a></li>
+          <li role="presentation"><a href="http://www.onmath.com">关于我们</a></li>
+        </ul>
+      </nav>
+      <h3 class="text-muted">定量分析</h3>
+    </div>
+        
+        
+    <div class="each_part">
+  <p>
+    数据质控合格的样品，我们使用<a href="https://pachterlab.github.io/kallisto/">Kallisto</a>
+    (Bray N.2015)对它们进行定量分析。各样品基因表达tmp如下表表示： <!--<a href="">查看数据文件</a>-->
+  </p>
+</div>
+<div class="part myTable">
+  <table class="table table-striped table-bordered" cellspacing="0">
+    <caption>基因统计表</caption>
+    <thead>
+      <tr>
+            <th style="text-align:center;">id</th>
+            <th style="text-align:center;">CK248_1</th>
+            <th style="text-align:center;">203_4</th>
+            <th style="text-align:center;">WT_3h_Nacl</th>
+            <th style="text-align:center;">WT_3h_PEG</th>
+            <th style="text-align:center;">CKWT_3</th>
+            <th style="text-align:center;">248_3h_PEG</th>
+            <th style="text-align:center;">248_3h_Nacl</th>
+            </tr>
+    </thead>
+    <tbody>
+            <tr>
+               <th style="text-align:center;">EPlOSAG00000048633</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">EPlOSAG00000027993</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">1.797</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">4.179</th>
+               <th style="text-align:center;">1.896</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">EPlOSAG00000002570</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">EPlOSAG00000034769</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">EPlOSAG00000043777</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">EPlOSAG00000005280</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">EPlOSAG00000044539</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">EPlOSAG00000025994</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">OS04G0250700</th>
+               <th style="text-align:center;">80.494</th>
+               <th style="text-align:center;">37.847</th>
+               <th style="text-align:center;">60.332</th>
+               <th style="text-align:center;">58.947</th>
+               <th style="text-align:center;">77.966</th>
+               <th style="text-align:center;">54.825</th>
+               <th style="text-align:center;">61.131</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">EPlOSAG00000007453</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">EPlOSAG00000039293</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">EPlOSAG00000000999</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">OS02G0503800</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">OS07G0467900</th>
+               <th style="text-align:center;">0.169</th>
+               <th style="text-align:center;">0.098</th>
+               <th style="text-align:center;">0.200</th>
+               <th style="text-align:center;">0.117</th>
+               <th style="text-align:center;">0.464</th>
+               <th style="text-align:center;">0.174</th>
+               <th style="text-align:center;">0.228</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">EPlOSAG00000048280</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.913</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">EPlOSAG00000023698</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">OS10G0359801</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">EPlOSAG00000021566</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">OS01G0735632</th>
+               <th style="text-align:center;">13.225</th>
+               <th style="text-align:center;">6.236</th>
+               <th style="text-align:center;">6.608</th>
+               <th style="text-align:center;">8.006</th>
+               <th style="text-align:center;">6.230</th>
+               <th style="text-align:center;">3.575</th>
+               <th style="text-align:center;">9.881</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">OS03G0853900</th>
+               <th style="text-align:center;">12.070</th>
+               <th style="text-align:center;">10.213</th>
+               <th style="text-align:center;">13.907</th>
+               <th style="text-align:center;">14.375</th>
+               <th style="text-align:center;">11.551</th>
+               <th style="text-align:center;">14.570</th>
+               <th style="text-align:center;">13.216</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">EPlOSAG00000041173</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">OS09G0266300</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">OS09G0453500</th>
+               <th style="text-align:center;">12.821</th>
+               <th style="text-align:center;">13.198</th>
+               <th style="text-align:center;">15.328</th>
+               <th style="text-align:center;">21.382</th>
+               <th style="text-align:center;">14.859</th>
+               <th style="text-align:center;">18.568</th>
+               <th style="text-align:center;">14.879</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">OS12G0261450</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">EPlOSAG00000016232</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">EPlOSAG00000043053</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">EPlOSAG00000043848</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">OS12G0581400</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.076</th>
+               <th style="text-align:center;">0.057</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">EPlOSAG00000045710</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">EPlOSAG00000032200</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">OS11G0181400</th>
+               <th style="text-align:center;">2.506</th>
+               <th style="text-align:center;">2.514</th>
+               <th style="text-align:center;">2.243</th>
+               <th style="text-align:center;">1.818</th>
+               <th style="text-align:center;">2.715</th>
+               <th style="text-align:center;">1.825</th>
+               <th style="text-align:center;">2.233</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">OS02G0833000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.049</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">OS03G0250200</th>
+               <th style="text-align:center;">8.635</th>
+               <th style="text-align:center;">1.237</th>
+               <th style="text-align:center;">3.074</th>
+               <th style="text-align:center;">2.158</th>
+               <th style="text-align:center;">6.812</th>
+               <th style="text-align:center;">1.847</th>
+               <th style="text-align:center;">2.660</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">EPlOSAG00000042665</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">OS04G0508900</th>
+               <th style="text-align:center;">5.763</th>
+               <th style="text-align:center;">6.432</th>
+               <th style="text-align:center;">10.162</th>
+               <th style="text-align:center;">7.740</th>
+               <th style="text-align:center;">6.743</th>
+               <th style="text-align:center;">9.605</th>
+               <th style="text-align:center;">9.083</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">EPlOSAG00000041820</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">EPlOSAG00000048846</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.751</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">OS02G0169000</th>
+               <th style="text-align:center;">6.317</th>
+               <th style="text-align:center;">4.154</th>
+               <th style="text-align:center;">4.425</th>
+               <th style="text-align:center;">4.583</th>
+               <th style="text-align:center;">5.953</th>
+               <th style="text-align:center;">3.444</th>
+               <th style="text-align:center;">4.732</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">OS07G0483400</th>
+               <th style="text-align:center;">7.143</th>
+               <th style="text-align:center;">7.748</th>
+               <th style="text-align:center;">8.770</th>
+               <th style="text-align:center;">5.295</th>
+               <th style="text-align:center;">8.382</th>
+               <th style="text-align:center;">6.378</th>
+               <th style="text-align:center;">5.188</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">EPlOSAG00000039690</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.533</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">EPlOSAG00000003026</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">EPlOSAG00000027535</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">OS12G0238900</th>
+               <th style="text-align:center;">1.136</th>
+               <th style="text-align:center;">0.471</th>
+               <th style="text-align:center;">3.825</th>
+               <th style="text-align:center;">2.828</th>
+               <th style="text-align:center;">1.126</th>
+               <th style="text-align:center;">2.586</th>
+               <th style="text-align:center;">2.917</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">EPlOSAG00000050564</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">EPlOSAG00000045620</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">OS03G0283800</th>
+               <th style="text-align:center;">16.951</th>
+               <th style="text-align:center;">19.611</th>
+               <th style="text-align:center;">17.601</th>
+               <th style="text-align:center;">19.883</th>
+               <th style="text-align:center;">18.531</th>
+               <th style="text-align:center;">17.873</th>
+               <th style="text-align:center;">17.824</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">EPlOSAG00000003094</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">EPlOSAG00000018459</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">EPlOSAG00000027438</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">OS09G0274025</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.442</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.000</th>
+               <th style="text-align:center;">0.228</th>
+               <th style="text-align:center;">0.000</th>
+            </tr>
+        </tbody>
+</table>
+</div>
+
+    <div class="part row">
+    <div class="col-lg-4">
+        <h3>基因整体表达</h3>
+        <p style="text-indent:32px;font-size:16px">
+          基因的整体表达情况，左上角和右下角分别为基因表达箱型图和小提琴图，横坐标为样品，纵坐标为
+          log10(tpm+1)；下图为基因的表达密度，横坐标为log10(tmp+1)，纵坐标为不同表达值密度值。
+        </p>
+        <p><a class="btn btn-primary" href="#" role="button">更多详情 &raquo;</a></p>
+    </div>
+    <div class="col-lg-6">
+        <a class="fancybox-effects-d" href="../mRNA_analysis_results/quantification/gene_merge_plot.png" title="基因表达整体情况，左上角和右下角分别为基因表达箱型图和小提琴图，横坐标为样品，纵坐标为log10(tmp+1);下面为基因表达密度图，横坐标为log10(tpm+1)，纵坐标为不同表达值密度值"><img src= "../mRNA_analysis_results/quantification/gene_merge_plot.png" alt="" class="maxWidth" style="max-width: 450px"/></a>
+    </div>
+</div>
+<h3><span class="label label-primary">相关性分析</span></h3>
+<div class="part row">
+    <div class="col-lg-4">
+        <h3>相关性图</h3>
+        <p style="text-indent:32px;font-size:16px">
+          我们对所有的样品两两之间进行相关性分析以及主成分分析(Principal components analysis,PCA)来反映
+          样品间的整体差异，分析结果如下图所示：
+        </p>
+        <p><a class="btn btn-primary" href="#" role="button">更多详情 &raquo;</a></p>
+    </div>
+    <div class="col-lg-6">
+        <a class="fancybox-effects-d" href="../mRNA_analysis_results/quantification/sample_correlation.plot.png"><img src="../mRNA_analysis_results/quantification/sample_correlation.plot.png" alt="相关性图" class="maxWidth" style="max-width: 500px"></a>
+    </div>
+</div>
+<div class="part row">
+    <div class="col-lg-4">
+        <h3>PCA Plot</h3>
+        <p style="text-indent:20px">
+          Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
+          tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+          Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+        </p>
+        <p><a class="btn btn-primary" href="#" role="button">更多详情 &raquo;</a></p>
+    </div>
+    <div class="col-lg-6">
+        <a class="fancybox-effects-d" href="../mRNA_analysis_results/quantification/PCA_plot.png"><img src="../mRNA_analysis_results/quantification/PCA_plot.png" alt="PCA图" class="maxWidth" style="max-width: 450px"></a>
+    </div>
+</div>
+
+        
+        
+        
+        
+        
+        
+        
+        
+          </div>
+
+  <footer class="footer">
+    <div>
+      <p>&copy;
+        <a href="http://www.onmath.com">2014-2017 onmath,Inc.All rights reserved</a>
+        <img src="..static/img/cp_logo/logo.jpg" alt="onmath" class="page_logo">
+      </p>
+    </div>
+    <div class="contact">
+      <p>联系电话：028-68636933</p>
+      <p>联系地址: 四川省成都市温江区惠民路299号</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,116 @@
+.navBar{
+	position:relative;
+	left: 500px;
+	width:1000px;
+	overflow: hidden;
+	border-bottom:1px solid #54bb98;
+	background-color: #eee;
+}
+.navContent{
+	width:1120px;
+	margin:0 auto;
+	/*margin-top:5px;*/
+	overflow: hidden;
+	list-style: none;
+	/*background-color:#EEEEEE;*/
+	/*border-radius: 5px 5px 0 0;*/
+	border-bottom: 1px solid #54bb98;
+}
+.navContent li{
+	float:left;
+	transition:all .5s ease-out;
+	height:40px;
+	line-height: 50px;
+	width:180px;
+	color:#54bb98;
+	/*border:1px solid red;*/
+}
+.navContent li:hover{
+	background-color: #ddd;
+}
+.navContent li a{
+	color:#54bb98;
+	text-decoration: none;
+	/*background-color: #54bb98;*/
+}
+.navDetail{
+	/*border: 1px solid #54bb98;*/
+	/*display: none;*/
+	/*background-color: #eee;*/
+	list-style: none;
+	clear: both;
+	width:1120px;
+	margin:0 auto;
+	padding-top:10px;
+	/*overflow: hidden;*/
+}
+.navDetail>li{
+	float:left;
+	/*border:1px dotted #54bb98;*/
+	width:180px;
+	/*overflow: hidden;*/
+}
+.navDetail>li:last-child{
+	width:719px;
+	position:relative;
+	overflow: hidden;
+}
+.navDetail>li:last-child .nav-go{
+	color:#54bb98;
+	background-color:rgba(220,220,220,.5);
+	width:30px;
+	height:30px;
+	line-height:30px;
+	text-align: center;
+	border-radius: 50%;
+	position:absolute;
+	top:46%;
+	cursor: pointer;
+	transition:all .5s ease-in;
+}
+.navDetail>li:last-child .nav-go:hover{
+	background-color:rgba(84,187,152,1);
+	color:white;
+}
+.navDetail>li:last-child .goLeft{
+	left:0;
+	display: none;
+}
+.navDetail>li:last-child .goRight{
+	right:0;
+}
+.navDetail>li .detailWrap{
+	/*margin-left: -180px;*/
+	transition:all .5s ease-in;
+	width:1440px;
+}
+.navDetail>li ul{
+	float:left;
+	width:180px;
+	padding-right:10px;
+	list-style-type: circle;
+	list-style-position: inside;
+}
+.navDetail>li ul li{
+	line-height:24px;
+}
+.navDetail>li ul h6{
+	margin-top:0px;
+	padding:5px;
+	background-color:#54bb98;
+	color:white;
+}
+.navDetail>li ul li a{
+	font-size: 12px;
+}
+
+
+
+/*固定顶部*/
+.fixBar{
+	position:fixed;
+	width:100%;
+	top:0;
+	left:0;
+	z-index:100;
+}
