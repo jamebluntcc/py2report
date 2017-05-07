@@ -16,7 +16,7 @@ html_jinja_env = jinja2.Environment(
 	loader = jinja2.FileSystemLoader(os.path.join(os.path.abspath('.'),'html_templates'))
 )
 
-def table2list(table_path,header=True,split='\t',max_row_num = 50,max_col_num = 8,max_cell_num = 50):
+def table2list(table_path,header=True,split='\t',max_row_num = 30,max_col_num = 8,max_cell_num = 20):
     if os.path.exists(table_path):
         table_list = []
         head_list = []
