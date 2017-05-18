@@ -7,3 +7,10 @@
 ```
 - python latex2pdf_linux_2.1.py report_dir #运行脚本
 ```
+# latex2html
+新增latex2html模块,实现html报告的输出。
+## 运行
+```
+python latex2html_v2.py report_dir
+```
+
