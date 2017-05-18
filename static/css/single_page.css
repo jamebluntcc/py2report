@@ -3,6 +3,13 @@ body {
   padding-top: 20px;
   padding-bottom: 20px;
 }
+.haveBg{
+	text-indent: 30px;
+	padding:10px;
+	border-radius: 10px;
+	line-height:24px;
+	background-color: #F7F7F7;
+}
 .myTable{
 	margin:0 auto;
 	margin-bottom: 10px;
@@ -44,7 +51,7 @@ body {
 /* Customize container */
 @media (min-width: 768px) {
   .container {
-    max-width: 730px;
+    max-width: 1200px;
   }
 }
 .container-narrow > hr {
@@ -77,6 +84,7 @@ body {
   .footer {
     padding-right: 0;
     padding-left: 0;
+    max-width: 1200px;
   }
   /* Space out the masthead */
   .header {

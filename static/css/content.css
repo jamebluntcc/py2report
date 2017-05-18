@@ -131,12 +131,12 @@
 .goI:hover i{
 	color:#54bb98;
 }
-/*表格 存在派生选择器*/  
+/*表格 存在派生选择器*/
 .myTable{
 	margin:0 auto;
 	margin-bottom: 10px;
 }
-.myTable table{   
+.myTable table{
 	margin:0 auto;
 	border:1px solid #54bb98;
 }

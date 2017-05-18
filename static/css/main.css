@@ -2,6 +2,13 @@
 	padding:0;
 	margin:0;
 }
+.haveBg{
+	text-indent: 30px;
+	padding:10px;
+	border-radius: 10px;
+	line-height:24px;
+	background-color: #F7F7F7;
+}
 /*
 .illustrate{
   font-family: "Arial","Microsoft YaHei","黑体","宋体",sans-serif;
@@ -35,7 +42,7 @@
 }
 .page_logo {
 	position: relative;
-	left: 245px;
+	left: 700px;
 	padding-top: 0px;
 	padding-bottom: 5px;
 	max-width: 180px;
