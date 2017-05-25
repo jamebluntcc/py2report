@@ -23,7 +23,9 @@
 </head>
 <script>
   $(document).ready(function(){
-    $(".table").DataTable();
+    $(".table").DataTable({
+      "scrollX": true
+    });
 
     $(".fancybox-effects-d").fancybox({
       padding:0,
@@ -61,10 +63,9 @@
     <div class="header clearfix">
       <nav>
         <ul class="nav nav-pills pull-right">
-          <li role="presentation" class="active"><a href="../mRNA_report.html">主页</a></li>
           {% block nav %}
           {% endblock %}
-          <li role="presentation"><a href="http://www.onmath.com">关于我们</a></li>
+          <li role="presentation"><a href="../mRNA_report.html">主页</a></li>
         </ul>
       </nav>
       <h3 class="text-muted">{{title}}</h3>
@@ -73,6 +74,15 @@
     {% endblock %}
 
     {% block quality_barplot %}
+    {% endblock %}
+
+    {% block mapping_stat_table %}
+    {% endblock %}
+
+    {% block mapping_stats_plot %}
+    {% endblock %}
+
+    {% block rseqc_plots %}
     {% endblock %}
 
     {% block gene_count_table %}
@@ -108,10 +118,27 @@
     {% block kegg_pathway %}
     {% endblock %}
 
+    {% block document_data_control %}
+    {% endblock %}
+
+    {% block document_mapping %}
+    {% endblock %}
+
+    {% block document_rseqc %}
+    {% endblock %}
+
+    {% block document_quant %}
+    {% endblock %}
+
+    {% block document_diff %}
+    {% endblock %}
+
+    {% block document_enrichment %}
+    {% endblock %}
   <footer class="footer">
     <div>
       <p>&copy;
-        <a href="http://www.onmath.com">2014-2017 onmath,Inc.All rights reserved</a>
+        <a href="http://www.onmath.com" target="_blank">2014-2017 onmath,Inc.All rights reserved</a>
         <img src="../static/img/cp_logo/logo.jpg" alt="onmath" class="page_logo">
       </p>
     </div>

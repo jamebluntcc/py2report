@@ -1,0 +1,64 @@
+{% extends "single_page_base.html" %}
+{% block title %}{{title}}{% endblock %}
+{% block nav %}
+<li role="presentation"><a href="rendered_data_control.html">数据质控</a></li>
+<li role="presentation" class="active"><a href="rendered_mapping.html">mapping</a></li>
+<li role="presentation"><a href="rendered_rseqc.html">rseqc</a></li>
+<li role="presentation"><a href="rendered_quantitative_analysis.html">定量分析</a></li>
+<li role="presentation"><a href="rendered_diff_analysis.html">差异分析</a></li>
+<li role="presentation"><a href="rendered_enrichment_analysis.html">功能富集</a></li>
+{% endblock %}
+{% block mapping_stat_table %}
+<div class="part row">
+  <div class="col-md-4" style="margin-top:50px">
+    <h3>mapping stat table</h3>
+    <p class="haveBg" style="text-indent:32px;font-size:16px">
+      Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
+      tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+      Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+    </p>
+    <p><a class="btn btn-primary" href="{{mapping_table_path}}" target="_blank" role="button">更多详情 &raquo;</a></p>
+  </div>
+  <div class="myTable col-md-8">
+    <table class="table table-striped table-bordered" cellspacing="0" width="100%">
+      <caption></caption>
+        <thead>
+          <tr>
+          {% for key in header %}
+          <th style="text-align:center;">{{key}}</th>
+          {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for each_list in mapping_table %}
+        <tr>
+          {% for cell in each_list %}
+            <td style="text-align:center;">{{cell}}</td>
+          {% endfor %}
+        </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+
+{% block mapping_stats_plot %}
+<div class="part row">
+    <div class="col-lg-4">
+        <h3>mapping stat plot</h3>
+        <p style="text-indent:32px;font-size:16px" class="haveBg">
+          Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
+          tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+          Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+        </p>
+        <p><a class="btn btn-primary" href="{{mapping_stat_plot_dir}}" target="_blank" role="button">更多详情 &raquo;</a></p>
+    </div>
+    <div class="col-lg-6" style="padding-left:150px">
+        <a class="fancybox-effects-d" href="{{mapping_stat_plot_path}}"><img src="{{mapping_stat_plot_path}}" alt="mapping stat plot" class="maxWidth" style="max-width: 450px"></a>
+    </div>
+</div>
+{% endblock %}
+
+{% block document_mapping %}
+{% endblock %}

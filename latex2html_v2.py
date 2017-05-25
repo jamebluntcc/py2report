@@ -1,4 +1,9 @@
-# encoding:utf-8
+#coding:UTF-8
+'''
+this is latex2html,a python script generate html mRNA report
+create by chencheng on 2017-05-28
+add mapping and rseqc moudles on 2017-05-25
+'''
 import os
 import re
 import sys
@@ -16,7 +21,7 @@ html_jinja_env = jinja2.Environment(
 	loader = jinja2.FileSystemLoader(os.path.join(os.path.abspath('.'),'html_templates'))
 )
 
-def table2list(table_path,header=True,split='\t',max_row_num = 30,max_col_num = 5,max_cell_num = 15):
+def table2list(table_path,header=True,split='\t',max_row_num = 30,max_col_num = 100,max_cell_num = 15):
     if os.path.exists(table_path):
         table_list = []
         head_list = []
@@ -93,9 +98,10 @@ if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description = 'a script to create html mRNA analysis report')
 	parser.add_argument('mRNA_report_path',help='a dir where include your mRNA analysis results')
 	args = parser.parse_args()
-
 	mRNA_report_dir = os.path.abspath(args.mRNA_report_path)
 	replace_dir = mRNA_report_dir.rstrip('/').rsplit('/',1)[0]
+	report_dir_name = '_'.join([mRNA_report_dir.rstrip('/').rsplit('/',1)[1],'report'])
+
 	###for table
 	#fastqc
 	qc_dir = os.path.join(mRNA_report_dir,'fastqc')
@@ -119,24 +125,43 @@ if __name__ == '__main__':
 	diff_list = table2list(diff_table)
 	go_list = table2list(go_table)
 	kegg_list = table2list(kegg_table)
+	#mapping
+	mapping_path = os.path.join(mRNA_report_dir,'mapping')
+	mapping_table = os.path.join(mapping_path,'mapping_stats.txt')
+	mapping_list = table2list(mapping_table)
+	#rseqc
+	rseqc_path = os.path.join(mRNA_report_dir,'rseqc')
+	inner_distance_dir = os.path.join(rseqc_path,'inner_distance')
+	read_duplication_dir = os.path.join(rseqc_path,'read_duplication')
+	genebody_coverage_dir = os.path.join(rseqc_path,'genebody_coverage')
+	read_distrbution_dir = os.path.join(rseqc_path,'read_distribution')
 	#write all table path into template
 	all_table_path = {'qc_table':qc_file,'gene_count_table':gene_count_table,'diff_table':diff_table,
-					  'go_table':go_table,'kegg_table':kegg_table}
+					  'go_table':go_table,'kegg_table':kegg_table,'mapping_table':mapping_table}
 	for key,value in all_table_path.items():
-		all_table_path[key] = value.replace(replace_dir,'..')
+		all_table_path[key] = value.replace(replace_dir,'../..')
 	###for plot
 	#for single_plot
 	gene_merge_plot_path = os.path.join(expression_summary_dir,'Gene_expression.png')
 	sample_correlation_plot_path = os.path.join(expression_summary_dir,'Sample.correlation.heatmap.png')
 	PCA_plot_path = os.path.join(expression_summary_dir,'PCA_plot.png')
 	diff_heatmap_plot_path = os.path.join(expression_summary_dir,'Diff.genes.heatmap.png')
+	mapping_stat_plot_path = os.path.join(mapping_path,'mapping_stats_plot.png')
+	inner_distance_plot_path = os.path.join(inner_distance_dir,'inner_distance.png')
+	read_duplication_plot_path = os.path.join(read_duplication_dir,'reads_duplication.png')
+	genebody_coverage_plot_path = os.path.join(genebody_coverage_dir,'genebody_coverage.png')
+	read_distrbution_plot_path = os.path.join(read_distrbution_dir,'read_distribution.png')
 
 	plot_dict = {'gene_merge_plot_path':gene_merge_plot_path,
 				 'sample_correlation_plot_path':sample_correlation_plot_path,
-				 'PCA_plot_path':PCA_plot_path,'diff_heatmap_plot_path':diff_heatmap_plot_path}
+				 'PCA_plot_path':PCA_plot_path,'diff_heatmap_plot_path':diff_heatmap_plot_path,
+				 'mapping_stat_plot_path':mapping_stat_plot_path,'inner_distance_plot_path':inner_distance_plot_path,
+				 'read_duplication_plot_path':read_duplication_plot_path,'genebody_coverage_plot_path':genebody_coverage_plot_path,
+				 'read_distrbution_plot_path':read_distrbution_plot_path}
+
 
 	for key,value in plot_dict.items():
-		plot_dict[key] = value.replace(replace_dir,'..')
+		plot_dict[key] = value.replace(replace_dir,'../..')
 	#for multiple plot
 	multiple_plot_dict = dict.fromkeys(['quality_barplot_dir','volcano_plot_dir','go_barplot_dir',
 										'go_dagplot_dir','kegg_barplot_dir','kegg_pathway_dir'])
@@ -158,7 +183,7 @@ if __name__ == '__main__':
 	multiple_plot_dict['kegg_pathway_dir'] = kegg_pathway_path_list
 
 	for key,value in multiple_plot_dict.items():
-		multiple_plot_dict[key] = [k.replace(replace_dir,'..') for k in value]
+		multiple_plot_dict[key] = [k.replace(replace_dir,'../..') for k in value]
 
 	plot_dict.update(multiple_plot_dict)
 	#check plot empty
@@ -169,7 +194,7 @@ if __name__ == '__main__':
 
 	### render template
 	#data_control page:
-	prject_templates_dir = os.path.join(replace_dir,'templates')
+	prject_templates_dir = os.path.join(replace_dir,report_dir_name,'templates')
 	if not os.path.exists(prject_templates_dir):
 		os.makedirs(prject_templates_dir)
 
@@ -178,8 +203,30 @@ if __name__ == '__main__':
 		f.write(template.render(title = '数据质控',
 		header=qc_list[0],qc_table=qc_list[1],
 		all_quality_data_barplot_path = plot_dict['quality_barplot_dir'],
-		qc_table_path=all_table_path['qc_table'],
+		qc_table_path=os.path.dirname(all_table_path['qc_table']),
 		quality_barplot_dir=plot_dict['quality_barplot_dir'][0].rsplit('/',1)[0]
+		))
+	#mapping
+	template = html_jinja_env.get_template('mapping.html')
+	with open(os.path.join(prject_templates_dir,'rendered_mapping.html'),'w+') as f:
+		f.write(template.render(title = 'mapping',
+		header=mapping_list[0],mapping_table=mapping_list[1],
+		mapping_stat_plot_path = plot_dict['mapping_stat_plot_path'],
+		mapping_table_path=os.path.dirname(all_table_path['mapping_table']),
+		mapping_stat_plot_dir=mapping_path.replace(replace_dir,'../..')
+		))
+	#rseqc
+	template = html_jinja_env.get_template('rseqc.html')
+	with open(os.path.join(prject_templates_dir,'rendered_rseqc.html'),'w+') as f:
+		f.write(template.render(title = 'rseqc',
+		inner_distance_plot_path = plot_dict['inner_distance_plot_path'],
+		read_duplication_plot_path = plot_dict['read_duplication_plot_path'],
+		genebody_coverage_plot_path = plot_dict['genebody_coverage_plot_path'],
+		read_distrbution_plot_path = plot_dict['read_distrbution_plot_path'],
+		inner_distance_plot_dir=inner_distance_dir.replace(replace_dir,'../..'),
+		read_duplication_plot_dir=read_duplication_dir.replace(replace_dir,'../..'),
+		genebody_coverage_plot_dir=genebody_coverage_dir.replace(replace_dir,'../..'),
+		read_distrbution_plot_dir=read_distrbution_dir.replace(replace_dir,'../..')
 		))
 	#quantitative_analysis
 	template = html_jinja_env.get_template('quantitative_analysis.html')
@@ -189,10 +236,10 @@ if __name__ == '__main__':
 		Gene_merge_plot_path = plot_dict['gene_merge_plot_path'],
 		sample_correlation_plot_path = plot_dict['sample_correlation_plot_path'],
 		PCA_plot_path = plot_dict['PCA_plot_path'],
-		gene_count_table_path=all_table_path['gene_count_table'],
-		gene_merge_plot_dir=expression_summary_dir.replace(replace_dir,'..'),
-		sample_correlation_plot_dir=expression_summary_dir.replace(replace_dir,'..'),
-		PCA_plot_dir=expression_summary_dir.replace(replace_dir,'..')
+		gene_count_table_path=os.path.dirname(all_table_path['gene_count_table']),
+		gene_merge_plot_dir=expression_summary_dir.replace(replace_dir,'../..'),
+		sample_correlation_plot_dir=expression_summary_dir.replace(replace_dir,'../..'),
+		PCA_plot_dir=expression_summary_dir.replace(replace_dir,'../..')
 		))
 	#diff_analysis:
 	template = html_jinja_env.get_template('diff_analysis.html')
@@ -201,9 +248,9 @@ if __name__ == '__main__':
 		header=diff_list[0],diff_table=diff_list[1],
 		all_volcano_plot_path = plot_dict['volcano_plot_dir'],
 		diff_heatmap_plot_path = plot_dict['diff_heatmap_plot_path'],
-		diff_table_path = all_table_path['diff_table'],
+		diff_table_path = os.path.dirname(all_table_path['diff_table']),
 		all_volcano_plot_dir = plot_dict['volcano_plot_dir'][0].rsplit('/',1)[0],
-		diff_heatmap_plot_dir = expression_summary_dir.replace(replace_dir,'..')
+		diff_heatmap_plot_dir = expression_summary_dir.replace(replace_dir,'../..')
 		))
 	#enrichment_analysis:
 	template = html_jinja_env.get_template('enrichment_analysis.html')
@@ -215,8 +262,8 @@ if __name__ == '__main__':
 		kegg_header = kegg_list[0],kegg_enrichment_table = kegg_list[1],
 		all_kegg_enrichment_plot_path = plot_dict['kegg_barplot_dir'],
 		all_kegg_pathway_plot_path = plot_dict['kegg_pathway_dir'],
-		go_table_path = all_table_path['go_table'],
-		kegg_table_path = all_table_path['kegg_table'],
+		go_table_path = os.path.dirname(all_table_path['go_table']),
+		kegg_table_path = os.path.dirname(all_table_path['kegg_table']),
 		all_go_enrichment_plot_dir = plot_dict['go_barplot_dir'][0].rsplit('/',1)[0],
 		all_dag_plot_dir = plot_dict['go_dagplot_dir'][0].rsplit('/',1)[0],
 		all_kegg_enrichment_plot_dir = plot_dict['kegg_barplot_dir'][0].rsplit('/',1)[0],
@@ -224,7 +271,7 @@ if __name__ == '__main__':
 		))
 
 	pwd = os.getcwd()
-	os.chdir(replace_dir)
+	os.chdir(os.path.join(replace_dir,report_dir_name))
 	#print replace_dir
 	#print os.path.join(pwd,'static')
 	subprocess.call('cp -r {static_file} ./'.format(static_file = os.path.join(pwd,'static')),shell = True)

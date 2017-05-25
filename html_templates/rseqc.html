@@ -1,0 +1,71 @@
+{% extends "single_page_base.html" %}
+{% block title %}{{title}}{% endblock %}
+{% block nav %}
+<li role="presentation"><a href="rendered_data_control.html">数据质控</a></li>
+<li role="presentation"><a href="rendered_mapping.html">mapping</a></li>
+<li role="presentation" class="active"><a href="rendered_rseqc.html">rseqc</a></li>
+<li role="presentation"><a href="rendered_quantitative_analysis.html">定量分析</a></li>
+<li role="presentation"><a href="rendered_diff_analysis.html">差异分析</a></li>
+<li role="presentation"><a href="rendered_enrichment_analysis.html">功能富集</a></li>
+{% endblock %}
+{% block rseqc_plots %}
+<div class="part row">
+    <div class="col-lg-4">
+        <h3>inner distance plot</h3>
+        <p style="text-indent:32px;font-size:16px" class="haveBg">
+          Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
+          tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+          Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+        </p>
+        <p><a class="btn btn-primary" href="{{inner_distance_plot_dir}}" target="_blank" role="button">更多详情 &raquo;</a></p>
+    </div>
+    <div class="col-lg-6" style="padding-left:150px">
+        <a class="fancybox-effects-d" href="{{inner_distance_plot_path}}" title=""><img src= "{{inner_distance_plot_path}}" alt="" class="maxWidth" style="max-width: 450px"/></a>
+    </div>
+</div>
+<div class="part row">
+    <div class="col-lg-4">
+        <h3>read duplication plot</h3>
+        <p style="text-indent:32px;font-size:16px" class="haveBg">
+          Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
+          tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+          Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+        </p>
+        <p><a class="btn btn-primary" href="{{read_duplication_plot_dir}}" target="_blank" role="button">更多详情 &raquo;</a></p>
+    </div>
+    <div class="col-lg-6" style="padding-left:150px">
+        <a class="fancybox-effects-d" href="{{read_duplication_plot_path}}"><img src="{{read_duplication_plot_path}}" alt="" class="maxWidth" style="max-width: 500px"></a>
+    </div>
+</div>
+<div class="part row">
+    <div class="col-lg-4">
+        <h3>genebody coverage plot</h3>
+        <p style="text-indent:32px;font-size:16px" class="haveBg">
+          Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
+          tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+          Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+        </p>
+        <p><a class="btn btn-primary" href="{{genebody_coverage_plot_dir}}" target="_blank" role="button">更多详情 &raquo;</a></p>
+    </div>
+    <div class="col-lg-6" style="padding-left:150px">
+        <a class="fancybox-effects-d" href="{{genebody_coverage_plot_path}}"><img src="{{genebody_coverage_plot_path}}" alt="" class="maxWidth" style="max-width: 450px"></a>
+    </div>
+</div>
+<div class="part row">
+    <div class="col-lg-4">
+        <h3>read distrbution plot</h3>
+        <p style="text-indent:32px;font-size:16px" class="haveBg">
+          Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
+          tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+          Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+        </p>
+        <p><a class="btn btn-primary" href="{{read_distrbution_plot_dir}}" target="_blank" role="button">更多详情 &raquo;</a></p>
+    </div>
+    <div class="col-lg-6" style="padding-left:150px">
+        <a class="fancybox-effects-d" href="{{read_distrbution_plot_path}}"><img src="{{read_distrbution_plot_path}}" alt="" class="maxWidth" style="max-width: 450px"></a>
+    </div>
+</div>
+{% endblock %}
+
+{% block document_rseqc %}
+{% endblock %}

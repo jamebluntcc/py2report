@@ -2,6 +2,9 @@
 {% block title %}{{title}}{% endblock %}
 {% block nav %}
 <li role="presentation"><a href="rendered_data_control.html">数据质控</a></li>
+<li role="presentation"><a href="rendered_mapping.html">mapping</a></li>
+<li role="presentation"><a href="rendered_rseqc.html">rseqc</a></li>
+<li role="presentation" class="active"><a href="rendered_quantitative_analysis.html">定量分析</a></li>
 <li role="presentation"><a href="rendered_diff_analysis.html">差异分析</a></li>
 <li role="presentation"><a href="rendered_enrichment_analysis.html">功能富集</a></li>
 {% endblock %}
@@ -10,10 +13,10 @@
   <div class="col-md-4" style="margin-top:50px">
     <h3>基因表达统计表</h3>
     <p class="haveBg" style="text-indent:32px;font-size:16px">
-      数据质控合格的样品，我们使用<a href="https://pachterlab.github.io/kallisto/">Kallisto</a>
-      (Bray N.2015)对它们进行定量分析。各样品基因表达tmp如下表表示： <!--<a href="{{gene_count_table_path}}">查看数据文件</a>-->
+      数据质控合格的样品，我们使用<a href="https://pachterlab.github.io/kallisto/" target="_blank" >Kallisto</a>
+      <a href="#bray">(Bray N.2015)</a>对它们进行定量分析。各样品基因表达tmp如下表表示： <!--<a href="{{gene_count_table_path}}">查看数据文件</a>-->
     </p>
-    <p><a class="btn btn-primary" href="{{gene_count_table_path}}" role="button">更多详情 &raquo;</a></p>
+    <p><a class="btn btn-primary" href="{{gene_count_table_path}}" target="_blank" role="button">更多详情 &raquo;</a></p>
   </div>
   <div class="myTable col-md-8">
   <table class="table table-striped table-bordered" cellspacing="0">
@@ -47,7 +50,7 @@
           基因的整体表达情况，左上角和右下角分别为基因表达箱型图和小提琴图，横坐标为样品，纵坐标为
           log10(tpm+1)；下图为基因的表达密度，横坐标为log10(tmp+1)，纵坐标为不同表达值密度值。
         </p>
-        <p><a class="btn btn-primary" href="{{gene_merge_plot_dir}}" role="button">更多详情 &raquo;</a></p>
+        <p><a class="btn btn-primary" href="{{gene_merge_plot_dir}}" target="_blank" role="button">更多详情 &raquo;</a></p>
     </div>
     <div class="col-lg-6" style="padding-left:150px">
         <a class="fancybox-effects-d" href="{{Gene_merge_plot_path}}" title="基因表达整体情况，左上角和右下角分别为基因表达箱型图和小提琴图，横坐标为样品，纵坐标为log10(tmp+1);下面为基因表达密度图，横坐标为log10(tpm+1)，纵坐标为不同表达值密度值"><img src= "{{Gene_merge_plot_path}}" alt="" class="maxWidth" style="max-width: 450px"/></a>
@@ -60,7 +63,7 @@
           我们对所有的样品两两之间进行相关性分析以及主成分分析(Principal components analysis,PCA)来反映
           样品间的整体差异，分析结果如下图所示：
         </p>
-        <p><a class="btn btn-primary" href="{{sample_correlation_plot_dir}}" role="button">更多详情 &raquo;</a></p>
+        <p><a class="btn btn-primary" href="{{sample_correlation_plot_dir}}" target="_blank" role="button">更多详情 &raquo;</a></p>
     </div>
     <div class="col-lg-6" style="padding-left:150px">
         <a class="fancybox-effects-d" href="{{sample_correlation_plot_path}}"><img src="{{sample_correlation_plot_path}}" alt="相关性图" class="maxWidth" style="max-width: 500px"></a>
@@ -74,10 +77,16 @@
           tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
           Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
         </p>
-        <p><a class="btn btn-primary" href="{{PCA_plot_dir}}" role="button">更多详情 &raquo;</a></p>
+        <p><a class="btn btn-primary" href="{{PCA_plot_dir}}" target="_blank" role="button">更多详情 &raquo;</a></p>
     </div>
     <div class="col-lg-6" style="padding-left:150px">
         <a class="fancybox-effects-d" href="{{PCA_plot_path}}"><img src="{{PCA_plot_path}}" alt="PCA图" class="maxWidth" style="max-width: 450px"></a>
     </div>
 </div>
+{% endblock %}
+
+{% block document_quant %}
+<h3>参考文献</h3>
+<br>
+<b id="bray">[1]</b>Nicolas L Bray,Harold Pimentel,Pall Melsted,and Lior Pachter.Nature Biotechnology,34:525-7,2016.
 {% endblock %}

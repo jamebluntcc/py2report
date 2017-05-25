@@ -1,6 +1,9 @@
 {% extends "single_page_base.html" %}
 {% block title %}{{title}}{% endblock %}
 {% block nav %}
+<li role="presentation" class="active"><a href="rendered_data_control.html">数据质控</a></li>
+<li role="presentation"><a href="rendered_mapping.html">mapping</a></li>
+<li role="presentation"><a href="rendered_rseqc.html">rseqc</a></li>
 <li role="presentation"><a href="rendered_quantitative_analysis.html">定量分析</a></li>
 <li role="presentation"><a href="rendered_diff_analysis.html">差异分析</a></li>
 <li role="presentation"><a href="rendered_enrichment_analysis.html">功能富集</a></li>
@@ -10,10 +13,10 @@
   <div class="col-md-4" style="margin-top:50px">
     <h3>数据过滤统计分析表</h3>
     <p class="haveBg" style="text-indent:32px;font-size:16px">
-      获得测序序列(Sequenced Reads)后，我们使用<a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/">FastQC</a>
-      (Andrew S.2010)对本次测序所有的样品进行数据质控，下表展示了数据的基本情况: <!--<a href="">查看数据文件</a>-->
+      获得测序序列(Sequenced Reads)后，我们使用<a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/" target="_blank">FastQC</a>
+      <a href="#andrew">(Andrew S.2010)</a>对本次测序所有的样品进行数据质控，下表展示了数据的基本情况: <!--<a href="">查看数据文件</a>-->
     </p>
-    <p><a class="btn btn-primary" href="{{qc_table_path}}" role="button">更多详情 &raquo;</a></p>
+    <p><a class="btn btn-primary" href="{{qc_table_path}}" target="_blank" role="button">更多详情 &raquo;</a></p>
   </div>
   <div class="myTable col-md-8">
     <table class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -44,7 +47,7 @@
   <div class="col-md-4">
     <h3>样本测序质量分布图</h3>
     <p class="haveBg" style="text-indent:32px;font-size:16px">各样测序序列质量值分布如下图所示,其中x轴为质量值,y轴为不同质量值序列的比例。</p>
-    <p><a class="btn btn-primary" href="{{quality_barplot_dir}}" role="button">更多详情 &raquo;</a></p>
+    <p><a class="btn btn-primary" href="{{quality_barplot_dir}}" target="_blank" role="button">更多详情 &raquo;</a></p>
   </div>
   <div class="albumSlider col-md-8" style="margin-left:100px">
     <div class="fullview"><img src="{{all_quality_data_barplot_path[0]}}" alt="reads quality"></div>
@@ -59,5 +62,13 @@
         </div>
     </div>
   </div>
+</div>
+{% endblock %}
+
+{% block document_data_control %}
+<div>
+  <h3>参考文献</h3>
+  <br>
+  <b id="andrew">[1]</b>Andrews S.Reference,2010.
 </div>
 {% endblock %}
