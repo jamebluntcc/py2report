@@ -1,4 +1,4 @@
-{% extends 'mRNA_base.txt'%}
+{% extends 'mRNA_base'%}
 
 {% block author %}
 \author{%

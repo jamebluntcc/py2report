@@ -1,8 +1,9 @@
 #coding:UTF-8
 '''
 this is latex2html,a python script generate html mRNA report
-create by chencheng on 2017-05-28
+create by chencheng on 2017-05-05
 add mapping and rseqc moudles on 2017-05-25
+change report dir construction on 2017-06-08
 '''
 import os
 import re
