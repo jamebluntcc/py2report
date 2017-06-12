@@ -15,3 +15,4 @@ if __name__ == '__main__':
                                                                   report_path = os.path.join(args.mRNA_report_path,'analysis_report')),shell=True)
         html_report.enrichment_analysis(args.mRNA_report_path)
         html_report.fastqc_analysis(args.mRNA_report_path)
+        html_report.mapping_analysis(args.mRNA_report_path)

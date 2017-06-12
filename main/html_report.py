@@ -129,4 +129,28 @@ def fastqc_analysis(generate_report_path):
         quality_barplot_dir=reads_quality_path
         ))
 
-#def mapping_analysis()
+def mapping_analysis(generate_report_path):
+    '''
+    param:report path
+    '''
+    mapping_path = os.path.join(generate_report_path,mRNA_data_dict['mapping'])
+    if not os.path.exists(mapping_path):
+        print "mapping analysis's dir not exists,please check your input path"
+        sys.exit(1)
+    mapping_list = table2list(os.path.join(mapping_path,'mapping_stats.txt'))
+    mapping_stats_plot = os.path.join(mapping_path,'mapping_stats_plot.png').replace(os.path.join(generate_report_path,'analysis_report'),'..')
+    mapping_path = mRNA_result_dict['mapping'].replace(generate_report_path,'../..')
+    html_template_path = os.path.join(generate_report_path,'analysis_report','templates')
+    if not os.path.exists(html_template_path):
+        os.makedirs(html_template_path)
+    #render mapping templates:
+    template = html_jinja_env.get_template('mapping.html')
+    with open(os.path.join(html_template_path,'rendered_mapping.html'),'w+') as f:
+    		f.write(template.render(title = 'mapping',
+    		header=mapping_list[0],mapping_table=mapping_list[1],
+    		mapping_stat_plot_path = mapping_stats_plot,
+    		mapping_table_path=mapping_path,
+    		mapping_stat_plot_dir=mapping_path
+    		))
+
+#def 
