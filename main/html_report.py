@@ -116,12 +116,12 @@ def fastqc_analysis(generate_report_path):
     reads_quality_path = os.path.join(mRNA_result_dict['fastqc'],'reads_quality_plot')
     reads_quality_path = reads_quality_path.replace(generate_report_path,'../..')
 
-    prject_templates_dir = os.path.join(replace_dir,report_dir_name,'templates')
-    if not os.path.exists(prject_templates_dir):
-        os.makedirs(prject_templates_dir)
+    html_template_path = os.path.join(generate_report_path,'analysis_report','templates')
+    if not os.path.exists(html_template_path):
+        os.makedirs(html_template_path)
     #render fastqc templates:
     template = html_jinja_env.get_template('data_control.html')
-    with open(os.path.join(prject_templates_dir,'rendered_data_control.html'),'w+') as f:
+    with open(os.path.join(html_template_path,'rendered_data_control.html'),'w+') as f:
         f.write(template.render(title = '数据质控',
         header=qc_list[0],qc_table=qc_list[1],
         all_quality_data_barplot_path = multiple_plot_path['reads_quality_plots'],

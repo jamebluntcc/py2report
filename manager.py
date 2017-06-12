@@ -13,6 +13,5 @@ if __name__ == '__main__':
     if args.html:
         subprocess.call('cp -r {html_files} {report_path}'.format(html_files = 'html_files/*',
                                                                   report_path = os.path.join(args.mRNA_report_path,'analysis_report')),shell=True)
-        print os.path.join(args.mRNA_report_path,'analysis_report/')
         html_report.enrichment_analysis(args.mRNA_report_path)
         html_report.fastqc_analysis(args.mRNA_report_path)
