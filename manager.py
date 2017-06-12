@@ -17,3 +17,4 @@ if __name__ == '__main__':
         html_report.fastqc_analysis(args.mRNA_report_path)
         html_report.mapping_analysis(args.mRNA_report_path)
         html_report.quantification_analysis(args.mRNA_report_path)
+        html_report.rseqc_analysis(args.mRNA_report_path)

@@ -87,6 +87,7 @@ def enrichment_analysis(generate_report_path):
 		all_kegg_enrichment_plot_dir = kegg_href,
 		all_kegg_pathway_plot_dir = kegg_href
 		))
+    print 'enrichment analysis page done!'
 
 def fastqc_analysis(generate_report_path):
     '''
@@ -122,6 +123,7 @@ def fastqc_analysis(generate_report_path):
         qc_table_path=fastqc_stat_href,
         quality_barplot_dir=reads_quality_href
         ))
+    print 'fastqc analysis page done!'
 
 def mapping_analysis(generate_report_path):
     '''
@@ -146,6 +148,7 @@ def mapping_analysis(generate_report_path):
     		mapping_table_path=mapping_href,
     		mapping_stat_plot_dir=mapping_href
     		))
+    print 'mapping analysis page done!'
 
 def quantification_analysis(generate_report_path):
     '''
@@ -190,6 +193,7 @@ def quantification_analysis(generate_report_path):
         sample_correlation_plot_dir=expression_summary_href,
         PCA_plot_dir=expression_summary_href
         ))
+    print 'quantification analysis page done!'
     diff_template = html_jinja_env.get_template('diff_analysis.html')
     with open(os.path.join(html_template_path,'rendered_diff_analysis.html'),'w+') as f:
 		f.write(diff_template.render(title = '差异分析',
@@ -200,3 +204,47 @@ def quantification_analysis(generate_report_path):
 		all_volcano_plot_dir = diff_analysis_href,
 		diff_heatmap_plot_dir = expression_summary_href
 		))
+    print 'diff analysis page done!'
+
+def rseqc_analysis(generate_report_path):
+    '''
+    param:report path
+    '''
+    rseqc_path = os.path.join(generate_report_path,mRNA_data_dict['rseqc'])
+    if not os.path.exists(rseqc_path):
+        print "rseqc analysis's dir not exists,please check your input path"
+        sys.exit(1)
+
+    all_file = []
+    for root,dirs,files in os.walk(rseqc_path):
+        all_file.extend([os.path.join(root,file) for file in files])
+
+    multiple_plot_pattern = dict(read_duplication='.reads_duplication.point.png$',
+                                  read_distribution='.read_distribution.pie.png$',
+                                  inner_distance='.inner_distance.bar.png$',
+                                  genebody_coverage='.genebody_coverage.point.png')
+
+    multiple_plot_path = get_multiple_plots(multiple_plot_pattern,generate_report_path,all_file)
+
+    read_duplication_href = os.path.join(mRNA_result_dict['rseqc'],'read_duplication').replace(generate_report_path,'../..')
+    read_distribution_href = os.path.join(mRNA_result_dict['rseqc'],'read_distribution').replace(generate_report_path,'../..')
+    inner_distance_href = os.path.join(mRNA_result_dict['rseqc'],'inner_distance').replace(generate_report_path,'../..')
+    genebody_coverage_href = os.path.join(mRNA_result_dict['rseqc'],'genebody_coverage').replace(generate_report_path,'../..')
+
+    html_template_path = os.path.join(generate_report_path,'analysis_report','templates')
+    if not os.path.exists(html_template_path):
+        os.makedirs(html_template_path)
+    #render rseqc templates
+    template = html_jinja_env.get_template('rseqc.html')
+    with open(os.path.join(html_template_path,'rendered_rseqc.html'),'w+') as f:
+    		f.write(template.render(title = 'rseqc',
+    		inner_distance_plot_path = multiple_plot_path['inner_distance'],
+    		read_duplication_plot_path = multiple_plot_path['read_duplication'],
+    		genebody_coverage_plot_path = multiple_plot_path['genebody_coverage'],
+    		read_distrbution_plot_path = multiple_plot_path['read_distribution'],
+    		inner_distance_plot_dir=inner_distance_href,
+    		read_duplication_plot_dir=read_duplication_href,
+    		genebody_coverage_plot_dir=genebody_coverage_href,
+    		read_distrbution_plot_dir=read_distribution_href
+    		))
+    print 'rseqc analysis page done!'
