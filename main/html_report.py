@@ -191,7 +191,7 @@ def quantification_analysis(generate_report_path):
         PCA_plot_dir=expression_summary_href
         ))
     diff_template = html_jinja_env.get_template('diff_analysis.html')
-    with open(os.path.join(prject_templates_dir,'rendered_diff_analysis.html'),'w+') as f:
+    with open(os.path.join(html_template_path,'rendered_diff_analysis.html'),'w+') as f:
 		f.write(diff_template.render(title = '差异分析',
 		header=diff_list[0],diff_table=diff_list[1],
 		all_volcano_plot_path = multiple_plot_path['volcano_plots'],
