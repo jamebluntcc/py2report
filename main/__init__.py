@@ -3,7 +3,6 @@ import os
 import jinja2
 from copy import deepcopy
 import configparser
-
 '''
 init html and pdf configure
 '''
@@ -19,8 +18,9 @@ pdf_jinja_env = jinja2.Environment(
 	loader = jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__),'pdf_templates'))
 )
 #add each analysis part
+configFilePath = os.path.join(os.path.dirname(__file__),'report_conf.conf')
 command = configparser.ConfigParser()
-command.read('report_conf.conf')
+command.read(configFilePath)
 #all path
 mRNA_data_path = command.get('mRNA-report-data','report_data_path')
 mRNA_result_path = command.get('mRNA-report-result','report_result_path')

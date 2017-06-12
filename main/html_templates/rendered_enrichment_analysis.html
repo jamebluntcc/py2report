@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1200, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>富集分析</title>
+  <link rel="stylesheet" href="../static/Bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../static/css/single_page.css">
+  <link rel="stylesheet" href="../static/css/main.css">
+  <!-- data.table -->
+  <script src="../static/js/jquery-1.9.0.min.js"></script>
+  <link rel="stylesheet" href="../static/DataTable/dataTables.bootstrap.min.css">
+  <script src="../static/DataTable/jquery.dataTables.min.js"></script>
+  <script src="../static/DataTable/dataTables.bootstrap.min.js"></script>
+  <!--fancybox -->
+  <link rel="stylesheet" href="../static/fancybox/jquery.fancybox.css" media="screen"/>
+  <link rel="stylesheet" href="../static/fancybox/fancybox.css"/>
+  <script src="../static/js/jquery.albumSlider.min.js"></script>
+  <script src="../static/fancybox/jquery.mousewheel-3.0.6.pack.js"></script>
+  <script src="../static/fancybox/jquery.fancybox.js"></script>
+  <script src="../static/fancybox/jquery.fancybox.pack.js"></script>
+</head>
+<script>
+  $(document).ready(function(){
+    $(".table").DataTable({
+      "scrollX": true
+    });
+
+    $(".fancybox-effects-d").fancybox({
+      padding:0,
+      openEffect:'elastic',
+      openSpeed:150,
+      closeEffect:'elastic',
+      closeSpeed:150,
+      closeClick:true,
+      helpers:{
+        overlay:null
+      }
+    });
+
+    $("a.example2").fancybox({
+        'overlayShow'	: true,
+        'transitionIn'	: 'elastic',
+        'transitionOut'	: 'elastic'
+    });
+
+    $("a[rel=example_group]").fancybox({
+        'transitionIn'		: 'none',
+        'transitionOut'		: 'none',
+        'titlePosition' 	: 'over',
+        'titleFormat'		: function(title, currentArray, currentIndex, currentOpts) {
+            return '<span id="fancybox-title-over">Image ' + (currentIndex + 1) + ' / ' + currentArray.length + (title.length ? ' &nbsp; ' + title : '') + '</span>';
+        }
+    });
+
+    $("div.albumSlider").albumSlider();
+  });
+
+</script>
+<body>
+  <div class="container">
+    <div class="header clearfix">
+      <nav>
+        <ul class="nav nav-pills pull-right">
+          <li role="presentation"><a href="rendered_data_control.html">数据质控</a></li>
+<li role="presentation"><a href="rendered_mapping.html">mapping</a></li>
+<li role="presentation"><a href="rendered_rseqc.html">rseqc</a></li>
+<li role="presentation"><a href="rendered_quantitative_analysis.html">定量分析</a></li>
+<li role="presentation"><a href="rendered_diff_analysis.html">差异分析</a></li>
+<li role="presentation" class="active"><a href="rendered_enrichment_analysis.html">功能富集</a></li>
+          <li role="presentation"><a href="../mRNA_report.html">主页</a></li>
+        </ul>
+      </nav>
+      <h3 class="text-muted">富集分析</h3>
+    </div>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    <div class="part row">
+  <div class="col-md-4" style="margin-top:50px">
+    <h3>GO富集分析结果</h3>
+    <p class="haveBg" style="text-indent:32px;font-size:16px">
+    我们利用<a href="http://bioconductor.org/packages/goseq">GOseq</a><a href="#young">（Young et al.2010)</a>对差异基本进行GO富集分析，
+    老师可以根据实验目的筛选相关功能的差异基因，并进行功能研究。 <!--<a href="">查看数据文件</a>-->
+    </p>
+    <p><a class="btn btn-primary" href="analysis_result/analysis_report/report_data/enrichment/go" target="_blank" role="button">更多详情 &raquo;</a></p>
+  </div>
+  <div class="myTable col-md-8">
+    <table class="table table-striped table-bordered" cellspacing="0" width="100%">
+      <caption></caption>
+    <thead>
+      <tr>
+            <th style="text-align:center;">category</th>
+            <th style="text-align:center;">over_represented_pvalue</th>
+            <th style="text-align:center;">qvalue</th>
+            <th style="text-align:center;">numDEInCat</th>
+            <th style="text-align:center;">numInCat</th>
+            <th style="text-align:center;">term</th>
+            <th style="text-align:center;">ontology</th>
+            </tr>
+    </thead>
+    <tbody>
+            <tr>
+               <th style="text-align:center;">GO:0055114</th>
+               <th style="text-align:center;">2.8172417086209</th>
+               <th style="text-align:center;">6.7613801006901</th>
+               <th style="text-align:center;">285</th>
+               <th style="text-align:center;">1121</th>
+               <th style="text-align:center;">oxidation-reduc</th>
+               <th style="text-align:center;">BP</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">GO:0007018</th>
+               <th style="text-align:center;">1.4908441874926</th>
+               <th style="text-align:center;">0.0017890130249</th>
+               <th style="text-align:center;">24</th>
+               <th style="text-align:center;">50</th>
+               <th style="text-align:center;">microtubule-bas</th>
+               <th style="text-align:center;">BP</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">GO:0006355</th>
+               <th style="text-align:center;">2.2583435797104</th>
+               <th style="text-align:center;">0.0018066748637</th>
+               <th style="text-align:center;">124</th>
+               <th style="text-align:center;">450</th>
+               <th style="text-align:center;">regulation of t</th>
+               <th style="text-align:center;">BP</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">GO:0016788</th>
+               <th style="text-align:center;">9.5667555504239</th>
+               <th style="text-align:center;">0.0057400533302</th>
+               <th style="text-align:center;">31</th>
+               <th style="text-align:center;">83</th>
+               <th style="text-align:center;">hydrolase activ</th>
+               <th style="text-align:center;">MF</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">GO:0016020</th>
+               <th style="text-align:center;">0.0001657195728</th>
+               <th style="text-align:center;">0.0070450059616</th>
+               <th style="text-align:center;">161</th>
+               <th style="text-align:center;">612</th>
+               <th style="text-align:center;">membrane</th>
+               <th style="text-align:center;">CC</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">GO:0008152</th>
+               <th style="text-align:center;">0.0001761251490</th>
+               <th style="text-align:center;">0.0070450059616</th>
+               <th style="text-align:center;">119</th>
+               <th style="text-align:center;">441</th>
+               <th style="text-align:center;">metabolic proce</th>
+               <th style="text-align:center;">BP</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">GO:0009055</th>
+               <th style="text-align:center;">0.0008266230921</th>
+               <th style="text-align:center;">0.0283413631585</th>
+               <th style="text-align:center;">17</th>
+               <th style="text-align:center;">43</th>
+               <th style="text-align:center;">electron carrie</th>
+               <th style="text-align:center;">MF</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">GO:0005576</th>
+               <th style="text-align:center;">0.0038061372403</th>
+               <th style="text-align:center;">0.1141841172112</th>
+               <th style="text-align:center;">4</th>
+               <th style="text-align:center;">5</th>
+               <th style="text-align:center;">extracellular r</th>
+               <th style="text-align:center;">CC</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">GO:0005089</th>
+               <th style="text-align:center;">0.0054744171178</th>
+               <th style="text-align:center;">0.1433487523816</th>
+               <th style="text-align:center;">5</th>
+               <th style="text-align:center;">7</th>
+               <th style="text-align:center;">Rho guanyl-nucl</th>
+               <th style="text-align:center;">MF</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">GO:0005975</th>
+               <th style="text-align:center;">0.0059728646825</th>
+               <th style="text-align:center;">0.1433487523816</th>
+               <th style="text-align:center;">87</th>
+               <th style="text-align:center;">340</th>
+               <th style="text-align:center;">carbohydrate me</th>
+               <th style="text-align:center;">BP</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">GO:0016887</th>
+               <th style="text-align:center;">0.0139355044447</th>
+               <th style="text-align:center;">0.2860791996909</th>
+               <th style="text-align:center;">36</th>
+               <th style="text-align:center;">122</th>
+               <th style="text-align:center;">ATPase activity</th>
+               <th style="text-align:center;">MF</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">GO:0016998</th>
+               <th style="text-align:center;">0.0143372110280</th>
+               <th style="text-align:center;">0.2860791996909</th>
+               <th style="text-align:center;">7</th>
+               <th style="text-align:center;">15</th>
+               <th style="text-align:center;">cell wall macro</th>
+               <th style="text-align:center;">BP</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">GO:0005507</th>
+               <th style="text-align:center;">0.0154959566499</th>
+               <th style="text-align:center;">0.2860791996909</th>
+               <th style="text-align:center;">14</th>
+               <th style="text-align:center;">38</th>
+               <th style="text-align:center;">copper ion bind</th>
+               <th style="text-align:center;">MF</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">GO:0030001</th>
+               <th style="text-align:center;">0.0171780191368</th>
+               <th style="text-align:center;">0.2944803280601</th>
+               <th style="text-align:center;">17</th>
+               <th style="text-align:center;">54</th>
+               <th style="text-align:center;">metal ion trans</th>
+               <th style="text-align:center;">BP</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">GO:0016740</th>
+               <th style="text-align:center;">0.0194746373432</th>
+               <th style="text-align:center;">0.3115941974925</th>
+               <th style="text-align:center;">4</th>
+               <th style="text-align:center;">6</th>
+               <th style="text-align:center;">transferase act</th>
+               <th style="text-align:center;">MF</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">GO:0005992</th>
+               <th style="text-align:center;">0.0210305981438</th>
+               <th style="text-align:center;">0.3154589721581</th>
+               <th style="text-align:center;">7</th>
+               <th style="text-align:center;">15</th>
+               <th style="text-align:center;">trehalose biosy</th>
+               <th style="text-align:center;">BP</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">GO:0005634</th>
+               <th style="text-align:center;">0.0246951208199</th>
+               <th style="text-align:center;">0.3218650026669</th>
+               <th style="text-align:center;">79</th>
+               <th style="text-align:center;">320</th>
+               <th style="text-align:center;">nucleus</th>
+               <th style="text-align:center;">CC</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">GO:0048046</th>
+               <th style="text-align:center;">0.0248354069233</th>
+               <th style="text-align:center;">0.3218650026669</th>
+               <th style="text-align:center;">10</th>
+               <th style="text-align:center;">27</th>
+               <th style="text-align:center;">apoplast</th>
+               <th style="text-align:center;">CC</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">GO:0000160</th>
+               <th style="text-align:center;">0.0258390975415</th>
+               <th style="text-align:center;">0.3218650026669</th>
+               <th style="text-align:center;">15</th>
+               <th style="text-align:center;">47</th>
+               <th style="text-align:center;">phosphorelay si</th>
+               <th style="text-align:center;">BP</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">GO:0003677</th>
+               <th style="text-align:center;">0.0277710340197</th>
+               <th style="text-align:center;">0.3218650026669</th>
+               <th style="text-align:center;">51</th>
+               <th style="text-align:center;">200</th>
+               <th style="text-align:center;">DNA binding</th>
+               <th style="text-align:center;">MF</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">GO:0015996</th>
+               <th style="text-align:center;">0.0281631877333</th>
+               <th style="text-align:center;">0.3218650026669</th>
+               <th style="text-align:center;">3</th>
+               <th style="text-align:center;">4</th>
+               <th style="text-align:center;">chlorophyll cat</th>
+               <th style="text-align:center;">BP</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">GO:0006520</th>
+               <th style="text-align:center;">0.0306040793127</th>
+               <th style="text-align:center;">0.3338626834118</th>
+               <th style="text-align:center;">3</th>
+               <th style="text-align:center;">4</th>
+               <th style="text-align:center;">cellular amino </th>
+               <th style="text-align:center;">BP</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">GO:0005985</th>
+               <th style="text-align:center;">0.0396245057934</th>
+               <th style="text-align:center;">0.3641121737895</th>
+               <th style="text-align:center;">5</th>
+               <th style="text-align:center;">10</th>
+               <th style="text-align:center;">sucrose metabol</th>
+               <th style="text-align:center;">BP</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">GO:0043531</th>
+               <th style="text-align:center;">0.0414148734296</th>
+               <th style="text-align:center;">0.3641121737895</th>
+               <th style="text-align:center;">113</th>
+               <th style="text-align:center;">480</th>
+               <th style="text-align:center;">ADP binding</th>
+               <th style="text-align:center;">MF</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">GO:0045454</th>
+               <th style="text-align:center;">0.0420270421113</th>
+               <th style="text-align:center;">0.3641121737895</th>
+               <th style="text-align:center;">21</th>
+               <th style="text-align:center;">74</th>
+               <th style="text-align:center;">cell redox home</th>
+               <th style="text-align:center;">BP</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">GO:0046373</th>
+               <th style="text-align:center;">0.0431789943455</th>
+               <th style="text-align:center;">0.3641121737895</th>
+               <th style="text-align:center;">2</th>
+               <th style="text-align:center;">2</th>
+               <th style="text-align:center;">L-arabinose met</th>
+               <th style="text-align:center;">BP</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">GO:0008017</th>
+               <th style="text-align:center;">0.0433468618120</th>
+               <th style="text-align:center;">0.3641121737895</th>
+               <th style="text-align:center;">2</th>
+               <th style="text-align:center;">2</th>
+               <th style="text-align:center;">microtubule bin</th>
+               <th style="text-align:center;">MF</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">GO:0019441</th>
+               <th style="text-align:center;">0.0435925465589</th>
+               <th style="text-align:center;">0.3641121737895</th>
+               <th style="text-align:center;">2</th>
+               <th style="text-align:center;">2</th>
+               <th style="text-align:center;">tryptophan cata</th>
+               <th style="text-align:center;">BP</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">GO:0006813</th>
+               <th style="text-align:center;">0.0439968876662</th>
+               <th style="text-align:center;">0.3641121737895</th>
+               <th style="text-align:center;">2</th>
+               <th style="text-align:center;">2</th>
+               <th style="text-align:center;">potassium ion t</th>
+               <th style="text-align:center;">BP</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">GO:0006556</th>
+               <th style="text-align:center;">0.0490904582011</th>
+               <th style="text-align:center;">0.3927236656094</th>
+               <th style="text-align:center;">3</th>
+               <th style="text-align:center;">5</th>
+               <th style="text-align:center;">S-adenosylmethi</th>
+               <th style="text-align:center;">BP</th>
+            </tr>
+        </tbody>
+</table>
+</div>
+</div>
+
+    <div class="part row group_plot">
+  <div class="col-md-4">
+    <h3>GO富集分析柱状图</h3>
+    <p class="haveBg" style="text-indent:32px;font-size:16px">我们挑选了富集最显著的30个GO Term在该图中进行展示，若富集的GO Term条目不足30条，则全展示。</p>
+    <p><a class="btn btn-primary" href="analysis_result/analysis_report/report_data/enrichment/kegg" target="_blank" role="button">更多详情 &raquo;</a></p>
+  </div>
+  <div class="albumSlider col-md-8" style="margin-left:100px">
+    <div class="fullview"><img src="../report_data/enrichment/go/2BZH_vs_3QJ/2BZH_vs_3QJ.go.enrichment.barplot.png" alt="Go barplot"></div>
+    <div class="slider">
+      <div class="button movebackward" title="向上滚动"></div>
+        <div class="imglistwrap">
+          <ul class="imglist">
+                          <li><a href="../report_data/enrichment/go/2BZH_vs_3QJ/2BZH_vs_3QJ.go.enrichment.barplot.png" class="example2" title="go barplot." rel="example_group3"><img src="../report_data/enrichment/go/2BZH_vs_3QJ/2BZH_vs_3QJ.go.enrichment.barplot.png" alt="example2"></a></li>
+                          <li><a href="../report_data/enrichment/go/2BZH_vs_3BZH/2BZH_vs_3BZH.go.enrichment.barplot.png" class="example2" title="go barplot." rel="example_group3"><img src="../report_data/enrichment/go/2BZH_vs_3BZH/2BZH_vs_3BZH.go.enrichment.barplot.png" alt="example2"></a></li>
+                          <li><a href="../report_data/enrichment/go/2QJ_vs_3BZH/2QJ_vs_3BZH.go.enrichment.barplot.png" class="example2" title="go barplot." rel="example_group3"><img src="../report_data/enrichment/go/2QJ_vs_3BZH/2QJ_vs_3BZH.go.enrichment.barplot.png" alt="example2"></a></li>
+                          <li><a href="../report_data/enrichment/go/2BZH_vs_2QJ/2BZH_vs_2QJ.go.enrichment.barplot.png" class="example2" title="go barplot." rel="example_group3"><img src="../report_data/enrichment/go/2BZH_vs_2QJ/2BZH_vs_2QJ.go.enrichment.barplot.png" alt="example2"></a></li>
+                          <li><a href="../report_data/enrichment/go/3BZH_vs_3QJ/3BZH_vs_3QJ.go.enrichment.barplot.png" class="example2" title="go barplot." rel="example_group3"><img src="../report_data/enrichment/go/3BZH_vs_3QJ/3BZH_vs_3QJ.go.enrichment.barplot.png" alt="example2"></a></li>
+                          <li><a href="../report_data/enrichment/go/2QJ_vs_3QJ/2QJ_vs_3QJ.go.enrichment.barplot.png" class="example2" title="go barplot." rel="example_group3"><img src="../report_data/enrichment/go/2QJ_vs_3QJ/2QJ_vs_3QJ.go.enrichment.barplot.png" alt="example2"></a></li>
+                      </ul>
+        </div>
+    </div>
+  </div>
+</div>
+
+    <div class="part row group_plot">
+  <div class="col-md-4">
+    <h3>GO富集分析DGA图</h3>
+    <p class="haveBg" style="text-indent:32px;font-size:16px">
+    我们的项目中使用<a href="http://bioconductor.org/packages/topGO">topGO</a>分别绘制生物过程(biological process)、
+    分子功能(molecular function) 和细胞组分(cellular component) 的DAG 图。
+    从上至下所定义的功能范围越来越小，颜色的深浅代表富集程度。
+    </p>
+    <p><a class="btn btn-primary" href="analysis_result/analysis_report/report_data/enrichment/go" target="_blank" role="button">更多详情 &raquo;</a></p>
+  </div>
+  <div class="albumSlider col-md-8" style="margin-left:100px">
+    <div class="fullview"><img src="" alt="volcano plot"></div>
+    <div class="slider">
+      <div class="button movebackward" title="向上滚动"></div>
+        <div class="imglistwrap">
+          <ul class="imglist">
+                      </ul>
+        </div>
+    </div>
+  </div>
+</div>
+
+    <div class="part row">
+  <div class="col-md-4" style="margin-top:50px">
+    <h3>KEGG富集分析结果</h3>
+    <p class="haveBg" style="text-indent:32px;font-size:16px">
+      通过使用<a href="http://bioconductor.org/packages/topGO">KOBAS</a><a href="#xie">（Chen Xie,et al. 2011）</a>对差异基因进行KEGG富集分析，
+      找出差异基因显著富集的KEGG Pathway。帮助老师进行后续的功能分析。 <!--<a href="analysis_result/analysis_report/report_data/enrichment/kegg">查看数据文件</a>-->
+    </p>
+    <p><a class="btn btn-primary" href="analysis_result/analysis_report/report_data/enrichment/kegg" target="_blank" role="button">更多详情 &raquo;</a></p>
+  </div>
+  <div class="myTable col-md-8">
+  <table class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <caption></caption>
+    <thead>
+      <tr>
+            <th style="text-align:center;">#Term</th>
+            <th style="text-align:center;">Database</th>
+            <th style="text-align:center;">ID</th>
+            <th style="text-align:center;">Input number</th>
+            <th style="text-align:center;">Background number</th>
+            <th style="text-align:center;">P-Value</th>
+            <th style="text-align:center;">Corrected P-Value</th>
+            </tr>
+    </thead>
+    <tbody>
+            <tr>
+               <th style="text-align:center;">Plant hormone s</th>
+               <th style="text-align:center;">KEGG PATHWAY</th>
+               <th style="text-align:center;">cit04075</th>
+               <th style="text-align:center;">57</th>
+               <th style="text-align:center;">217</th>
+               <th style="text-align:center;">0.0040822066369</th>
+               <th style="text-align:center;">0.43113003587</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Galactose metab</th>
+               <th style="text-align:center;">KEGG PATHWAY</th>
+               <th style="text-align:center;">cit00052</th>
+               <th style="text-align:center;">21</th>
+               <th style="text-align:center;">62</th>
+               <th style="text-align:center;">0.0081475331726</th>
+               <th style="text-align:center;">0.43113003587</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Glycine, serine</th>
+               <th style="text-align:center;">KEGG PATHWAY</th>
+               <th style="text-align:center;">cit00260</th>
+               <th style="text-align:center;">21</th>
+               <th style="text-align:center;">64</th>
+               <th style="text-align:center;">0.0107782508968</th>
+               <th style="text-align:center;">0.43113003587</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Phenylalanine m</th>
+               <th style="text-align:center;">KEGG PATHWAY</th>
+               <th style="text-align:center;">cit00360</th>
+               <th style="text-align:center;">16</th>
+               <th style="text-align:center;">49</th>
+               <th style="text-align:center;">0.0248813597118</th>
+               <th style="text-align:center;">0.488369482785</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Cysteine and me</th>
+               <th style="text-align:center;">KEGG PATHWAY</th>
+               <th style="text-align:center;">cit00270</th>
+               <th style="text-align:center;">25</th>
+               <th style="text-align:center;">91</th>
+               <th style="text-align:center;">0.0311888032275</th>
+               <th style="text-align:center;">0.488369482785</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Glycosphingolip</th>
+               <th style="text-align:center;">KEGG PATHWAY</th>
+               <th style="text-align:center;">cit00603</th>
+               <th style="text-align:center;">7</th>
+               <th style="text-align:center;">15</th>
+               <th style="text-align:center;">0.0342371694546</th>
+               <th style="text-align:center;">0.488369482785</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Biosynthesis of</th>
+               <th style="text-align:center;">KEGG PATHWAY</th>
+               <th style="text-align:center;">cit01110</th>
+               <th style="text-align:center;">215</th>
+               <th style="text-align:center;">1090</th>
+               <th style="text-align:center;">0.0388569862002</th>
+               <th style="text-align:center;">0.488369482785</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Metabolic pathw</th>
+               <th style="text-align:center;">KEGG PATHWAY</th>
+               <th style="text-align:center;">cit01100</th>
+               <th style="text-align:center;">353</th>
+               <th style="text-align:center;">1861</th>
+               <th style="text-align:center;">0.048557096374</th>
+               <th style="text-align:center;">0.488369482785</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Brassinosteroid</th>
+               <th style="text-align:center;">KEGG PATHWAY</th>
+               <th style="text-align:center;">cit00905</th>
+               <th style="text-align:center;">6</th>
+               <th style="text-align:center;">13</th>
+               <th style="text-align:center;">0.0504389147609</th>
+               <th style="text-align:center;">0.488369482785</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Glycolysis / Gl</th>
+               <th style="text-align:center;">KEGG PATHWAY</th>
+               <th style="text-align:center;">cit00010</th>
+               <th style="text-align:center;">27</th>
+               <th style="text-align:center;">106</th>
+               <th style="text-align:center;">0.0509480277793</th>
+               <th style="text-align:center;">0.488369482785</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Starch and sucr</th>
+               <th style="text-align:center;">KEGG PATHWAY</th>
+               <th style="text-align:center;">cit00500</th>
+               <th style="text-align:center;">48</th>
+               <th style="text-align:center;">210</th>
+               <th style="text-align:center;">0.0518467386233</th>
+               <th style="text-align:center;">0.488369482785</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Phenylpropanoid</th>
+               <th style="text-align:center;">KEGG PATHWAY</th>
+               <th style="text-align:center;">cit00940</th>
+               <th style="text-align:center;">44</th>
+               <th style="text-align:center;">190</th>
+               <th style="text-align:center;">0.0522746062027</th>
+               <th style="text-align:center;">0.488369482785</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Sphingolipid me</th>
+               <th style="text-align:center;">KEGG PATHWAY</th>
+               <th style="text-align:center;">cit00600</th>
+               <th style="text-align:center;">10</th>
+               <th style="text-align:center;">29</th>
+               <th style="text-align:center;">0.0530641078059</th>
+               <th style="text-align:center;">0.488369482785</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Cyanoamino acid</th>
+               <th style="text-align:center;">KEGG PATHWAY</th>
+               <th style="text-align:center;">cit00460</th>
+               <th style="text-align:center;">16</th>
+               <th style="text-align:center;">56</th>
+               <th style="text-align:center;">0.0585443564386</th>
+               <th style="text-align:center;">0.488369482785</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Tryptophan meta</th>
+               <th style="text-align:center;">KEGG PATHWAY</th>
+               <th style="text-align:center;">cit00380</th>
+               <th style="text-align:center;">10</th>
+               <th style="text-align:center;">30</th>
+               <th style="text-align:center;">0.0617522814326</th>
+               <th style="text-align:center;">0.488369482785</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Carbon fixation</th>
+               <th style="text-align:center;">KEGG PATHWAY</th>
+               <th style="text-align:center;">cit00710</th>
+               <th style="text-align:center;">16</th>
+               <th style="text-align:center;">57</th>
+               <th style="text-align:center;">0.065115931038</th>
+               <th style="text-align:center;">0.488369482785</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Tropane, piperi</th>
+               <th style="text-align:center;">KEGG PATHWAY</th>
+               <th style="text-align:center;">cit00960</th>
+               <th style="text-align:center;">12</th>
+               <th style="text-align:center;">40</th>
+               <th style="text-align:center;">0.0735681317317</th>
+               <th style="text-align:center;">0.494630943156</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Cutin, suberine</th>
+               <th style="text-align:center;">KEGG PATHWAY</th>
+               <th style="text-align:center;">cit00073</th>
+               <th style="text-align:center;">9</th>
+               <th style="text-align:center;">27</th>
+               <th style="text-align:center;">0.0741946414735</th>
+               <th style="text-align:center;">0.494630943156</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Arginine and pr</th>
+               <th style="text-align:center;">KEGG PATHWAY</th>
+               <th style="text-align:center;">cit00330</th>
+               <th style="text-align:center;">14</th>
+               <th style="text-align:center;">52</th>
+               <th style="text-align:center;">0.100361946058</th>
+               <th style="text-align:center;">0.582561488159</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Biosynthesis of</th>
+               <th style="text-align:center;">KEGG PATHWAY</th>
+               <th style="text-align:center;">cit01040</th>
+               <th style="text-align:center;">9</th>
+               <th style="text-align:center;">30</th>
+               <th style="text-align:center;">0.111926734074</th>
+               <th style="text-align:center;">0.582561488159</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Photosynthesis </th>
+               <th style="text-align:center;">KEGG PATHWAY</th>
+               <th style="text-align:center;">cit00196</th>
+               <th style="text-align:center;">6</th>
+               <th style="text-align:center;">17</th>
+               <th style="text-align:center;">0.112588360979</th>
+               <th style="text-align:center;">0.582561488159</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Glycosaminoglyc</th>
+               <th style="text-align:center;">KEGG PATHWAY</th>
+               <th style="text-align:center;">cit00531</th>
+               <th style="text-align:center;">5</th>
+               <th style="text-align:center;">13</th>
+               <th style="text-align:center;">0.114896848538</th>
+               <th style="text-align:center;">0.582561488159</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Circadian rhyth</th>
+               <th style="text-align:center;">KEGG PATHWAY</th>
+               <th style="text-align:center;">cit04712</th>
+               <th style="text-align:center;">12</th>
+               <th style="text-align:center;">44</th>
+               <th style="text-align:center;">0.115073875335</th>
+               <th style="text-align:center;">0.582561488159</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Carotenoid bios</th>
+               <th style="text-align:center;">KEGG PATHWAY</th>
+               <th style="text-align:center;">cit00906</th>
+               <th style="text-align:center;">11</th>
+               <th style="text-align:center;">40</th>
+               <th style="text-align:center;">0.123344133396</th>
+               <th style="text-align:center;">0.582561488159</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Ether lipid met</th>
+               <th style="text-align:center;">KEGG PATHWAY</th>
+               <th style="text-align:center;">cit00565</th>
+               <th style="text-align:center;">7</th>
+               <th style="text-align:center;">22</th>
+               <th style="text-align:center;">0.12570284547</th>
+               <th style="text-align:center;">0.582561488159</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Glycosphingolip</th>
+               <th style="text-align:center;">KEGG PATHWAY</th>
+               <th style="text-align:center;">cit00604</th>
+               <th style="text-align:center;">3</th>
+               <th style="text-align:center;">6</th>
+               <th style="text-align:center;">0.136267570948</th>
+               <th style="text-align:center;">0.582561488159</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Photosynthesis</th>
+               <th style="text-align:center;">KEGG PATHWAY</th>
+               <th style="text-align:center;">cit00195</th>
+               <th style="text-align:center;">18</th>
+               <th style="text-align:center;">75</th>
+               <th style="text-align:center;">0.136848476515</th>
+               <th style="text-align:center;">0.582561488159</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Arachidonic aci</th>
+               <th style="text-align:center;">KEGG PATHWAY</th>
+               <th style="text-align:center;">cit00590</th>
+               <th style="text-align:center;">5</th>
+               <th style="text-align:center;">14</th>
+               <th style="text-align:center;">0.137917539173</th>
+               <th style="text-align:center;">0.582561488159</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Thiamine metabo</th>
+               <th style="text-align:center;">KEGG PATHWAY</th>
+               <th style="text-align:center;">cit00730</th>
+               <th style="text-align:center;">4</th>
+               <th style="text-align:center;">10</th>
+               <th style="text-align:center;">0.140785692972</th>
+               <th style="text-align:center;">0.582561488159</th>
+            </tr>
+            <tr>
+               <th style="text-align:center;">Other glycan de</th>
+               <th style="text-align:center;">KEGG PATHWAY</th>
+               <th style="text-align:center;">cit00511</th>
+               <th style="text-align:center;">7</th>
+               <th style="text-align:center;">24</th>
+               <th style="text-align:center;">0.163934187113</th>
+               <th style="text-align:center;">0.617988476073</th>
+            </tr>
+        </tbody>
+</table>
+</div>
+</div>
+
+    <div class="part row group_plot">
+  <div class="col-md-4">
+    <h3>KEGG富集分析柱状图</h3>
+    <p class="haveBg" style="text-indent:32px;font-size:16px">
+      对于每个比较组,我们对该比较中所有差异基因,以及分别在两组中上调表达的基因进行KEGG富集分析。
+      对于富集结果,我们各挑选显著富集(Pvalue < 0.05)的15条进行绘图,若不足15条,则全部展示。
+    </p>
+    <p><a class="btn btn-primary" href="analysis_result/analysis_report/report_data/enrichment/kegg" target="_blank" role="button">更多详情 &raquo;</a></p>
+  </div>
+  <div class="albumSlider col-md-8" style="margin-left:100px">
+    <div class="fullview"><img src="../report_data/enrichment/kegg/2BZH_vs_3QJ/2BZH_vs_3QJ.kegg.enrichment.barplot.png" alt="kegg barplot"></div>
+    <div class="slider">
+      <div class="button movebackward" title="向上滚动"></div>
+        <div class="imglistwrap">
+          <ul class="imglist">
+                          <li><a href="../report_data/enrichment/kegg/2BZH_vs_3QJ/2BZH_vs_3QJ.kegg.enrichment.barplot.png" class="example2" title="kegg barplot." rel="example_group3"><img src="../report_data/enrichment/kegg/2BZH_vs_3QJ/2BZH_vs_3QJ.kegg.enrichment.barplot.png" alt="example2"></a></li>
+                          <li><a href="../report_data/enrichment/kegg/2BZH_vs_3BZH/2BZH_vs_3BZH.kegg.enrichment.barplot.png" class="example2" title="kegg barplot." rel="example_group3"><img src="../report_data/enrichment/kegg/2BZH_vs_3BZH/2BZH_vs_3BZH.kegg.enrichment.barplot.png" alt="example2"></a></li>
+                          <li><a href="../report_data/enrichment/kegg/2QJ_vs_3BZH/2QJ_vs_3BZH.kegg.enrichment.barplot.png" class="example2" title="kegg barplot." rel="example_group3"><img src="../report_data/enrichment/kegg/2QJ_vs_3BZH/2QJ_vs_3BZH.kegg.enrichment.barplot.png" alt="example2"></a></li>
+                          <li><a href="../report_data/enrichment/kegg/2BZH_vs_2QJ/2BZH_vs_2QJ.kegg.enrichment.barplot.png" class="example2" title="kegg barplot." rel="example_group3"><img src="../report_data/enrichment/kegg/2BZH_vs_2QJ/2BZH_vs_2QJ.kegg.enrichment.barplot.png" alt="example2"></a></li>
+                          <li><a href="../report_data/enrichment/kegg/3BZH_vs_3QJ/3BZH_vs_3QJ.kegg.enrichment.barplot.png" class="example2" title="kegg barplot." rel="example_group3"><img src="../report_data/enrichment/kegg/3BZH_vs_3QJ/3BZH_vs_3QJ.kegg.enrichment.barplot.png" alt="example2"></a></li>
+                          <li><a href="../report_data/enrichment/kegg/2QJ_vs_3QJ/2QJ_vs_3QJ.kegg.enrichment.barplot.png" class="example2" title="kegg barplot." rel="example_group3"><img src="../report_data/enrichment/kegg/2QJ_vs_3QJ/2QJ_vs_3QJ.kegg.enrichment.barplot.png" alt="example2"></a></li>
+                      </ul>
+        </div>
+    </div>
+  </div>
+</div>
+
+    <div class="part row group_plot">
+  <div class="col-md-4">
+    <h3>KEGG富集通路图</h3>
+    <p class="haveBg" style="text-indent:32px;font-size:16px">
+      我们对差异基因所在的KEGG Pathway通路进行下载，
+      并使用<a href="http://pathview.uucc.edu">pathview</a><a href="#luo">(Luo,et al.2013)</a>对差异基因进行标注，如下图所示:
+    </p>
+    <p><a class="btn btn-primary" href="analysis_result/analysis_report/report_data/enrichment/kegg" target="_blank" role="button">更多详情 &raquo;</a></p>
+  </div>
+  <div class="albumSlider col-md-8" style="margin-left:100px">
+    <div class="fullview"><img src="" alt="volcano plot"></div>
+    <div class="slider">
+      <div class="button movebackward" title="向上滚动"></div>
+        <div class="imglistwrap">
+          <ul class="imglist">
+                      </ul>
+        </div>
+    </div>
+  </div>
+</div>
+
+        
+        
+        
+        
+        
+    <h3>参考文献</h3>
+<br>
+<b id="young">[1]</b>Young MD,Wakefield MJ,Smyth GK,and Oshlack A.Genome Biology,11:R14,2010.<br>
+<b id="alexa">[2]</b>Alexa A and Rahnenfuhrer J.2016.<br>
+<b id="xie">[3]</b>Xie C,X,Huang J,Ding Y,Wu J,Dong S,Kong L,Gao G,Li CY,and Wei L.Nucleic Acids Res,39:W316-W322,2011.<br>
+<b id="lou">[4]</b>Lou,Weijun,Brouwer,and Cory.Bioinformatics,29:14.2013.
+  <footer class="footer">
+    <div>
+      <p>&copy;
+        <a href="http://www.onmath.com" target="_blank">2014-2017 onmath,Inc.All rights reserved</a>
+        <img src="../static/img/cp_logo/logo.jpg" alt="onmath" class="page_logo">
+      </p>
+    </div>
+    <div class="contact">
+      <p>联系电话：028-68636933</p>
+      <p>联系地址: 四川省成都市温江区惠民路299号</p>
+    </div>
+  </footer>
+</div>
+</body>
+</html>

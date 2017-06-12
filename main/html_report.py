@@ -5,12 +5,14 @@ log:
 create by chencheng on 2017-05-05
 add mapping and rseqc moudles on 2017-05-25
 change report dir construction on 2017-06-08
-import class for each part on 2017-06-10
+import function for each part on 2017-06-10
 '''
 import os
 import re
 import sys
 from . import mRNA_data_dict,mRNA_result_dict,html_jinja_env,pdf_jinja_env
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 project_templates_dir = os.path.join(os.path.dirname(__file__),'html_templates')
 
@@ -35,40 +37,42 @@ def table2list(table_path,header=True,split='\t',max_row_num = 30,max_col_num = 
         print 'no exists {file}'.format(file=table_path)
         sys.exit(1)
 
-def enrichment_analysis(generate_report_path,index_path=False):
+def enrichment_analysis(generate_report_path):
     '''
-    param:enrichment path
+    param:report path
     '''
-    if not os.path.exists(generate_report_path):
+    enrichment_path = os.path.join(generate_report_path,mRNA_data_dict['enrichment'])
+    if not os.path.exists(enrichment_path):
         print "enrichment analysis's dir not exists,please check your input path"
         sys.exit(1)
-    go_list = table2list(os.path.join(generate_report_path,'report.go.table.txt'))
-    kegg_list = table2list(os.path.join(generate_report_path,'report.kegg.table.txt'))
-    sample_num = len(os.listdir(os.path.join(generate_report_path,'go')))
+    go_list = table2list(os.path.join(enrichment_path,'report.go.table.txt'))
+    kegg_list = table2list(os.path.join(enrichment_path,'report.kegg.table.txt'))
+    sample_num = len(os.listdir(os.path.join(enrichment_path,'go')))
     all_file = []
 
-    for root,dirs,files in os.walk(generate_report_path):
-        all_file.extend(os.path.join(root,files))
+    for root,dirs,files in os.walk(enrichment_path):
+            all_file.extend([os.path.join(root,file) for file in files])
 
     multiple_plot_pattern = dict(go_barplots='go.enrichment.barplot.png$',
                               kegg_barplots='kegg.enrichment.barplot.png$',
                               dag_plots='ALL.CC.GO.DAG,png$',
                               pathway_plots='pathway.png$')
 
-    multiple_plot_path = dict.fromkeys(multiple_plot_pattern.getkeys())
+    multiple_plot_path = dict.fromkeys(multiple_plot_pattern.keys())
     for key,value in multiple_plot_path.items():
-        multiple_plot_path[key] = [file for file in all_file if re.search(multiple_plot_pattern[key],file)]
-    multiple_plot_dict[pathway_plots] = multiple_plot_dict[pathway_plots][:sample_num] #cut much more pathway plots
+        multiple_plot_path[key] = [file.replace(os.path.join(generate_report_path,'analysis_report'),'..') for file in all_file if re.search(multiple_plot_pattern[key],file)]
+    multiple_plot_path['pathway_plots'] = multiple_plot_path['pathway_plots'][:sample_num] #cut much more pathway plots
 
-    if index_path:
-        go_path = os.path.join(mRNA_result_dict['enrichment'],'go')
-        kegg_path = os.path.join(mRNA_result_dict['enrichment'],'kegg')
-    else:
-        go_path = ''
-        kegg_path = ''
-    #render templates:
-	template = html_jinja_env.get_template('enrichment_analysis.html')
-	with open(os.path.join(project_templates_dir,'rendered_enrichment_analysis.html'),'w+') as f:
+    go_path = os.path.join(mRNA_result_dict['enrichment'],'go')
+    go_path = go_path.replace(generate_report_path,'../..')
+    kegg_path = os.path.join(mRNA_result_dict['enrichment'],'kegg')
+    kegg_path = kegg_path.replace(generate_report_path,'../..')
+    #render enrichment emplates:
+    template = html_jinja_env.get_template('enrichment_analysis.html')
+    html_template_path = os.path.join(generate_report_path,'analysis_report','templates')
+    if not os.path.exists(html_template_path):
+        os.mkdir(html_template_path)
+    with open(os.path.join(html_template_path,'rendered_enrichment_analysis.html'),'w+') as f:
 		f.write(template.render(title = '富集分析',
 		go_header=go_list[0],go_enrichment_table=go_list[1],
 		all_go_enrichment_plot_path = multiple_plot_path['go_barplots'],
@@ -83,50 +87,46 @@ def enrichment_analysis(generate_report_path,index_path=False):
 		all_kegg_enrichment_plot_dir = kegg_path,
 		all_kegg_pathway_plot_dir = kegg_path
 		))
-#----------------------------------------------------------------------------------
-'''
-def html_run(report_path):
-    #for fastqc
-    replace_dir = report_path.rstrip('/').rsplit('/',1)[0]
-    report_dir_name = '_'.join([mRNA_report_dir.rstrip('/').rsplit('/',1)[1],'report'])
 
-    if os.path.exists(os.path.join(report_path,all_path['fastqc_path'])):
-        gc_distribution_plots = glob.glob(os.path.join(report_path,fastqc_part['gc_distribution_pattern']))
-        reads_quality_plots = glob.glob(os.path.join(report_path,fastqc_part['reads_quality_pattern']))
-        fastqc_table = os.path.join(report_path,fastqc_part['fastqc_table'])
-        fastqc_list = table2list(fastqc_table)
-        #transform to templates_path:
-        gc_distribution_plots = [k.replace(replace_dir,'../..') for k in gc_distribution_plots]
-        reads_quality_plots = [k.replace(replace_dir,'../..') for k in reads_quality_plots]
-        gc_distribution_plots_path =
-    #for mapping
-    if os.path.exists(os.path.join(report_path,all_path['mapping_path'])):
-        mapping_plot = os.path.join(report_path,mapping_part['mapping_plot'])
-        mapping_table = os.path.join(report_path,mapping_part['mapping_table'])
-        mapping_list = table2list(mapping_table)
-    #for rseqc
-    if os.path.exists(os.path.join(report_path,all_path['rseqc_path'])):
-        reads_duplication_plots = glob.glob(os.path.join(report_path,rseqc_part['reads_duplication_pattern']))
-        genebody_coverage_plots = glob.glob(os.path.join(report_path,rseqc_part['genebody_coverage_pattern']))
-        inner_distance_plots = glob.glob(os.path.join(report_path,rseqc_part['inner_distance_pattern']))
-        reads_distribution_plots = glob.glob(os.path.join(report_path,rseqc_part['reads_distribution_pattern']))
-    #for quantification and diff
-    if os.path.exists(os.path.join(report_path,all_path['quantification_path'])):
-        volcano_plots = glob.glob(os.path.join(report_path,quantification_part['volcano_plot_pattern']))
-        diff_gene_heatmap_plot = os.path.join(report_path,quantification_part['diff_gene_heatmap_plot'])
-        gene_expression_plot = os.path.join(report_path,quantification_part['gene_expression_plot'])
-        pca_plot = os.path.join(report_path,quantification_part['pca_plot'])
-        sample_correlation_plot = os.path.join(report_path,quantification_part['sample_correlation_plot'])
-        html_diff_table = os.path.join(report_path,quantification_part['html_diff_table'])
-        html_gene_table = os.path.join(report_path,quantification_part['html_gene_table'])
-    #for enrichment
-    if os.path.exists(os.path.join(report_path,all_path['enrichment_path'])):
-        go_table = os.path.join(report_path,enrichment_part['go_table'])
-        go_list = table2list(go_table)
-        kegg_table = os.path.join(report_path,enrichment_part['kegg_table'])
-        kegg_list = table2list(kegg_table)
-        go_barplots = glob.glob(os.path.join(report_path,enrichment_part['go_bar_pattern']))
-        go_dagplots = glob.glob(os.path.join(report_path,enrichment_part['go_dag_pattern']))
-        kegg_barplots = glob.glob(os.path.join(report_path,enrichment_part['kegg_bar_pattern']))
-        kegg_pathway_plots = glob.glob(os.path.join(report_path,enrichment_part['kegg_pathway_pattern']))
-'''
+def fastqc_analysis(generate_report_path):
+    '''
+    param:report path
+    '''
+    fastqc_path = os.path.join(generate_report_path,mRNA_data_dict['fastqc'])
+    if not os.path.exists(fastqc_path):
+        print "fastqc analysis's dir not exists,please check your input path"
+        sys.exit(1)
+    qc_list = table2list(os.path.join(fastqc_path,'fastqc_general_stats.txt'))
+
+    all_file = []
+    for root,dirs,files in os.walk(fastqc_path):
+            all_file.extend([os.path.join(root,file) for file in files])
+
+    multiple_plot_pattern = dict(gc_plots='.gc_distribution.line.png$',
+                                 reads_quality_plots='.reads_quality.bar.png$')
+
+    multiple_plot_path = dict.fromkeys(multiple_plot_pattern.keys())
+    for key,value in multiple_plot_path.items():
+        multiple_plot_path[key] = [file.replace(os.path.join(generate_report_path,'analysis_report'),'..') for file in all_file if re.search(multiple_plot_pattern[key],file)]
+
+    fastqc_stat_path = mRNA_result_dict['fastqc']
+    fastqc_stat_path = fastqc_stat_path.replace(generate_report_path,'../..')
+    gc_plot_path = os.path.join(mRNA_result_dict['fastqc'],'gc_plot')
+    gc_plot_path = gc_plot_path.replace(generate_report_path,'../..')
+    reads_quality_path = os.path.join(mRNA_result_dict['fastqc'],'reads_quality_plot')
+    reads_quality_path = reads_quality_path.replace(generate_report_path,'../..')
+
+    prject_templates_dir = os.path.join(replace_dir,report_dir_name,'templates')
+    if not os.path.exists(prject_templates_dir):
+        os.makedirs(prject_templates_dir)
+    #render fastqc templates:
+    template = html_jinja_env.get_template('data_control.html')
+    with open(os.path.join(prject_templates_dir,'rendered_data_control.html'),'w+') as f:
+        f.write(template.render(title = '数据质控',
+        header=qc_list[0],qc_table=qc_list[1],
+        all_quality_data_barplot_path = multiple_plot_path['reads_quality_plots'],
+        qc_table_path=fastqc_stat_path,
+        quality_barplot_dir=reads_quality_path
+        ))
+
+#def mapping_analysis()
