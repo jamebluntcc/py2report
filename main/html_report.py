@@ -59,8 +59,8 @@ def enrichment_analysis(generate_report_path):
 
     multiple_plot_pattern = dict(go_barplots='go.enrichment.barplot.png$',
                               kegg_barplots='kegg.enrichment.barplot.png$',
-                              dag_plots='ALL.CC.GO.DAG,png$',
-                              pathway_plots='pathway.png$')
+                              dag_plots='ALL.CC.GO.DAG.png$',
+                              pathway_plots='.pathview.png$')
 
     multiple_plot_path = get_multiple_plots(multiple_plot_pattern,generate_report_path,all_file)
     multiple_plot_path['pathway_plots'] = multiple_plot_path['pathway_plots'][:sample_num] #cut much more pathway plots
