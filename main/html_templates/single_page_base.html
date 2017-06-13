@@ -70,10 +70,15 @@
       </nav>
       <h3 class="text-muted">{{title}}</h3>
     </div>
+    {% block intro %}
+    {% endblock %}
     {% block qc_table %}
     {% endblock %}
 
     {% block quality_barplot %}
+    {% endblock %}
+
+    {% block gc_plot %}
     {% endblock %}
 
     {% block mapping_stat_table %}

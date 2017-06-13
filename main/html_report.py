@@ -114,14 +114,16 @@ def fastqc_analysis(generate_report_path):
     html_template_path = os.path.join(generate_report_path,'analysis_report','templates')
     if not os.path.exists(html_template_path):
         os.makedirs(html_template_path)
-    #render fastqc templates: not add gc plots
+    #render fastqc templates:
     template = html_jinja_env.get_template('data_control.html')
     with open(os.path.join(html_template_path,'rendered_data_control.html'),'w+') as f:
         f.write(template.render(title = '数据质控',
         header=qc_list[0],qc_table=qc_list[1],
-        all_quality_data_barplot_path = multiple_plot_path['reads_quality_plots'],
+        all_quality_data_barplot_path=multiple_plot_path['reads_quality_plots'],
+        all_gc_plot_path=multiple_plot_path['gc_plots'],
         qc_table_path=fastqc_stat_href,
-        quality_barplot_dir=reads_quality_href
+        quality_barplot_dir=reads_quality_href,
+        gc_plot_dir=gc_plot_href
         ))
     print 'fastqc analysis page done!'
 

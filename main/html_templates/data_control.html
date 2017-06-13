@@ -8,13 +8,22 @@
 <li role="presentation"><a href="rendered_diff_analysis.html">差异分析</a></li>
 <li role="presentation"><a href="rendered_enrichment_analysis.html">功能富集</a></li>
 {% endblock %}
+
+{% block intro %}
+<div class="part row">
+  <p style="text-indent:40px;font-size:20px">
+    这一部分展示了测序数据的基本信息以及测序质量。基于序列比对 (mapping) 的数据质控见后续数据质控部分。
+  </p>
+</div>
+{% endblock %}
+
 {% block qc_table %}
 <div class="part row">
   <div class="col-md-4" style="margin-top:50px">
-    <h3>数据过滤统计分析表</h3>
+    <h3>数据统计表</h3>
     <p class="haveBg" style="text-indent:32px;font-size:16px">
       获得测序序列(Sequenced Reads)后，我们使用<a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/" target="_blank">FastQC</a>
-      <a href="#andrew">(Andrew S.2010)</a>对本次测序所有的样品进行数据质控，下表展示了数据的基本情况: <!--<a href="">查看数据文件</a>-->
+      <a href="#andrew">(Andrew S.2010)</a>对所有的样品的测序数据进行分析。数据量，Q30等基本信息如表格所示，完整的分析结果通过点击更多详情查看。 <!--<a href="">查看数据文件</a>-->
     </p>
     <p><a class="btn btn-primary" href="{{qc_table_path}}" target="_blank" role="button">更多详情 &raquo;</a></p>
   </div>
@@ -45,8 +54,8 @@
 {% block quality_barplot %}
 <div class="part row group_plot">
   <div class="col-md-4">
-    <h3>样本测序质量分布图</h3>
-    <p class="haveBg" style="text-indent:32px;font-size:16px">各样测序序列质量值分布如下图所示,其中x轴为质量值,y轴为不同质量值序列的比例。</p>
+    <h3>数据质量分布图</h3>
+    <p class="haveBg" style="text-indent:32px;font-size:16px">样品测序质量分布图如右图所示。其中 x 轴代表数据质量值，y 轴代表不同质量值序列所占比例。质量值大于30 (准确率高于99.9%) 的高质量的序列在图中使用深色表示。</p>
     <p><a class="btn btn-primary" href="{{quality_barplot_dir}}" target="_blank" role="button">更多详情 &raquo;</a></p>
   </div>
   <div class="albumSlider col-md-8" style="margin-left:100px">
@@ -57,6 +66,36 @@
           <ul class="imglist">
             {% for each_all_quality_data_barplot_path in all_quality_data_barplot_path %}
               <li><a href="{{each_all_quality_data_barplot_path}}" class="example2" title="测序序列质量值分布,x轴为质量值,y轴为不同质量值序列的比例." rel="example_group3"><img src="{{each_all_quality_data_barplot_path}}" alt="example2"></a></li>
+            {% endfor %}
+          </ul>
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block gc_plot %}
+<div class="part row group_plot">
+  <div class="col-md-4">
+    <h3>GC 分布图</h3>
+    <p class="haveBg" style="text-indent:32px;font-size:16px">
+      样品 GC 分布如右图所示。其中不同碱基使用不同颜色表示，N 代表测序中不确定的碱基。y 轴为不同碱基的比例，
+      x 轴代表碱基在 reads 中的位置 (因为将 read1, read2放在同一张图展示，
+      图片的右半部分展示的是 read2 的 GC 分布情况，x 轴数值减去 read 长度为该碱基在 read2 中的位置)。
+      在随机文库中，不同碱基在 reads 中的位置不存在偏好，因此通常情况下，
+      代表各碱基的线条会相对平稳。但因为在建库时使用的6pb随机引物会引起 reads 前几个碱基的偏好性，
+      因此图片中前几个碱基位置会出现比较大的波动。
+    </p>
+    <p><a class="btn btn-primary" href="{{gc_plot_dir}}" target="_blank" role="button">更多详情 &raquo;</a></p>
+  </div>
+  <div class="albumSlider col-md-8" style="margin-left:100px">
+    <div class="fullview"><img src="{{all_gc_plot_path[0]}}" alt="reads quality"></div>
+    <div class="slider">
+      <div class="button movebackward" title="向上滚动"></div>
+        <div class="imglistwrap">
+          <ul class="imglist">
+            {% for each_all_gc_plot_path in all_gc_plot_path %}
+              <li><a href="{{each_all_gc_plot_path}}" class="example2" title="gc plot" rel="example_group3"><img src="{{each_all_gc_plot_path}}" alt="example2"></a></li>
             {% endfor %}
           </ul>
         </div>
