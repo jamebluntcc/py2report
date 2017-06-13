@@ -10,7 +10,7 @@ import function for each part on 2017-06-10
 import os
 import re
 import sys
-from . import mRNA_data_dict,mRNA_result_dict,html_jinja_env,pdf_jinja_env
+from . import mRNA_data_dict,mRNA_result_dict,html_jinja_env
 reload(sys)
 sys.setdefaultencoding('utf-8')
 

@@ -17,6 +17,11 @@ pdf_jinja_env = jinja2.Environment(
 	autoescape = False,
 	loader = jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__),'pdf_templates'))
 )
+
+##################
+######html version
+##################
+
 #add each analysis part
 configFilePath = os.path.join(os.path.dirname(__file__),'report_conf.conf')
 command = configparser.ConfigParser()
@@ -39,3 +44,60 @@ for key,value in mRNA_data_dict.items():
 mRNA_result_dict = deepcopy(mRNA_data_dict)
 for key,value in mRNA_result_dict.items():
 	mRNA_result_dict[key] = os.path.join(mRNA_result_path,value)
+
+#################
+######pdf version
+#################
+
+##enrichment part
+enrichment_analysis_path = dict(go_barplot_path='go.enrichment.barplot.png',
+							    kegg_barplot_path='kegg.enrichment.barplot.png',
+								pathview_path='kegg.pathview.png',dag_path='GO.DAG.png',
+								go_table_path='report.go.table.txt',kegg_table_path='report.kegg.table.txt')
+
+for key,value in enrichment_analysis_path.items():
+	enrichment_analysis_path[key] = os.path.join(mRNA_data_path,enrichment_path,value)
+##fastqc part
+fastqc_analysis_path = dict(gc_barplot_path = 'gc_plot/gc_distribution.line.png',
+							reads_quality_path = 'reads_quality_plot/reads_quality.bar.png',
+							qc_table_path='fastqc_general_stats.txt')
+
+for key,value in fastqc_analysis_path.items():
+	fastqc_analysis_path[key] = os.path.join(mRNA_data_path,fastqc_path,value)
+##mapping part
+mapping_analysis_path = dict(mapping_table_path='mapping_stats.txt',mapping_plot_path='mapping_stats_plot.png')
+
+for key,value in mapping_analysis_path.items():
+	mapping_analysis_path[key] = os.path.join(mRNA_data_path,mapping_path,value)
+##quantification part
+expression_summary_dir = 'expression_summary'
+quantification_analysis_path = dict(
+									correlation_heatmap_path='Sample.correlation.heatmap.png',
+									gene_expression_path='Gene_expression.png',
+									pca_plot_path='PCA_plot.png',
+									gene_table_path='pdf.example.Gene.tpm.txt',
+									)
+
+for key,value in quantification_analysis_path.items():
+	quantification_analysis_path[key] = os.path.join(mRNA_data_path,quantification_path,expression_summary_dir,value)
+##diff part
+diff_analysis_path = dict(volcano_plot_path='ALL.Volcano_plot.png',
+						  diff_heatmap_path='Diff.genes.heatmap.png',
+						  diff_table_path='pdf.example.diff.table.txt')
+
+for key,value in diff_analysis_path.items():
+	diff_analysis_path[key] = os.path.join(mRNA_data_path,quantification_path,expression_summary_dir,value)
+##rseqc part
+rseqc_analysis_path = dict(genebody_coverage_plot_path='genebody_coverage/genebody_coverage.point.png',
+						   inner_distance_plot_path='inner_distance/inner_distance.bar.png',
+						   read_distribution_plot_path='read_distribution/read_distribution.bar.png')
+
+for key,value in rseqc_analysis_path.items():
+	rseqc_analysis_path[key] = os.path.join(mRNA_data_path,rseqc_path,value)
+
+pdf_analysis_path = {'enrichment':enrichment_analysis_path,
+					 'fastqc':fastqc_analysis_path,
+					 'mapping':mapping_analysis_path,
+					 'quantification':quantification_analysis_path,
+					 'diff':diff_analysis_path,
+					 'rseqc':rseqc_analysis_path}

@@ -1,0 +1,154 @@
+%%%%%---mRNA_report version2.0 template------%%%%%%
+%%%create on 2016-11-1
+%%%changed on 2017-02-24
+%%%changed on 2017-03-09
+%%%------------------------------------------%%%%%%
+%------------header-------------%
+\documentclass[a4paper]{ctexart}
+\usepackage{colortbl}
+\definecolor{mygreen}{rgb}{0.168,0.835,0.701}
+\usepackage[colorlinks,
+           linkcolor=black,
+           anchorcolor=blue,
+           citecolor=black
+           ]{hyperref}
+\usepackage{indentfirst}
+\usepackage{booktabs} %三线表
+\usepackage{times} %切换字体
+\usepackage{amsmath}
+\usepackage{tikz}
+\usepackage{epigraph}
+\usepackage{graphicx}
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{float}
+\usepackage{longtable}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage{fancyhdr,graphicx}
+\usepackage{geometry}  
+\geometry{left=1.5cm,right=1.5cm,top=2cm,bottom=3.5cm}
+\setlength{\parskip}{0.5\baselineskip}
+\setlength{\parindent}{2.45em}
+\CTEXsetup[format={\Large\bfseries}]{section}
+% Save graphics in LaTeX box
+\newsavebox{\headpic}
+\sbox{\headpic}{\includegraphics[scale=0.05]{/home/lxgui/chencheng/report/latex2pdf/public_picture/logo.jpg}}
+\pagestyle{fancy}
+\fancyhead{} 
+\lhead{\usebox{\headpic}}
+%\chead{\today}
+\rhead{昂迈思科技有限公司}
+\fancyfoot{} 
+\lfoot{\emph{www.onmath.cn}}
+\rfoot{page \thepage}
+\newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
+\newcolumntype{C}[1]{>{\PreserveBackslash\centering}p{#1}}
+\newcolumntype{R}[1]{>{\PreserveBackslash\raggedleft}p{#1}}
+\newcolumntype{L}[1]{>{\PreserveBackslash\raggedright}p{#1}}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headwidth}{\textwidth}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\headwidth}{\textwidth}
+\renewcommand\epigraphflush{flushleft}
+\renewcommand\epigraphsize{\normalsize}
+\setlength\epigraphwidth{0.7\textwidth}
+\definecolor{titlepagecolor}{rgb}{0.168,0.835,0.701}
+\DeclareFixedFont{\titlefont}{T1}{ppl}{b}{it}{0.4in}
+\makeatletter
+\def\printauthor{%
+    {\large \@author}}
+\makeatother
+{% block author %}
+{% endblock %}
+\newcommand\titlepagedecoration[1]{%
+\begin{tikzpicture}[remember picture,overlay,shorten >= -10pt]
+\coordinate (tp1) at ([yshift=0.5cm]current page.west);
+\coordinate (tp2) at ([yshift=0.5cm,xshift=9cm]current page.west);
+\coordinate (tp3) at ([yshift=-15pt,xshift=7cm]current page.north);
+\coordinate (tp4) at ([yshift=-15pt]current page.north west);
+
+\filldraw[draw=titlepagecolor,fill=titlepagecolor] (tp1)--(tp2)--(tp3)--(tp4)--cycle;
+\filldraw[draw=titlepagecolor!30!white,fill=titlepagecolor!30!white,opacity=0.2] ([xshift=-5cm]tp1)--([xshift=-5cm]tp2)--([xshift=-5cm]tp3)--([xshift=-5cm]tp4)--cycle;
+\node[right] at ([xshift=1cm,yshift=-5cm]current page.north west) {\parbox{\textwidth}{\color{white}#1}};
+\end{tikzpicture}%
+}
+\begin{document}
+\renewcommand\contentsname{目录}
+\begin{titlepage}
+    \titlepagedecoration{%
+        \titlefont {{report_name}} \par
+        \epigraph{我们专注于开拓生物学、计算机科学和信息技术在动植物研究以及人类健康领域的应用,旨在建立一个服务于科研工作和医疗机构的信息数据云计算中心。
+        \tikz[remember picture,overlay]{%
+            \node (X) at (0,-1ex) {};
+        }
+        }%
+        {\textsc{OnMath}}
+
+    }
+    \null\vfill
+    \noindent
+   \begin{minipage}[b]{0.5\linewidth}
+        \begin{flushleft}
+            \printauthor
+        \end{flushleft}
+    \end{minipage} \\[6cm]
+    \vspace{-3cm} 
+    \hspace{10cm} 
+    \begin{minipage}[t]{0.4\linewidth}
+         \begin{flushright}
+    \includegraphics[scale=0.1]{/home/lxgui/chencheng/report/latex2pdf/public_picture/logo.jpg}
+	    \end{flushright}
+    \end{minipage}
+\end{titlepage}
+\newpage
+\tableofcontents
+\newpage
+
+{% block Buiding_seq_Analysis_process %}
+{% endblock %}
+
+{% block Data_quality_control %}
+{% endblock %}
+
+{% block Quantitative_analysis %}
+{% endblock %}
+
+{% block Diff_analysis %}
+{% endblock %}
+
+{% block Enrichment_analysis %}
+{% endblock %}
+
+\section{附录}
+\subsection{软件列表}
+\begin{table}[H]
+\centering
+\small
+\caption{\label{tab:table}软件列表}
+\begin{tabular}{lllll}
+\toprule
+软件名称 & 软件版本 & 功能 & 参数 & 链接 \\
+\midrule
+FastQC & v0.11.5 & 数据质控 & 默认参数 & \href{http://www.bioinformatics.babraham.ac.uk/projects/fastqc/}{http://www.bioinformatics.babraham.ac.uk/projects/fastqc/} \\
+{% if assembly %}
+Trinity & v2.3.2 & 无参数拼接 & 默认参数 & \href{https://github.com/trinityrnaseq/trinityrnaseq/wiki}{https://github.com/trinityrnaseq/trinityrnaseq/wiki} \\
+{% endif %}
+Kallisto & v0.43.0 & 转录本定量 & 默认参数 & \href{http://pachterlab.github.io/kallisto/}{https://pachterlab.github.io/kallisto/} \\
+edgeR & 3.12.1 & 差异分析 & 默认参数 & \href{http://bioinf.wehi.edu.au/edgeR/}{http://bioinf.wehi.edu.au/edgeR/}\\
+goseq & 1.22.0 & GO 富集分析 & 默认参数 & \href{http://bioconductor.org/packages/goseq/}{http://bioconductor.org/packages/goseq/}\\
+topGO & 2.22.0  & GO 富集 DAG 绘制 & 默认参数 & \href{http://bioconductor.org/packages/topGO/}{http://bioconductor.org/packages/topGO/}\\
+KOBAS & 2.0 & KEGG Pathway 富集分析 & 默认参数 & \href{http://kobas.cbi.pku.edu.cn/index.php}{http://kobas.cbi.pku.edu.cn/index.php}\\
+pathview & 1.10.1 & KEGG Pathway 通路图处理 & 默认参数 & \href{http://pathview.uncc.edu/}{http://pathview.uncc.edu/}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%------reference--------%
+\newpage
+\subsection{参考文献}
+\renewcommand\refname{}
+\bibliographystyle{unsrt}
+\bibliography{ref}
+
+\end{document}
