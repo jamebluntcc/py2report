@@ -10,11 +10,11 @@
 {% endblock %}
 
 {% block intro %}
-<div class="part row">
-  <p style="text-indent:40px;font-size:20px">
-    我们使用 RSeQC (Wang, L., Wang, S., & Li, W. 2012)，
+<div class="intro">
+  <p>
+    <I>我们使用<a href="http://doi.org/10.1093/bioinformatics/bts356" target="_blank">RSeQC</a><a href="#wang">(Wang, L., Wang, S., & Li, W. 2012)</a>，
     对本次测序的数据的文库插入片段，基因区 reads 覆盖度和基因区域 reads 分布3个方面进行评估。
-    下面展示了这3项分析的结果。
+    下面展示了这3项分析的结果。</I>
   </p>
 </div>
 {% endblock %}
@@ -130,4 +130,7 @@
 {% endblock %}
 
 {% block document_rseqc %}
+<h3>参考文献</h3>
+<br>
+<b id="wang">[1]</b>quality control of RNA-seq experiments. Bioinformatics (Oxford, England), 28(16), 2184–2185
 {% endblock %}

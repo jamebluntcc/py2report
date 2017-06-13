@@ -115,9 +115,9 @@ def fastqc_analysis(generate_report_path):
     if not os.path.exists(html_template_path):
         os.makedirs(html_template_path)
     #render fastqc templates:
-    template = html_jinja_env.get_template('data_control.html')
-    with open(os.path.join(html_template_path,'rendered_data_control.html'),'w+') as f:
-        f.write(template.render(title = '数据质控',
+    template = html_jinja_env.get_template('data_stat.html')
+    with open(os.path.join(html_template_path,'rendered_data_stat.html'),'w+') as f:
+        f.write(template.render(title = '数据统计',
         header=qc_list[0],qc_table=qc_list[1],
         all_quality_data_barplot_path=multiple_plot_path['reads_quality_plots'],
         all_gc_plot_path=multiple_plot_path['gc_plots'],
@@ -144,7 +144,7 @@ def mapping_analysis(generate_report_path):
     #render mapping templates:
     template = html_jinja_env.get_template('mapping.html')
     with open(os.path.join(html_template_path,'rendered_mapping.html'),'w+') as f:
-    		f.write(template.render(title = 'mapping',
+    		f.write(template.render(title = '序列对比',
     		header=mapping_list[0],mapping_table=mapping_list[1],
     		mapping_stat_plot_path = mapping_stats_plot,
     		mapping_table_path=mapping_href,
@@ -239,7 +239,7 @@ def rseqc_analysis(generate_report_path):
     #render rseqc templates
     template = html_jinja_env.get_template('rseqc.html')
     with open(os.path.join(html_template_path,'rendered_rseqc.html'),'w+') as f:
-    		f.write(template.render(title = 'rseqc',
+    		f.write(template.render(title = '数据质控',
     		inner_distance_plot_path = multiple_plot_path['inner_distance'],
     		read_duplication_plot_path = multiple_plot_path['read_duplication'],
     		genebody_coverage_plot_path = multiple_plot_path['genebody_coverage'],
