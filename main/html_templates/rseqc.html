@@ -8,62 +8,112 @@
 <li role="presentation"><a href="rendered_diff_analysis.html">差异分析</a></li>
 <li role="presentation"><a href="rendered_enrichment_analysis.html">功能富集</a></li>
 {% endblock %}
-{% block rseqc_plots %}
-<div class="part row">
-    <div class="col-lg-4">
-        <h3>inner distance plot</h3>
-        <p style="text-indent:32px;font-size:16px" class="haveBg">
-          Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
-          tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-          Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-        </p>
-        <p><a class="btn btn-primary" href="{{inner_distance_plot_dir}}" target="_blank" role="button">更多详情 &raquo;</a></p>
+
+{% block rseqc_inner_distance %}
+<div class="part row group_plot">
+  <div class="col-md-4">
+      <h3>inner distance plot</h3>
+      <p style="text-indent:32px;font-size:16px" class="haveBg">
+        Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
+        tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+        Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+      </p>
+      <p><a class="btn btn-primary" href="{{inner_distance_plot_dir}}" target="_blank" role="button">更多详情 &raquo;</a></p>
+  </div>
+  <div class="albumSlider col-md-8" style="margin-left:100px">
+    <div class="fullview"><img src="{{inner_distance_plot_path[0]}}" alt="Go barplot"></div>
+    <div class="slider">
+      <div class="button movebackward" title="向上滚动"></div>
+        <div class="imglistwrap">
+          <ul class="imglist">
+            {% for each_inner_distance_plot_path in inner_distance_plot_path %}
+              <li><a href="{{each_inner_distance_plot_path}}" class="example2" title="inner distance plot." rel="example_group3"><img src="{{each_inner_distance_plot_path}}" alt="example2"></a></li>
+            {% endfor %}
+          </ul>
+        </div>
     </div>
-    <div class="col-lg-6" style="padding-left:150px">
-        <a class="fancybox-effects-d" href="{{inner_distance_plot_path}}" title=""><img src= "{{inner_distance_plot_path}}" alt="" class="maxWidth" style="max-width: 450px"/></a>
-    </div>
+  </div>
 </div>
-<div class="part row">
-    <div class="col-lg-4">
-        <h3>read duplication plot</h3>
-        <p style="text-indent:32px;font-size:16px" class="haveBg">
-          Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
-          tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-          Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-        </p>
-        <p><a class="btn btn-primary" href="{{read_duplication_plot_dir}}" target="_blank" role="button">更多详情 &raquo;</a></p>
+{% endblock %}
+
+{% block rseqc_read_duplication %}
+<div class="part row group_plot">
+  <div class="col-md-4">
+      <h3>read duplication plot</h3>
+      <p style="text-indent:32px;font-size:16px" class="haveBg">
+        Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
+        tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+        Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+      </p>
+      <p><a class="btn btn-primary" href="{{read_duplication_plot_dir}}" target="_blank" role="button">更多详情 &raquo;</a></p>
+  </div>
+  <div class="albumSlider col-md-8" style="margin-left:100px">
+    <div class="fullview"><img src="{{read_duplication_plot_path[0]}}" alt="Go barplot"></div>
+    <div class="slider">
+      <div class="button movebackward" title="向上滚动"></div>
+        <div class="imglistwrap">
+          <ul class="imglist">
+            {% for each_read_duplication_plot_path in read_duplication_plot_path %}
+              <li><a href="{{each_read_duplication_plot_path}}" class="example2" title="read duplication plot." rel="example_group3"><img src="{{each_read_duplication_plot_path}}" alt="example2"></a></li>
+            {% endfor %}
+          </ul>
+        </div>
     </div>
-    <div class="col-lg-6" style="padding-left:150px">
-        <a class="fancybox-effects-d" href="{{read_duplication_plot_path}}"><img src="{{read_duplication_plot_path}}" alt="" class="maxWidth" style="max-width: 500px"></a>
-    </div>
+  </div>
 </div>
-<div class="part row">
-    <div class="col-lg-4">
-        <h3>genebody coverage plot</h3>
-        <p style="text-indent:32px;font-size:16px" class="haveBg">
-          Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
-          tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-          Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-        </p>
-        <p><a class="btn btn-primary" href="{{genebody_coverage_plot_dir}}" target="_blank" role="button">更多详情 &raquo;</a></p>
+{% endblock %}
+
+{% block rseqc_genebody_coverage %}
+<div class="part row group_plot">
+  <div class="col-md-4">
+      <h3>genebody coverage plot</h3>
+      <p style="text-indent:32px;font-size:16px" class="haveBg">
+        Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
+        tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+        Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+      </p>
+      <p><a class="btn btn-primary" href="{{genebody_coverage_plot_dir}}" target="_blank" role="button">更多详情 &raquo;</a></p>
+  </div>
+  <div class="albumSlider col-md-8" style="margin-left:100px">
+    <div class="fullview"><img src="{{genebody_coverage_plot_path[0]}}" alt="Go barplot"></div>
+    <div class="slider">
+      <div class="button movebackward" title="向上滚动"></div>
+        <div class="imglistwrap">
+          <ul class="imglist">
+            {% for each_genebody_coverage_plot_path in genebody_coverage_plot_path %}
+              <li><a href="{{each_genebody_coverage_plot_path}}" class="example2" title="genebody coverage plot." rel="example_group3"><img src="{{each_genebody_coverage_plot_path}}" alt="example2"></a></li>
+            {% endfor %}
+          </ul>
+        </div>
     </div>
-    <div class="col-lg-6" style="padding-left:150px">
-        <a class="fancybox-effects-d" href="{{genebody_coverage_plot_path}}"><img src="{{genebody_coverage_plot_path}}" alt="" class="maxWidth" style="max-width: 450px"></a>
-    </div>
+  </div>
 </div>
-<div class="part row">
-    <div class="col-lg-4">
-        <h3>read distrbution plot</h3>
-        <p style="text-indent:32px;font-size:16px" class="haveBg">
-          Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
-          tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-          Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
-        </p>
-        <p><a class="btn btn-primary" href="{{read_distrbution_plot_dir}}" target="_blank" role="button">更多详情 &raquo;</a></p>
+{% endblock %}
+
+{% block rseqc_read_distrbution %}
+<div class="part row group_plot">
+  <div class="col-md-4">
+      <h3>read distrbution plot</h3>
+      <p style="text-indent:32px;font-size:16px" class="haveBg">
+        Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
+        tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
+        Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+      </p>
+      <p><a class="btn btn-primary" href="{{read_distrbution_plot_dir}}" target="_blank" role="button">更多详情 &raquo;</a></p>
+  </div>
+  <div class="albumSlider col-md-8" style="margin-left:100px">
+    <div class="fullview"><img src="{{read_distrbution_plot_path[0]}}" alt="Go barplot"></div>
+    <div class="slider">
+      <div class="button movebackward" title="向上滚动"></div>
+        <div class="imglistwrap">
+          <ul class="imglist">
+            {% for each_read_distrbution_plot_path in read_distrbution_plot_path %}
+              <li><a href="{{each_read_distrbution_plot_path}}" class="example2" title="read distrbution plot" rel="example_group3"><img src="{{each_read_distrbution_plot_path}}" alt="example2"></a></li>
+            {% endfor %}
+          </ul>
+        </div>
     </div>
-    <div class="col-lg-6" style="padding-left:150px">
-        <a class="fancybox-effects-d" href="{{read_distrbution_plot_path}}"><img src="{{read_distrbution_plot_path}}" alt="" class="maxWidth" style="max-width: 450px"></a>
-    </div>
+  </div>
 </div>
 {% endblock %}
 

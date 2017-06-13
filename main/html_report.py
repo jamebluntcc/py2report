@@ -17,7 +17,7 @@ sys.setdefaultencoding('utf-8')
 def get_multiple_plots(pattern_dict,generate_report_path,all_file):
     multiple_plot_path = dict.fromkeys(pattern_dict.keys())
     for key,value in multiple_plot_path.items():
-        multiple_plot_path[key] = [file.replace(os.path.join(generate_report_path,'analysis_report'),'..') for file in all_file if re.search(pattern_dict[key],file)]
+        multiple_plot_path[key] = [file.replace(os.path.join(generate_report_path,'analysis_report'),'..') for file in all_file if re.search(pattern_dict[key],file.rsplit('/',1)[1])]
     return multiple_plot_path
 
 def table2list(table_path,header=True,split='\t',max_row_num = 30,max_col_num = 100,max_cell_num = 15):
@@ -222,7 +222,7 @@ def rseqc_analysis(generate_report_path):
     multiple_plot_pattern = dict(read_duplication='.reads_duplication.point.png$',
                                   read_distribution='.read_distribution.pie.png$',
                                   inner_distance='.inner_distance.bar.png$',
-                                  genebody_coverage='.genebody_coverage.point.png')
+                                  genebody_coverage='.genebody_coverage.point.png$')
 
     multiple_plot_path = get_multiple_plots(multiple_plot_pattern,generate_report_path,all_file)
 
