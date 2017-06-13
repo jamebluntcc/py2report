@@ -1,22 +1,33 @@
 {% extends "single_page_base.html" %}
 {% block title %}{{title}}{% endblock %}
 {% block nav %}
-<li role="presentation"><a href="rendered_data_control.html">数据质控</a></li>
-<li role="presentation"><a href="rendered_mapping.html">mapping</a></li>
-<li role="presentation" class="active"><a href="rendered_rseqc.html">rseqc</a></li>
+<li role="presentation"><a href="rendered_data_stat.html">数据统计</a></li>
+<li role="presentation"><a href="rendered_mapping.html">序列比对</a></li>
+<li role="presentation" class="active"><a href="rendered_rseqc.html">数据质控</a></li>
 <li role="presentation"><a href="rendered_quantitative_analysis.html">定量分析</a></li>
 <li role="presentation"><a href="rendered_diff_analysis.html">差异分析</a></li>
 <li role="presentation"><a href="rendered_enrichment_analysis.html">功能富集</a></li>
 {% endblock %}
 
+{% block intro %}
+<div class="part row">
+  <p style="text-indent:40px;font-size:20px">
+    我们使用 RSeQC (Wang, L., Wang, S., & Li, W. 2012)，
+    对本次测序的数据的文库插入片段，基因区 reads 覆盖度和基因区域 reads 分布3个方面进行评估。
+    下面展示了这3项分析的结果。
+  </p>
+</div>
+{% endblock %}
+
 {% block rseqc_inner_distance %}
 <div class="part row group_plot">
   <div class="col-md-4">
-      <h3>inner distance plot</h3>
+      <h3>文库插入片段长度分布图</h3>
       <p style="text-indent:32px;font-size:16px" class="haveBg">
-        Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
-        tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-        Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+        右图展示了样品的插入片段长度的分布情况。其中 x 轴代表文库插入片段长度，
+        可以理解为 read1 和 read2在基因组中的距离，
+        该值为负数代表 read1 和 read2 有部分重叠 (overlap)。
+        (文库片段长度 = 插入片段长度 + read1长度 + read2长度)
       </p>
       <p><a class="btn btn-primary" href="{{inner_distance_plot_dir}}" target="_blank" role="button">更多详情 &raquo;</a></p>
   </div>
@@ -66,11 +77,12 @@
 {% block rseqc_genebody_coverage %}
 <div class="part row group_plot">
   <div class="col-md-4">
-      <h3>genebody coverage plot</h3>
+      <h3>基因区域 reads 覆盖情况</h3>
       <p style="text-indent:32px;font-size:16px" class="haveBg">
-        Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
-        tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-        Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+      我们将所有基因的转录本按照比例100等分，分别计算每个区域上的 reads 覆盖情况，
+      进行标准化之后得到基因5'端至3'端的整体表达情况。右图展示了基因区域 reads 覆盖的情况。
+      通常情况下 reads 在5'端和3'端的覆盖度是一致的，若 reads 覆盖在5'或3'端存在明显的偏好，
+      说明样品 RNA可能存在不完整的情况。
       </p>
       <p><a class="btn btn-primary" href="{{genebody_coverage_plot_dir}}" target="_blank" role="button">更多详情 &raquo;</a></p>
   </div>
@@ -93,11 +105,11 @@
 {% block rseqc_read_distrbution %}
 <div class="part row group_plot">
   <div class="col-md-4">
-      <h3>read distrbution plot</h3>
+      <h3>reads 在基因区域分布</h3>
       <p style="text-indent:32px;font-size:16px" class="haveBg">
-        Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo,
-        tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.
-        Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.
+        我们统计落在不同基因区域 (包括上下游10kb) 的 reads 的比例。
+        结果如右图所示。对于 RNAseq 数据，
+        大部分的 reads 应该落在基因的 exon 和 cds 区域。
       </p>
       <p><a class="btn btn-primary" href="{{read_distrbution_plot_dir}}" target="_blank" role="button">更多详情 &raquo;</a></p>
   </div>
