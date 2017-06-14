@@ -1,13 +1,5 @@
 \BLOCK{ extends 'mRNA_base' }
 
-\BLOCK{ block author }
-\author{%
-    \textbf{项目名称:} \VAR{project_name} \\
-    \textbf{联系地址:} \VAR{address} \\
-    \textbf{联系电话:} \VAR{phone} \\
-    }
-\BLOCK{ endblock }
-
 \BLOCK{ block Buiding_seq_Analysis_process }
 \section{建库测序}
 获得样品的Total RNA后，按以下流程进行文库构建。对构建好的文库，我们使用 Illumina HiSeq平台进行测序。

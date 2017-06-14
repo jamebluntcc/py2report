@@ -1,0 +1,23 @@
+\BLOCK{ macro table(begin,head,body,caption) }
+\begin{table}[H]
+\centering
+\caption{\label{tab:table}\VAR{caption}}
+\VAR{ begin }
+\toprule
+\VAR{ head }
+\midrule
+\BLOCK{ for each_line in body }
+\VAR{each_line }
+\BLOCK{ endfor }
+\bottomrule
+\end{tabular}
+\end{table}
+\BLOCK{ endmacro }
+
+\BLOCK{ macro plot(plot_size,plot_path,caption) }
+\begin{figure}[H]
+\centering
+\includegraphics[scale=\VAR{plot_size}]{\VAR{plot_path}}
+\caption{\VAR{caption}} \label{fig:graph}
+\end{figure}
+\BLOCK{ endmacro }

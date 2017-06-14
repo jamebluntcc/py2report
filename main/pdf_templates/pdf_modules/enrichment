@@ -1,0 +1,47 @@
+\BLOCK{ from 'plots_table' import plot,table }
+\section{富集分析}
+通过 KEGG 和 GO 数据库的基因富集分析，我们能够发现差异表达基因是否在某些生物学通路或特定功能基因集中出现的概率超出预期，反映差异基因可能与这些通路或者生物功能相关。功能富集的分析结果如下所示。
+\subsection{ GO 富集分析统计}
+GOseq\cite{goseq}（Young et al, 2010）基于 Wallenius 非中心超几何分布原理，并能够对基因长度进行校正，适用于 RNAseq 数据的分析。下表展示了 GOseq 的分析结果。
+\href{\VAR{go_table_href}}{查看样本GO富集分析文件}
+\VAR{ table(go_begin,go_head,go_body,caption='GO 富集分析结果') }
+\newpage
+\subsection{GO 富集分析柱状图}
+下图为 GO 富集分析柱状图。对每个比较组，我们将该比较中所有差异基因，以及分别在两组中上调表达的基因进行 GO 富集分析。对于富集结果，我们各挑选显著富集（ Pvalue < 0.05）的 15 条进行绘图，若不足 15 条，则全部展示。
+\href{\VAR{GO_barplot_href}}{查看样本GO富集分析柱状图文件}
+\VAR{ plot(go_barplor_size,go_barplot_path,caption='GO 富集分析柱状图，其中*号表示该 GO Term 在BH校正后，依然显著富集(Qvalue < 0.05)') }
+\newpage
+\subsection{GO 富集分析有向无环图}
+我们使用 topGO\cite{topGO} (Alexa A and Rahnenfuhrer J. 2016) 分别绘制生物过程 (biological process)、分子功能 (molecular function) 和细胞组分 (cellular component) 的有向无环图 (directed acyclic graph, DAG)。从上至下所定义的功能范围精细，颜色越深代表富集程度越高。如下图所示。
+\href{\VAR{GO_dagplot_href}{查看样本GO富集分析DAG图文件}
+\begin{figure}[H]
+\begin{minipage}[b]{0.3\linewidth}
+\includegraphics[scale=0.06]\VAR{dag_bp_path}
+\caption{GO DAG图(BP)}\label{fig:graph}
+\end{minipage}
+\hspace{0.2cm}
+\begin{minipage}[b]{0.3\linewidth}
+\includegraphics[scale=0.06]\VAR{dag_cc_path}
+\caption{GO DAG图(CC)}\label{fig:graph}
+\end{minipage}
+\hspace{0.2cm}
+\begin{minipage}[b]{0.3\linewidth}
+\includegraphics[scale=0.06]\VAR{dag_mf_path}
+\caption{GO DAG图(MF)}\label{fig:graph}
+\end{minipage}
+\end{figure}
+\newpage
+\subsection{KEGG 富集分析统计}
+我们使用 KOBAS\cite{KOBAS} (Chen Xie,et al. 2011) 对差异基因进行KEGG富集分析。 KOBAS 每3个月会对数据库进行更新，能够保证数据的及时性。
+\href{\VAR{kegg_table_href}}{查看样本KEGG富集分析文件}
+\VAR{ table(kegg_begin,kegg_head,kegg_body,caption='KEGG 富集分析结果') }
+\newpage
+\subsection{KEGG 富集分析柱状图}
+下图为 KEGG 富集分析柱状图。对每个比较组,我们将该比较组中所有差异基因,以及分别在两组中上调表达的基因进行 KEGG 富集分析。 对于富集结果,我们各挑选显著富集 (Pvalue < 0.05) 的15条进行绘图,若不足15条,则全部展示。
+\href{\VAR{kegg_barplot_href}}{查看样本KEGG富集分析柱状图文件}
+\VAR{ plot(kegg_barplor_size,kegg_barplot_path,caption='KEGG 富集分析柱状图，其中*号表示该 KEGG Pathway 在BH校正后，依然显著富集(Corrected P-Value < 0.05) }
+\subsection{KEGG 富集分析通路图}
+KEGG 富集分析通路图详细反映了生物学通路中分子之间的相互作用。我们对差异基因所在的 KEGG Pathway 通路进行下载， 并使用 pathview\cite{pathview} (Luo,et al. 2013) 将差异基因在通路图中进行标注，下图展示了其中的部分结果。
+\href{\VAR{kegg_pathway_href}}{样本KEGG通路图文件}
+\VAR{ plot(pathview_path_size,pathview_path,caption='KEGG pathway') }
+\newpage

@@ -3,6 +3,7 @@
 this is py2report's pdf_report moudle which a python script generate pdf mRNA report
 log:
 create by chencheng on 2017-06-13
+add all href and plot_size on 2017-06-14
 '''
 import os
 import sys
@@ -52,14 +53,16 @@ def create_pdf_report(generate_report_path):
     '''
     param:report path
     '''
-    pdf_param_dict = dict(project_name=os.path.basename(generate_report_path),
+    pdf_head_dict = dict(project_name=os.path.basename(generate_report_path),
                           report_name=pdf_settings['project_name'],
                           address=pdf_settings['address'],
                           phone=pdf_settings['phone'],
                           logo_path=pdf_settings['logo_path'],
                           pipeline_path=pdf_settings['pipeline_path'],
-                          mRNAworkflow_path=pdf_settings['mRNAworkflow_path'])
-
+                          mRNAworkflow_path=pdf_settings['mRNAworkflow_path']
+                          )
+    pdf_href_dict = dict()
+    pdf_size_dict = dict()
     #for all table
     ##enrichment part
     enrichment_analysis_path = pdf_analysis_path['enrichment']
@@ -69,6 +72,11 @@ def create_pdf_report(generate_report_path):
     enrichment_dict = dict(kegg_begin=kegg_list[0],kegg_head=kegg_list[1],kegg_body=kegg_list[2:],
                                  go_begin=go_list[0],go_head=go_list[1],go_body=go_list[2:],
                                  go_barplot_path=enrichment_analysis_path['go_barplot_path'],
+                                 go_table_href='',
+                                 kegg_table_href='',
+                                 go_barplot_href='',
+                                 kegg_barplot_href='',
+                                 kegg_pathway_href='',
                                  dag_bp_path=enrichment_analysis_path['dag_bp_path'],
                                  dag_cc_path=enrichment_analysis_path['dag_cc_path'],
                                  dag_mf_path=enrichment_analysis_path['dag_mf_path'],
@@ -108,10 +116,14 @@ def create_pdf_report(generate_report_path):
                                correlation_heatmap_path=quantification_analysis_path['correlation_heatmap_path'],
                                gene_expression_path=quantification_analysis_path['gene_expression_path'],
                                pca_plot_path=quantification_analysis_path['pca_plot_path'])
+    pdf_param_dict.update(quantification_dict)
     ##diff part
     diff_analysis_path = pdf_analysis_path['diff']
     diff_analysis_path = check_file(diff_analysis_path)
     diff_list = three_line_list(diff_analysis_path['diff_table_path'],colunms=5)
+    diff_dict=dict(diff_begin=diff_list[0],diff_head=diff_list[1],diff_body=diff_list[2:],
+                   volcano_plot_path=diff_analysis_path['volcano_plot_path'],
+                   diff_heatmap_path=diff_analysis_path['diff_heatmap_path'])
     template = pdf_jinja_env.get_template('mRNA_main')
     pdf_template_path = os.path.join(generate_report_path,'analysis_report')
     if not os.path.exists(pdf_template_path):
