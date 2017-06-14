@@ -2,6 +2,8 @@
 %%%create on 2016-11-1
 %%%changed on 2017-02-24
 %%%changed on 2017-03-09
+%%%changed on 2017-06-13
+%%%changed on 2017-06-14 将每一个分析模块整合成一个单独页面
 %%%------------------------------------------%%%%%%
 %------------header-------------%
 \documentclass[a4paper]{ctexart}
@@ -26,20 +28,20 @@
 \usepackage{longtable}
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage{fancyhdr,graphicx}
-\usepackage{geometry}  
+\usepackage{geometry}
 \geometry{left=1.5cm,right=1.5cm,top=2cm,bottom=3.5cm}
 \setlength{\parskip}{0.5\baselineskip}
 \setlength{\parindent}{2.45em}
 \CTEXsetup[format={\Large\bfseries}]{section}
 % Save graphics in LaTeX box
 \newsavebox{\headpic}
-\sbox{\headpic}{\includegraphics[scale=0.05]{/home/lxgui/chencheng/report/latex2pdf/public_picture/logo.jpg}}
+\sbox{\headpic}{\includegraphics[scale=0.05]{\VAR{logo_path}}}
 \pagestyle{fancy}
-\fancyhead{} 
+\fancyhead{}
 \lhead{\usebox{\headpic}}
 %\chead{\today}
 \rhead{昂迈思科技有限公司}
-\fancyfoot{} 
+\fancyfoot{}
 \lfoot{\emph{www.onmath.cn}}
 \rfoot{page \thepage}
 \newcommand{\PreserveBackslash}[1]{\let\temp=\\#1\let\\=\temp}
@@ -59,8 +61,8 @@
 \def\printauthor{%
     {\large \@author}}
 \makeatother
-{% block author %}
-{% endblock %}
+\BLOCK{block author}
+\BLOCK{endblock}
 \newcommand\titlepagedecoration[1]{%
 \begin{tikzpicture}[remember picture,overlay,shorten >= -10pt]
 \coordinate (tp1) at ([yshift=0.5cm]current page.west);
@@ -77,7 +79,7 @@
 \renewcommand\contentsname{目录}
 \begin{titlepage}
     \titlepagedecoration{%
-        \titlefont {{report_name}} \par
+        \titlefont \VAR{report_name} \par
         \epigraph{我们专注于开拓生物学、计算机科学和信息技术在动植物研究以及人类健康领域的应用,旨在建立一个服务于科研工作和医疗机构的信息数据云计算中心。
         \tikz[remember picture,overlay]{%
             \node (X) at (0,-1ex) {};
@@ -93,11 +95,11 @@
             \printauthor
         \end{flushleft}
     \end{minipage} \\[6cm]
-    \vspace{-3cm} 
-    \hspace{10cm} 
+    \vspace{-3cm}
+    \hspace{10cm}
     \begin{minipage}[t]{0.4\linewidth}
          \begin{flushright}
-    \includegraphics[scale=0.1]{/home/lxgui/chencheng/report/latex2pdf/public_picture/logo.jpg}
+    \includegraphics[scale=0.1]\VAR{logo_path}
 	    \end{flushright}
     \end{minipage}
 \end{titlepage}
@@ -105,20 +107,26 @@
 \tableofcontents
 \newpage
 
-{% block Buiding_seq_Analysis_process %}
-{% endblock %}
+\BLOCK{ block Buiding_seq_Analysis_process }
+\BLOCK{ endblock }
 
-{% block Data_quality_control %}
-{% endblock %}
+\BLOCK{ block Data_stat }
+\BLOCK{ endblock }
 
-{% block Quantitative_analysis %}
-{% endblock %}
+\BLOCK{ block Mapping }
+\BLOCK{ endblock }
 
-{% block Diff_analysis %}
-{% endblock %}
+\BLOCK{ block Data_control }
+\BLOCK{ endblock }
 
-{% block Enrichment_analysis %}
-{% endblock %}
+\BLOCK{ block Quantitative_analysis }
+\BLOCK{ endblock }
+
+\BLOCK{ block Diff_analysis }
+\BLOCK{ endblock }
+
+\BLOCK{ block Enrichment_analysis }
+\BLOCK{ endblock }
 
 \section{附录}
 \subsection{软件列表}
@@ -131,9 +139,6 @@
 软件名称 & 软件版本 & 功能 & 参数 & 链接 \\
 \midrule
 FastQC & v0.11.5 & 数据质控 & 默认参数 & \href{http://www.bioinformatics.babraham.ac.uk/projects/fastqc/}{http://www.bioinformatics.babraham.ac.uk/projects/fastqc/} \\
-{% if assembly %}
-Trinity & v2.3.2 & 无参数拼接 & 默认参数 & \href{https://github.com/trinityrnaseq/trinityrnaseq/wiki}{https://github.com/trinityrnaseq/trinityrnaseq/wiki} \\
-{% endif %}
 Kallisto & v0.43.0 & 转录本定量 & 默认参数 & \href{http://pachterlab.github.io/kallisto/}{https://pachterlab.github.io/kallisto/} \\
 edgeR & 3.12.1 & 差异分析 & 默认参数 & \href{http://bioinf.wehi.edu.au/edgeR/}{http://bioinf.wehi.edu.au/edgeR/}\\
 goseq & 1.22.0 & GO 富集分析 & 默认参数 & \href{http://bioconductor.org/packages/goseq/}{http://bioconductor.org/packages/goseq/}\\

@@ -13,6 +13,10 @@ html_jinja_env = jinja2.Environment(
 	loader = jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__),'html_templates'))
 )
 pdf_jinja_env = jinja2.Environment(
+	block_start_string = '\BLOCK{',
+	block_end_string = '}',
+	variable_start_string = '\VAR{',
+	variable_end_string = '}',
 	trim_blocks = True,
 	autoescape = False,
 	loader = jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__),'pdf_templates'))
@@ -34,6 +38,15 @@ fastqc_path = command.get('mRNA-path','fastqc_path')
 mapping_path = command.get('mRNA-path','mapping_path')
 quantification_path = command.get('mRNA-path','quantification_path')
 rseqc_path = command.get('mRNA-path','rseqc_path')
+#pdf settings
+address = command.get('mRNA-pdf-info','address')
+phone = command.get('mRNA-pdf-info','phone')
+table_rows = command.get('mRNA-pdf-info','table_rows')
+max_cell_len = command.get('mRNA-pdf-info','max_cell_len')
+project_name = command.get('mRNA-pdf-info','project_name')
+logo_path =  command.get('mRNA-pdf-static-34','logo_path')
+pipeline_path =  command.get('mRNA-pdf-static-34','pipeline_path')
+mRNAworkflow_path =  command.get('mRNA-pdf-static-34','mRNAworkflow_path')
 
 mRNA_data_dict = dict(enrichment=enrichment_path,fastqc=fastqc_path,
 					  mapping=mapping_path,quantification=quantification_path,
@@ -52,7 +65,8 @@ for key,value in mRNA_result_dict.items():
 ##enrichment part
 enrichment_analysis_path = dict(go_barplot_path='go.enrichment.barplot.png',
 							    kegg_barplot_path='kegg.enrichment.barplot.png',
-								pathview_path='kegg.pathview.png',dag_path='GO.DAG.png',
+								pathview_path='kegg.pathview.png',dag_bp_path='BP.GO.DAG.png',
+								dag_cc_path='CC.GO.DAG.png',dag_mf_path='MF.GO.DAG.png',
 								go_table_path='report.go.table.txt',kegg_table_path='report.kegg.table.txt')
 
 for key,value in enrichment_analysis_path.items():
@@ -101,3 +115,12 @@ pdf_analysis_path = {'enrichment':enrichment_analysis_path,
 					 'quantification':quantification_analysis_path,
 					 'diff':diff_analysis_path,
 					 'rseqc':rseqc_analysis_path}
+##other info
+pdf_settings = {'address':address,
+				'phone':phone,
+				'table_rows':table_rows,
+				'max_cell_len':max_cell_len,
+				'logo_path':logo_path,
+				'project_name':project_nameself,
+				'pipeline_path':pipeline_path,
+				'mRNAworkflow_path':mRNAworkflow_path}

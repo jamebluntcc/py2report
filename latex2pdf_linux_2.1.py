@@ -20,7 +20,7 @@ if __name__ == '__main__':
     assembly = args.assembly
 
     project_name = replace_dir.rsplit('/',1)[1]
-    
+
     command = configparser.ConfigParser()
     command.read('report_conf.conf')
     template_dir = command.get('mRNA','template_dir')

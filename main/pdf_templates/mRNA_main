@@ -1,19 +1,19 @@
-{% extends 'mRNA_base'%}
+\BLOCK{ extends 'mRNA_base' }
 
-{% block author %}
+\BLOCK{ block author }
 \author{%
-    \textbf{项目名称:} {{project_name}} \\
-    \textbf{联系地址:} 四川省成都温江区惠民路299号 \\
-    \textbf{联系电话:} 028-68636933 \\
+    \textbf{项目名称:} \VAR{project_name} \\
+    \textbf{联系地址:} \VAR{address} \\
+    \textbf{联系电话:} \VAR{phone} \\
     }
-{% endblock %}
+\BLOCK{ endblock }
 
-{% block Buiding_seq_Analysis_process %}
+\BLOCK{ block Buiding_seq_Analysis_process }
 \section{建库测序}
 获得样品的Total RNA后，按以下流程进行文库构建。对构建好的文库，我们使用 Illumina HiSeq平台进行测序。
 \begin{figure}[htbp]
 \centering
-\includegraphics[scale=0.55]{/home/lxgui/chencheng/report/latex2pdf/public_picture/library_pipe.pdf}
+\includegraphics[scale=0.55]\VAR{pipeline_path}
 \caption{建库测序流程} \label{fig:graph}
 \end{figure}
 \newpage
@@ -21,97 +21,140 @@
 获得测序序列(Sequenced Reads)后，按如下流程进行生物信息分析:\\[1cm]
 \begin{figure}[htbp]
 \centering
-{% if assembly %}
-\includegraphics[scale=0.55]{/home/lxgui/chencheng/report/latex2pdf/public_picture/nonref_workflow.pdf}
-{% else %}
-\includegraphics[scale=0.55]{/home/lxgui/chencheng/report/latex2pdf/public_picture/mRNAworkflow.png}
-{% endif %}
+\includegraphics[scale=0.55]\VAR{mRNAworkflow_path}
 \caption{生物信息分析流程} \label{fig:graph}
 \end{figure}
 \newpage
-{% endblock %}
+\BLOCK{ endblock }
 
-{% block Data_quality_control %}
-\section{数据质控}
-获得测序序列(Sequenced Reads)后，我们使用 FastQC\cite{FastQC} (Andrews S. 2010) 对本次测序所有样品进行数据质控，下表展示了数据的基本情况 ：
-\href{run:./mRNA_analysis_results/qc}{查看数据过滤统计分析表}
+\BLOCK{ block Data_stat }
+\section{数据统计}
+获得测序序列(Sequenced Reads)后，我们使用 FastQC\cite{FastQC} (Andrews S. 2010) 对所有的样品的测序数据进行分析。数据量，Q30等基本信息如表格所示 ：
+\href{\VAR{qc_href}}{查看数据过滤统计分析表}
 \begin{table}[H]
 \centering
 \caption{\label{tab:table}数据过滤统计分析表}
-{% include '01mRNA_qc_data.txt' %}
+\VAR{ qc_begin }
+\toprule
+\VAR{ qc_head }
+\midrule
+\BLOCK{ for each_line in qc_body }
+\VAR{each_line }
+\BLOCK{ endfor }
+\bottomrule
+\end{tabular}
 \end{table}
-各样品测序序列质量值分布如下图所示：
+样品测序质量分布图如右图所示。其中 x 轴代表数据质量值，y 轴代表不同质量值序列所占比例。质量值大于30 (准确率高于99.9%) 的高质量的序列在图中使用深色表示。
 \begin{figure}[H]
 \centering
-\includegraphics[scale={{all_quality_data_barplot_size}}]{{all_quality_data_barplot_01}}
-\caption{测序序列质量值分布，x轴为质量值，y轴为不同质量值序列的比例。由于页面限制，我们最多会展示9个样品的情况，全部信息参见结果文件。\href{run:./mRNA_analysis_results/qc/reads_quality}{查看全部样品测序质量分布图}} \label{fig:graph}
+\includegraphics[scale=\VAR{all_quality_data_barplot_size}]\VAR{reads_quality_path}
+\caption{测序序列质量值分布，x轴为质量值，y轴为不同质量值序列的比例。由于页面限制，我们最多会展示9个样品的情况，全部信息参见结果文件。\href{\VAR{reads_quality_href}}{查看全部样品测序质量分布图}} \label{fig:graph}
 \end{figure}
+
+样品 GC 分布如右图所示。其中不同碱基使用不同颜色表示，N 代表测序中不确定的碱基。y 轴为不同碱基的比例，x 轴代表碱基在 reads 中的位置 (因为将 read1, read2放在同一张图展示，图片的右半部分展示的是 read2 的 GC 分布情况，x 轴数值减去 read 长度为该碱基在 read2 中的位置)。在随机文库中，不同碱基在 reads 中的位置不存在偏好，因此通常情况下，代表各碱基的线条会相对平稳。但因为在建库时使用的6pb随机引物会引起 reads 前几个碱基的偏好性，因此图片中前几个碱基位置会出现比较大的波动。
+\begin{figure}[H]
+\centering
+\includegraphics[scale=\VAR{gc_plot_size}]\VAR{reads_quality_path}
+\caption{GC分布图\href{\VAR{reads_quality_href}}{查看全部样品GC分布图}} \label{fig:graph}
+\end{figure}
+\BLOCK{ endblock }
 \newpage
-{% if assembly %}
-\section{无参拼接}
-对于没有参考基因组的物种，我们使用 Trinity\cite{Trinity} 软件(Grabherr MG et al. Nat Biotechnol. 2011)对测序数据进行拼接组装，对拼接出的转录组序列进行后续的分析。拼接结果如下表所示：
+\BLOCK{ block Mapping }
+\section{序列比对}
+此部分展示了测序数据比对到基因组的情况。我们使用 STAR 软件，将测序获得的 reads 比对到基因组，得到的包含 reads 在基因组位置信息的 bam 文件。样品的比对率受到样品情况以及物种基因组情况等多个因素的影响，一般来说这个比例在 60~90% 之间。
+\subsection{比对结果统计}
+各样品比对结果如表所示。
 \begin{table}[H]
 \centering
-\caption{\label{tab:table}拼接结果统计表}
-{% include 'Trinity_stat.txt' %}
+\caption{\label{tab:table}数据过滤统计分析表}
+\VAR{ mapping_begin }
+\toprule
+\VAR{ mapping_head }
+\midrule
+\BLOCK{ for each_line in mapping_body }
+\VAR{each_line }
+\BLOCK{ endfor }
+\bottomrule
+\end{tabular}
 \end{table}
-\newpage
-拼接得到的转录本及基因长度分布如下图所示：
+\subsection{比对率展示图}
+样品比对率情况如下图所示。蓝色，橙色和黄色分别代表只比对到基因组一个位置 (unique mapped reads)，比对到基因组多个位置 (multiple mapped reads) 和无法比对到基因组 (unmapped reads) 的 reads 的比例。
 \begin{figure}[H]
 \centering
-\includegraphics[width={{Isoform_length_plot_size}}\textwidth]{{Isoform_length_plot}}
-\caption{转录本长度分布} \label{fig:graph}
+\includegraphics[scale=\VAR{mapping_plot_size}]\VAR{mapping_plot_path}
+\caption{\href{\VAR{mapping_plot_href}}{查看全部样品比对率图}} \label{fig:graph}
 \end{figure}
-\begin{figure}[H]
-\centering
-\includegraphics[width={{Gene_length_plot_size}}\textwidth]{{Gene_length_plot}}
-\caption{基因长度分布(基因长度来自该基因下最长的转录本)} \label{fig:graph}
-\end{figure}
-\newpage
-{% endif %}
-{% endblock %}
+\BLOCK{ endblock }
 
-{% block Quantitative_analysis %}
+\BLOCK{ block Data_control }
+\section{数据质控}
+我们使用 RSeQC (Wang, L., Wang, S., & Li, W. 2012)，对本次测序的数据的文库插入片段，基因区 reads 覆盖度和基因区域 reads 分布3个方面进行评估。下面展示了这3项分析的结果。
+\subsection{文库插入片段长度分布图}
+下图展示了样品的插入片段长度的分布情况。其中 x 轴代表文库插入片段长度，可以理解为 read1 和 read2在基因组中的距离，该值为负数代表 read1 和 read2 有部分重叠 (overlap)。(文库片段长度 = 插入片段长度 + read1长度 + read2长度)
+\begin{figure}[H]
+\centering
+\includegraphics[scale=\VAR{inner_distance_plot_size}]\VAR{inner_distance_plot_path}
+\caption{\href{\VAR{inner_distance_plot_href}}{查看全部文库插入片段长度分布图}} \label{fig:graph}
+\end{figure}
+\subsection{基因区域 reads 覆盖情况}
+我们将所有基因的转录本按照比例100等分，分别计算每个区域上的 reads 覆盖情况，进行标准化之后得到基因5'端至3'端的整体表达情况。右图展示了基因区域 reads 覆盖的情况。通常情况下 reads 在5'端和3'端的覆盖度是一致的，若 reads 覆盖在5'或3'端存在明显的偏好，说明样品 RNA可能存在不完整的情况。
+\begin{figure}[H]
+\centering
+\includegraphics[scale=\VAR{genebody_coverage_plot_size}]\VAR{genebody_coverage_plot_path}
+\caption{\href{\VAR{genebody_coverage_plot_href}}{查看全部基因区域 reads 覆盖图}} \label{fig:graph}
+\end{figure}
+\subsection{reads 在基因区域分布}
+我们统计落在不同基因区域 (包括上下游10kb) 的 reads 的比例。结果如右图所示。对于 RNAseq 数据，大部分的 reads 应该落在基因的 exon 和 cds 区域。
+\begin{figure}[H]
+\centering
+\includegraphics[scale=\VAR{read_distribution_plot_size}]\VAR{read_distribution_plot_path}
+\caption{\href{\VAR{read_distribution_plot_href}}{查看全部reads 在基因区域分布图}} \label{fig:graph}
+\end{figure}
+\BLOCK{ endblock }
+
+\BLOCK{ block Quantitative_analysis }
 \section{定量分析}
-\subsection{表达量统计}
-数据质控合格的样品，我们使用 Kallisto\cite{Kallisto} (Bray N, et al. 2015) 对它们进行定量分析。各样品基因表达 tpm\footnotemark[1] 如下表所示:\href{run:./mRNA_analysis_results/quantification}{查看基因表达数据结果}
+对数据情况进行了解之后。我们首先对数据进行基因定量分析。基因定量分析是 RNAseq 分析的核心步骤。通过对不同生物学重复下基因表达量的计算和比较，我们可以得到一部分与实验处理相关的基因。通过后续的筛选和功能验证，我们便能够在基因层面对我们的实验进行解释。以下部分展示了定量分析的结果。
+\subsection{基因表达统计表}
+数据质控合格的样品，我们使用 Kallisto\cite{Kallisto} (Bray N, et al. 2015) 对它们进行定量分析。下表展示了不同样品的基因的 TPM 表达值。 tpm\footnotemark[1] 如下表所示:\href{\VAR{gene_count_table_href}}{查看基因表达数据结果}
 \begin{table}[H]
 \centering
 \caption{\label{tab:table}基因表达统计表}
-{% include '02mRNA_gene_count.txt' %}  %add a new table
+\VAR{ gene_count_begin }
+\toprule
+\VAR{ gene_count_head }
+\midrule
+\BLOCK{ for each_line in gene_count_body }
+\VAR{each_line }
+\BLOCK{ endfor }
+\bottomrule
+\end{tabular}
 \end{table}
-
-基因整体表达情况如下图所示：
+\subsection{基因整体表达展示图}
+我们对 log10 标准化后基因表达值进行作图，直观反映各样品基因的整体表达情况，如右图所示。左上角和右下角分别为基因表达箱型图和小提琴图，横坐标为不同样品，纵坐标为标准化后的基因表达值；下图为基因的表达密度，横坐标为标准化后的基因表达值，纵坐标为不同表达值密度值。
 \begin{figure}[H]
 \centering
-\includegraphics[width={{Gene_merge_plot_size}}\textwidth]{{Gene_merge_plot_02}}
-\caption{基因表达整体情况，左上角和右上角分别为基因表达盒形图和小提琴图，横坐标为样品，纵坐标为 log10(tpm+1)；下图为基因表达密度图，横坐标为log10(tpm+1)，纵坐标为不同表达值密度值。} \label{fig:graph}
+\includegraphics[scale=\VAR{gene_expression_size}]\VAR{gene_expression_path}
+\caption{\href{\VAR{gene_expression_href}}{查看全部基因整体表达展示图}} \label{fig:graph}
+\end{figure}
+\subsection{基因表达相关性}
+我们使用 log10 标准化后的基因表达值计算样品间的皮尔逊相关系数 (Pearson correlation coefficient)，反映样品间基因表达模式的相似度。右图展示了样品之间相关性分析的热图。其中颜色靠近红色代表相关性系数高于平均，靠近绿色代表相关性系数低于平均。通常情况下，同一个生物学重复的样品之间的相关性要大于不同生物学重复的样品之间的相关性。若相反，则需要对样品和试验进行核查。
+\begin{figure}[H]
+\centering
+\includegraphics[scale=\VAR{correlation_heatmap_size}]\VAR{correlation_heatmap_path}
+\caption{基因表达相关性} \label{fig:graph}
+\end{figure}
+\subsection{基因表达主成分分析}
+主成分分析 (Principal Component Analysis, PCA) 是一种基于无监督学习对大数据进行降维的方法。右图展示了主成分分析的结果，其中 x 轴为占据最大变异的成分，y 轴为占据第二大的变异成分。如果样品间的差异足够显著，则在图中反映出来的结果就是代表这些样品的点会分布在不同的区域。
+\begin{figure}[H]
+\centering
+\includegraphics[scale=\VAR{pca_plot_size}]\VAR{pca_plot_path}
+\caption{PCA图} \label{fig:graph}
 \end{figure}
 \newpage
+\BLOCK{ endblock }
 
-{% if sample_correlation_plot %}
-\subsection{相关性分析}
-我们对所有样品两两之间进行相关性分析以及主成分分析(Principal components analysis，PCA)来反映样品间整体表达差异，分析结果如下图所示。
-\begin{figure}[H]
-\centering
-\includegraphics[scale={{sample_correlation_plot_size}}]{{sample_correlation_plot_03}}
-\caption{相关性图}
-\label{fig:graph}
-\end{figure}
-{% endif %}
-
-{% if PCA_plot %}
-\begin{figure}[H]
-\centering
-\includegraphics[scale={{PCA_plot_size}}]{{PCA_plot_04}}
-\caption{PCA图}
-\label{fig:graph}
-\end{figure}
-{% endif %}
-\newpage
-{% endblock %}
-
-{% block Diff_analysis %}
+\BLOCK{ block Diff_analysis }
 \section{差异分析}
 通过定量分析得到每个样品所有基因的表达数据后，我们使用 edgeR\cite{edgeR}（Robinson MD, et al. 2010）对各组生物学重复两两进行差异分析，差异分析统计如下表所示：
 \href{{diff_table_href}}{查看差异性表达结果文件}
@@ -157,45 +200,53 @@
 
 {% endblock %}
 
-{% block Enrichment_analysis %}
+\BLOCK{ block Enrichment_analysis }
 \section{功能富集}
 \subsection{GO富集分析}
 我们利用 goseq\cite{goseq}（Young et al, 2010）对差异基因进行 GO 富集分析，老师可以根据实验目的筛选相关功能的差异基因，并进行功能研究。
-\href{{GO_enrichment_table_href}}{查看样本GO富集分析文件}
+\href{\VAR{GO_enrichment_table_href}}{查看样本GO富集分析文件}
 \begin{table}[H]
 \footnotesize
 \centering
 \caption{\label{tab:table}GO 富集分析结果}
-{% include '04mRNA_GO_enrichment_table.txt' %}
+\VAR{ go_begin }
+\toprule
+\VAR{ go_head }
+\midrule
+\BLOCK{ for each_line in go_body }
+\VAR{each_line }
+\BLOCK{ endfor }
+\bottomrule
+\end{tabular}
 \end{table}
 \newpage
 
-{% if GO_barplot %}
+\BLOCK{ if GO_barplot }
 对于每个比较组，我们对该比较中所有差异基因，以及分别在两组中上调表达的基因进行 GO 富集分析。对于富集结果，我们各挑选显著富集（Pvalue < 0.05）的15条进行绘图，若不足15条，则全部展示。
-\href{{GO_barplot_href}}{查看样本GO富集分析柱状图文件}
+\href{\VAR{GO_barplot_href}}{查看样本GO富集分析柱状图文件}
 \begin{figure}[H]
 \centering
-\includegraphics[scale={{GO_barplot_size}}]{{GO_barplot_08}}
+\includegraphics[scale=\VAR{GO_barplot_size}]\VAR{go_barplot_path}
 \caption{GO 富集分析柱状图，其中*号表示该 GO Term 在BH校正后，依然显著富集(Qvalue < 0.05)} \label{fig:graph}
 \end{figure}
 \newpage
-{% endif %}
+\BLOCK{ endif }
 
 我们使用 topGO\cite{topGO} 分别绘制生物过程 (biological process)、分子功能 (molecular function) 和细胞组分 (cellular component) 的有向无环图(directed acyclic graph, DAG)。从上至下所定义的功能范围精细，颜色约深代表富集程度越高。
-\href{{GO_dagplot_href}}{查看样本GO富集分析DAG图文件}
+\href{\VAR{GO_dagplot_href}{查看样本GO富集分析DAG图文件}
 \begin{figure}[H]
 \begin{minipage}[b]{0.3\linewidth}
-\includegraphics[scale=0.06]{{GO_dagplot_BP}}
+\includegraphics[scale=0.06]\VAR{dag_bp_path}
 \caption{GO DAG图(BP)}\label{fig:graph}
 \end{minipage}
 \hspace{0.2cm}
 \begin{minipage}[b]{0.3\linewidth}
-\includegraphics[scale=0.06]{{GO_dagplot_CC}}
+\includegraphics[scale=0.06]\VAR{dag_cc_path}
 \caption{GO DAG图(CC)}\label{fig:graph}
 \end{minipage}
 \hspace{0.2cm}
 \begin{minipage}[b]{0.3\linewidth}
-\includegraphics[scale=0.06]{{GO_dagplot_MF}}
+\includegraphics[scale=0.06]\VAR{dag_mf_path}
 \caption{GO DAG图(MF)}\label{fig:graph}
 \end{minipage}
 \end{figure}
@@ -207,31 +258,32 @@
 \footnotesize
 \centering
 \caption{\label{tab:table}KEGG 富集分析结果}
-{% include '05mRNA_KEGG_enrichment_table.txt' %}
+\VAR{ kegg_begin }
+\toprule
+\VAR{ kegg_head }
+\midrule
+\BLOCK{ for each_line in kegg_body }
+\VAR{each_line }
+\BLOCK{ endfor }
+\bottomrule
+\end{tabular}
 \end{table}
 \newpage
 
-{% if KEGG_barplot %}
+\BLOCK{ if KEGG_barplot }
 对于每个比较组，我们对该比较中所有差异基因，以及分别在两组中上调表达的基因进行 KEGG 富集分析。对于富集结果，我们各挑选显著富集（Pvalue < 0.05）的15条进行绘图，若不足15条，则全部展示。
-\href{{KEGG_barplot_href}}{查看样本KEGG富集分析柱状图文件}
+\href{\VAR{KEGG_barplot_href}}{查看样本KEGG富集分析柱状图文件}
 \begin{figure}[H]
 \centering
-\includegraphics[scale={{KEGG_barplot_size}}]{{KEGG_barplot_09}}
+\includegraphics[scale=\VAR{KEGG_barplot_size}]\VAR{kegg_barplot_path}
 \caption{KEGG 富集分析柱状图，其中*号表示该 KEGG Pathway 在BH校正后，依然显著富集(Corrected P-Value < 0.05)} \label{fig:graph}
 \end{figure}
-{% endif %}
+\BLOCK{ endif }
 
-我们对差异基因所在的 KEGG Pathway 通路进行下载，并使用 pathview\cite{pathview} （Luo,et al. 2013）对差异基因进行标注，如下图所示：\href{{KEGG_pathway_href}}{样本KEGG通路图文件}
+我们对差异基因所在的 KEGG Pathway 通路进行下载，并使用 pathview\cite{pathview} （Luo,et al. 2013）对差异基因进行标注，如下图所示：\href{\VAR{KEGG_pathway_href}}{样本KEGG通路图文件}
 \begin{figure}[H]
-\begin{minipage}[b]{0.4\linewidth}
-\includegraphics[scale=0.5]{{KEGG_pathway1}}
-\caption{KEGG pathway(a)} \label{fig:graph}
-\end{minipage}
-\hspace{0.2cm}
-\begin{minipage}[b]{0.4\linewidth}
-\includegraphics[scale=0.5]{{KEGG_pathway2}}
-\caption{KEGG pathway(b)} \label{fig:graph}
-\end{minipage}
+\includegraphics[scale=0.6]\VAR{pathview_path}
+\caption{KEGG pathway} \label{fig:graph}
 \end{figure}
 \newpage
-{% endblock %}
+\BLOCK{ endblock }

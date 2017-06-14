@@ -141,7 +141,6 @@ def three_line_table(input_file,output_file,split,colunms):
     f.write('\\bottomrule\n')
     f.write(r'\end{tabular}')
     f.close()
-    return 0
 
 def find_sample_file(dir,pattern):
     sample_dir_list = [k for k in os.listdir(dir) if os.path.isdir(os.path.join(dir,k))]
@@ -157,11 +156,3 @@ def find_sample_file(dir,pattern):
     else:
         print 'no match file or dir in {dir}'.format(dir=os.path.join(dir,sample_dir_list[0]))
         sys.exit(1)
-
-
-
-
-
-
-
-
