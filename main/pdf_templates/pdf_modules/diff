@@ -3,12 +3,12 @@
 定量分析结束后，我们需要通过差异分析得到不同生物学重复之间的差异基因，从而对这些差异表达的基因进行后续功能研究。差异分析的结果如下所示。
 \subsection{差异分析统计表}
 我们使用 edgeR\cite{edgeR} (Robinson MD,et al. 2010) 对生物学重复间两两进行差异分析。分析结果如下表所示。
-\href{{diff_table_href}}{查看差异性表达结果文件}
+\href{run:../analysis_result/quantification/differential_analysis/}{查看差异性表达结果文件}
 \VAR{ table(diff_begin,diff_head,diff_body,caption='差异分析统计表') }
 \newpage
 \subsection{差异分析火山图}
 通过差异分析火山图，我们可以非常直观并且合理地筛选出在两个样本间发生差异表达的基因，如下图所示。其中 x 轴为 logFC 值，y 轴为 FDR 值。图中红色点和绿色点为通过差异筛选阈值 (|logFC| >= 1 并且 FDR <= 0.05) 的差异基因。
-\href{{volcano_plot_href}}{查看样本差异性火山图文件}
+\href{run:../analysis_result/quantification/differential_analysis/}{查看样本差异性火山图文件}
 \VAR{ plot(volcano_plot_size,volcano_plot_path,caption='差异性分析火山图') }
 \newpage
 \subsection{差异性分析聚类热图}

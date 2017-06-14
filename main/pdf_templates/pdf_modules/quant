@@ -3,7 +3,7 @@
 对数据情况进行了解之后。我们首先对数据进行基因定量分析。基因定量分析是 RNAseq 分析的核心步骤。通过对不同生物学重复下基因表达量的计算和比较，我们可以得到一部分与实验处理相关的基因。通过后续的筛选和功能验证，我们便能够在基因层面对我们的实验进行解释。以下部分展示了定量分析的结果。
 \subsection{基因表达统计表}
 数据质控合格的样品，我们使用 Kallisto\cite{Kallisto} (Bray N, et al. 2015) 对它们进行定量分析。下表展示了不同样品的基因的 TPM 表达值。 tpm\footnotemark[1] 如下表所示:
-\href{\VAR{gene_count_table_href}}{查看基因表达数据结果}
+\href{run:../analysis_result/quantification/expression_summary/}{查看基因表达数据结果}
 \VAR{ table(gene_count_begin,gene_count_head,gene_count_body,caption='基因表达统计表') }
 \subsection{基因整体表达展示图}
 我们对 log10 标准化后基因表达值进行作图，直观反映各样品基因的整体表达情况，如右图所示。左上角和右下角分别为基因表达箱型图和小提琴图，横坐标为不同样品，纵坐标为标准化后的基因表达值；下图为基因的表达密度，横坐标为标准化后的基因表达值，纵坐标为不同表达值密度值。

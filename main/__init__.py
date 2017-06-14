@@ -17,6 +17,8 @@ pdf_jinja_env = jinja2.Environment(
 	block_end_string = '}',
 	variable_start_string = '\VAR{',
 	variable_end_string = '}',
+	comment_start_string = '\#{',
+	comment_end_string = '}',
 	trim_blocks = True,
 	autoescape = False,
 	loader = jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__),'pdf_templates'))
@@ -47,10 +49,26 @@ project_name = command.get('mRNA-pdf-info','project_name')
 logo_path =  command.get('mRNA-pdf-static-34','logo_path')
 pipeline_path =  command.get('mRNA-pdf-static-34','pipeline_path')
 mRNAworkflow_path =  command.get('mRNA-pdf-static-34','mRNAworkflow_path')
+#all plots size:
+reads_quality_path_size = command.get('mRNA-pdf-size','reads_quality_path_size')
+gc_plot_size = command.get('mRNA-pdf-size','gc_plot_size')
+inner_distance_plot_size = command.get('mRNA-pdf-size','inner_distance_plot_size')
+genebody_coverage_plot_size = command.get('mRNA-pdf-size','genebody_coverage_plot_size')
+read_distribution_plot_size = command.get('mRNA-pdf-size','read_distribution_plot_size')
+correlation_heatmap_size = command.get('mRNA-pdf-size','correlation_heatmap_size')
+gene_expression_size = command.get('mRNA-pdf-size','gene_expression_size')
+pca_plot_size = command.get('mRNA-pdf-size','pca_plot_size')
+volcano_plot_size = command.get('mRNA-pdf-size','volcano_plot_size')
+diff_heatmap_size = command.get('mRNA-pdf-size','diff_heatmap_size')
+go_barplor_size = command.get('mRNA-pdf-size','go_barplor_size')
+kegg_barplor_size = command.get('mRNA-pdf-size','kegg_barplor_size')
+pathview_path_size = command.get('mRNA-pdf-size','pathview_path_size')
+mapping_plot_size = command.get('mRNA-pdf-size','mapping_plot_size')
 
 mRNA_data_dict = dict(enrichment=enrichment_path,fastqc=fastqc_path,
 					  mapping=mapping_path,quantification=quantification_path,
 					  rseqc=rseqc_path)
+
 for key,value in mRNA_data_dict.items():
 	mRNA_data_dict[key] = os.path.join(mRNA_data_path,value)
 
@@ -124,3 +142,18 @@ pdf_settings = {'address':address,
 				'project_name':project_nameself,
 				'pipeline_path':pipeline_path,
 				'mRNAworkflow_path':mRNAworkflow_path}
+
+pdf_plots_size_dict = dict(reads_quality_path_size=reads_quality_path_size,
+						   gc_plot_size=gc_plot_size,inner_distance_plot_size=inner_distance_plot_size,
+						   genebody_coverage_plot_size=genebody_coverage_plot_size,
+										   read_distribution_plot_size=read_distribution_plot_size,
+										   correlation_heatmap_size=correlation_heatmap_size,
+										   gene_expression_size=gene_expression_size,
+										   pca_plot_size=pca_plot_size,
+										   volcano_plot_size=volcano_plot_size,
+										   diff_heatmap_size=diff_heatmap_size,
+										   go_barplor_size=go_barplor_size,
+										   kegg_barplor_size=kegg_barplor_size,
+										   pathview_path_size=pathview_path_size,
+										   mapping_plot_size=mapping_plot_size
+										   )

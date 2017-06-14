@@ -1,10 +1,8 @@
 \BLOCK{ from 'plots_table' import plot,table }
 \section{序列比对}
 此部分展示了测序数据比对到基因组的情况。我们使用 STAR 软件，将测序获得的 reads 比对到基因组，得到的包含 reads 在基因组位置信息的 bam 文件。样品的比对率受到样品情况以及物种基因组情况等多个因素的影响，一般来说这个比例在 60~90% 之间。
-\subsection{比对结果统计}
-各样品比对结果如表所示。
+各样品比对结果如表所示。\href{run:../analysis_result/mapping/}{查看完整的比对结果统计表}
 \VAR{ table(mapping_begin,mapping_head,mapping_body,caption='数据过滤统计分析表') }
 \subsection{比对率展示图}
 样品比对率情况如下图所示。蓝色，橙色和黄色分别代表只比对到基因组一个位置 (unique mapped reads)，比对到基因组多个位置 (multiple mapped reads) 和无法比对到基因组 (unmapped reads) 的 reads 的比例。
-\href{\VAR{mapping_plot_href}}{查看全部样品比对率图}
-\VAR{ plot(mapping_plot_size,mapping_plot_path,caption='')}
+\VAR{ plot(mapping_plot_size,mapping_plot_path,caption='比对率展示图')}
