@@ -5,11 +5,23 @@
 获得测序序列(Sequenced Reads)后，我们使用 FastQC\cite{FastQC} (Andrews S. 2010) 对所有的样品的测序数据进行分析。数据量，Q30等基本信息如表格所示 ：
 \href{run:../analysis_result/fastqc/fastqc_results/}{查看数据过滤统计分析表}
 \VAR{ table(qc_begin,qc_head,qc_body,caption='数据过滤统计分析表') }
+\newpage
 \subsection{数据质量分布图}
-样品测序质量分布图如下图所示。其中 x 轴代表数据质量值，y 轴代表不同质量值序列所占比例。质量值大于30 (准确率高于99.9%) 的高质量的序列在图中使用深色表示。
+样品测序质量分布图如下图所示。其中 x 轴代表数据质量值，y 轴代表不同质量值序列所占比例。质量值大于30 (准确率高于99.9\%) 的高质量的序列在图中使用深色表示。
 \href{run:../analysis_result/fastqc/reads_quality_plot/}{查看全部样品数据质量分布图}
+\\
+\\
+\\
+\\
+\\
 \VAR{ plot(reads_quality_path_size,reads_quality_path,caption='测序序列质量值分布，x轴为质量值，y轴为不同质量值序列的比例。由于页面限制，我们最多会展示9个样品的情况。') }
+\newpage
 \subsection{GC 分布图}
 样品 GC 分布如下图所示。其中不同碱基使用不同颜色表示，N 代表测序中不确定的碱基。y 轴为不同碱基的比例，x 轴代表碱基在 reads 中的位置 (因为将 read1, read2放在同一张图展示，图片的右半部分展示的是 read2 的 GC 分布情况，x 轴数值减去 read 长度为该碱基在 read2 中的位置)。在随机文库中，不同碱基在 reads 中的位置不存在偏好，因此通常情况下，代表各碱基的线条会相对平稳。但因为在建库时使用的6pb随机引物会引起 reads 前几个碱基的偏好性，因此图片中前几个碱基位置会出现比较大的波动。
 \href{run:../analysis_result/fastqc/gc_plot/}{查看全部样品GC分布图}
+\\
+\\
+\\
+\\
+\\
 \VAR{ plot(gc_plot_size,gc_barplot_path,caption='GC分布图') }

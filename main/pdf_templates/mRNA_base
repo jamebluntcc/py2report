@@ -6,21 +6,21 @@
 %%%changed on 2017-06-14 将每一个分析模块整合成一个单独页面
 %%%------------------------------------------%%%
 \BLOCK{ include 'pdf_modules/pdf_head' }
-
-\BLOCK{ include 'pdf_modules/analysis_process' }
-
-\BLOCK{ include 'pdf_modules/data_stat' }
-
-\BLOCK{ include 'pdf_modules/mapping' }
-
-\BLOCK{ include 'pdf_modules/data_control' }
-
-\BLOCK{ include 'pdf_modules/quant' }
-
-\BLOCK{ include 'pdf_modules/diff' }
-
-\BLOCK{ include 'pdf_modules/enrichment' }
-
+\newpage
+\BLOCK{ include 'pdf_modules/analysis_process' ignore missing }
+\newpage
+\BLOCK{ include 'pdf_modules/data_stat' ignore missing }
+\newpage
+\BLOCK{ include 'pdf_modules/mapping' ignore missing }
+\newpage
+\BLOCK{ include 'pdf_modules/data_control' ignore missing }
+\newpage
+\BLOCK{ include 'pdf_modules/quant' ignore missing }
+\newpage
+\BLOCK{ include 'pdf_modules/diff' ignore missing }
+\newpage
+\BLOCK{ include 'pdf_modules/enrichment' ignore missing }
+\newpage
 \section{附录}
 \subsection{软件列表}
 \begin{table}[H]

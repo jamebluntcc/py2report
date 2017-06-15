@@ -2,7 +2,7 @@
 import os
 import argparse
 import subprocess
-from main import html_report
+from main import html_report,pdf_report
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description = '---create mRNA analysis report---')
@@ -10,6 +10,7 @@ if __name__ == '__main__':
     parser.add_argument('--pdf',action='store_true',help='print out pdf report')
     parser.add_argument('--html',action='store_true',help='print out html report')
     args = parser.parse_args()
+
     if args.html:
         subprocess.call('cp -r {html_files} {report_path}'.format(html_files = 'html_files/*',
                                                                   report_path = os.path.join(args.mRNA_report_path,'analysis_report')),shell=True)
@@ -18,3 +19,5 @@ if __name__ == '__main__':
         html_report.mapping_analysis(args.mRNA_report_path)
         html_report.quantification_analysis(args.mRNA_report_path)
         html_report.rseqc_analysis(args.mRNA_report_path)
+    if args.pdf:
+        pdf_report.create_pdf_report(args.mRNA_report_path)

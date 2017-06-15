@@ -139,7 +139,7 @@ pdf_settings = {'address':address,
 				'table_rows':table_rows,
 				'max_cell_len':max_cell_len,
 				'logo_path':logo_path,
-				'project_name':project_nameself,
+				'project_name':project_name,
 				'pipeline_path':pipeline_path,
 				'mRNAworkflow_path':mRNAworkflow_path}
 
