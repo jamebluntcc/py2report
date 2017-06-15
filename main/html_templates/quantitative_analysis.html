@@ -1,0 +1,113 @@
+{% extends "single_page_base.html" %}
+{% block title %}{{title}}{% endblock %}
+{% block nav %}
+<li role="presentation"><a href="rendered_data_stat.html">数据统计</a></li>
+<li role="presentation"><a href="rendered_mapping.html">序列比对</a></li>
+<li role="presentation"><a href="rendered_rseqc.html">数据质控</a></li>
+<li role="presentation" class="active"><a href="rendered_quantitative_analysis.html">定量分析</a></li>
+<li role="presentation"><a href="rendered_diff_analysis.html">差异分析</a></li>
+<li role="presentation"><a href="rendered_enrichment_analysis.html">功能富集</a></li>
+{% endblock %}
+
+{% block intro %}
+<div class="intro">
+  <p><I>
+    对数据情况进行了解之后。我们首先对数据进行基因定量分析。
+    基因定量分析是 RNAseq 分析的核心步骤。
+    通过对不同生物学重复下基因表达量的计算和比较，
+    我们可以得到一部分与实验处理相关的基因。通过后续的筛选和功能验证，
+    我们便能够在基因层面对我们的实验进行解释。以下部分展示了定量分析的结果。</I>
+  </p>
+</div>
+{% endblock %}
+
+{% block gene_count_table %}
+<div class="part row">
+  <div class="col-md-4" style="margin-top:50px">
+    <h3>基因表达统计表</h3>
+    <p class="haveBg" style="text-indent:32px;font-size:16px">
+      我们使用 <a href="https://pachterlab.github.io/kallisto/" target="_blank" >Kallisto</a>
+      <a href="#bray">(Bray N.2015)</a>对物种所有注释的基因进行定量分析。右表展示了不同样品的基因的 TPM 表达值。 <!--<a href="{{gene_count_table_path}}">查看数据文件</a>-->
+    </p>
+    <p><a class="btn btn-primary" href="{{gene_count_table_path}}" target="_blank" role="button">更多详情 &raquo;</a></p>
+  </div>
+  <div class="myTable col-md-8">
+  <table class="table table-striped table-bordered" cellspacing="0">
+    <caption></caption>
+    <thead>
+      <tr>
+      {% for key in header %}
+      <th style="text-align:center;">{{key}}</th>
+      {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for each_list in gene_count_table %}
+      <tr>
+      {% for cell in each_list %}
+         <th style="text-align:center;">{{cell}}</th>
+      {% endfor %}
+      </tr>
+      {% endfor %}
+  </tbody>
+</table>
+</div>
+</div>
+{% endblock %}
+
+{% block quantitative_plots %}
+<div class="part row">
+    <div class="col-lg-4">
+        <h3>基因整体表达展示图</h3>
+        <p style="text-indent:32px;font-size:16px" class="haveBg">
+          我们对 log10 标准化后基因表达值进行作图，直观反映各样品基因的整体表达情况，
+          如右图所示。左上角和右下角分别为基因表达箱型图和小提琴图，
+          横坐标为不同样品，纵坐标为标准化后的基因表达值；下图为基因的表达密度，
+          横坐标为标准化后的基因表达值，纵坐标为不同表达值密度值。
+        </p>
+        <p><a class="btn btn-primary" href="{{gene_merge_plot_dir}}" target="_blank" role="button">更多详情 &raquo;</a></p>
+    </div>
+    <div class="col-lg-6" style="padding-left:150px">
+        <a class="fancybox-effects-d" href="{{Gene_merge_plot_path}}" title="基因表达整体情况，左上角和右下角分别为基因表达箱型图和小提琴图，横坐标为样品，纵坐标为log10(tmp+1);下面为基因表达密度图，横坐标为log10(tpm+1)，纵坐标为不同表达值密度值"><img src= "{{Gene_merge_plot_path}}" alt="" class="maxWidth" style="max-width: 450px"/></a>
+    </div>
+</div>
+<div class="part row">
+    <div class="col-lg-4">
+        <h3>基因表达相关性</h3>
+        <p style="text-indent:32px;font-size:16px" class="haveBg">
+        我们使用 log10 标准化后的基因表达值计算样品间的皮尔逊相关系数
+        (Pearson correlation coefficient)，反映样品间基因表达模式的相似度。
+        右图展示了样品之间相关性分析的热图。其中颜色靠近红色代表相关性系数高于平均，
+        靠近绿色代表相关性系数低于平均。通常情况下，
+        同一个生物学重复的样品之间的相关性要大于不同生物学重复的样品之间的相关性。
+        若相反，则需要对样品和试验进行核查。
+        </p>
+        <p><a class="btn btn-primary" href="{{sample_correlation_plot_dir}}" target="_blank" role="button">更多详情 &raquo;</a></p>
+    </div>
+    <div class="col-lg-6" style="padding-left:150px">
+        <a class="fancybox-effects-d" href="{{sample_correlation_plot_path}}"><img src="{{sample_correlation_plot_path}}" alt="相关性图" class="maxWidth" style="max-width: 500px"></a>
+    </div>
+</div>
+<div class="part row">
+    <div class="col-lg-4">
+        <h3>基因表达主成分分析</h3>
+        <p style="text-indent:32px;font-size:16px" class="haveBg">
+          主成分分析 (Principal Component Analysis, PCA)
+          是一种基于无监督学习对大数据进行降维的方法。
+          右图展示了主成分分析的结果，其中 x 轴为占据最大变异的成分，
+          y 轴为占据第二大的变异成分。如果样品间的差异足够显著，
+          则在图中反映出来的结果就是代表这些样品的点会分布在不同的区域。
+        </p>
+        <p><a class="btn btn-primary" href="{{PCA_plot_dir}}" target="_blank" role="button">更多详情 &raquo;</a></p>
+    </div>
+    <div class="col-lg-6" style="padding-left:150px">
+        <a class="fancybox-effects-d" href="{{PCA_plot_path}}"><img src="{{PCA_plot_path}}" alt="PCA图" class="maxWidth" style="max-width: 450px"></a>
+    </div>
+</div>
+{% endblock %}
+
+{% block document_quant %}
+<h3>参考文献</h3>
+<br>
+<b id="bray">[1]</b>Nicolas L Bray,Harold Pimentel,Pall Melsted,and Lior Pachter.Nature Biotechnology,34:525-7,2016.
+{% endblock %}

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1200, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>{% block title %}{% endblock %}</title>
+  <link rel="stylesheet" href="../static/Bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../static/css/single_page.css">
+  <link rel="stylesheet" href="../static/css/main.css">
+  <!-- data.table -->
+  <script src="../static/js/jquery-1.9.0.min.js"></script>
+  <link rel="stylesheet" href="../static/DataTable/dataTables.bootstrap.min.css">
+  <script src="../static/DataTable/jquery.dataTables.min.js"></script>
+  <script src="../static/DataTable/dataTables.bootstrap.min.js"></script>
+  <!--fancybox -->
+  <link rel="stylesheet" href="../static/fancybox/jquery.fancybox.css" media="screen"/>
+  <link rel="stylesheet" href="../static/fancybox/fancybox.css"/>
+  <script src="../static/js/jquery.albumSlider.min.js"></script>
+  <script src="../static/fancybox/jquery.mousewheel-3.0.6.pack.js"></script>
+  <script src="../static/fancybox/jquery.fancybox.js"></script>
+  <script src="../static/fancybox/jquery.fancybox.pack.js"></script>
+</head>
+<script>
+  $(document).ready(function(){
+    $(".table").DataTable({
+      "scrollX": true
+    });
+
+    $(".fancybox-effects-d").fancybox({
+      padding:0,
+      openEffect:'elastic',
+      openSpeed:150,
+      closeEffect:'elastic',
+      closeSpeed:150,
+      closeClick:true,
+      helpers:{
+        overlay:null
+      }
+    });
+
+    $("a.example2").fancybox({
+        'overlayShow'	: true,
+        'transitionIn'	: 'elastic',
+        'transitionOut'	: 'elastic'
+    });
+
+    $("a[rel=example_group]").fancybox({
+        'transitionIn'		: 'none',
+        'transitionOut'		: 'none',
+        'titlePosition' 	: 'over',
+        'titleFormat'		: function(title, currentArray, currentIndex, currentOpts) {
+            return '<span id="fancybox-title-over">Image ' + (currentIndex + 1) + ' / ' + currentArray.length + (title.length ? ' &nbsp; ' + title : '') + '</span>';
+        }
+    });
+
+    $("div.albumSlider").albumSlider();
+  });
+
+</script>
+<body>
+  <div class="container">
+    <div class="header clearfix">
+      <nav>
+        <ul class="nav nav-pills pull-right">
+          {% block nav %}
+          {% endblock %}
+          <li role="presentation"><a href="../mRNA_report.html">主页</a></li>
+        </ul>
+      </nav>
+      <h3 class="text-muted">{{title}}</h3>
+    </div>
+    {% block intro %}
+    {% endblock %}
+
+    {% block qc_table %}
+    {% endblock %}
+
+    {% block quality_barplot %}
+    {% endblock %}
+
+    {% block gc_plot %}
+    {% endblock %}
+
+    {% block mapping_stat_table %}
+    {% endblock %}
+
+    {% block mapping_stats_plot %}
+    {% endblock %}
+
+    {% block rseqc_inner_distance %}
+    {% endblock %}
+
+    {% block rseqc_genebody_coverage %}
+    {% endblock %}
+
+    {% block rseqc_read_distrbution %}
+    {% endblock %}
+
+    {% block gene_count_table %}
+    {% endblock %}
+
+    {% block quantitative_plots %}
+    {% endblock %}
+
+    {% block diff_table %}
+    {% endblock %}
+
+    {% block volcano_plot %}
+    {% endblock %}
+
+    {% block diff_heatmap_plot%}
+    {% endblock %}
+
+    {% block go_table %}
+    {% endblock %}
+
+    {% block go_barplot %}
+    {% endblock %}
+
+    {% block dag_plot %}
+    {% endblock %}
+
+    {% block kegg_table %}
+    {% endblock %}
+
+    {% block kegg_barplot %}
+    {% endblock %}
+
+    {% block kegg_pathway %}
+    {% endblock %}
+
+    {% block document_data_stat %}
+    {% endblock %}
+
+    {% block document_mapping %}
+    {% endblock %}
+
+    {% block document_rseqc %}
+    {% endblock %}
+
+    {% block document_quant %}
+    {% endblock %}
+
+    {% block document_diff %}
+    {% endblock %}
+
+    {% block document_enrichment %}
+    {% endblock %}
+  <footer class="footer">
+    <div>
+      <p>&copy;
+        <a href="http://www.onmath.com" target="_blank">2014-2017 onmath,Inc.All rights reserved</a>
+        <img src="../static/img/cp_logo/logo.jpg" alt="onmath" class="page_logo">
+      </p>
+    </div>
+    <div class="contact">
+      <p>联系电话：028-68636933</p>
+      <p>联系地址: 四川省成都市温江区惠民路299号</p>
+    </div>
+  </footer>
+</div>
+</body>
+</html>

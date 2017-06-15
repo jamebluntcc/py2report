@@ -1,0 +1,103 @@
+{% extends "single_page_base.html" %}
+{% block title %}{{title}}{% endblock %}
+{% block nav %}
+<li role="presentation"><a href="rendered_data_stat.html">数据统计</a></li>
+<li role="presentation"><a href="rendered_mapping.html">序列比对</a></li>
+<li role="presentation"><a href="rendered_rseqc.html">数据质控</a></li>
+<li role="presentation"><a href="rendered_quantitative_analysis.html">定量分析</a></li>
+<li role="presentation" class="active"><a href="rendered_diff_analysis.html">差异分析</a></li>
+<li role="presentation"><a href="rendered_enrichment_analysis.html">功能富集</a></li>
+{% endblock %}
+
+{% block intro %}
+<div class="intro">
+  <p>
+    <I>定量分析结束后，我们需要通过差异分析得到不同生物学重复之间的差异基因，
+    从而对这些差异表达的基因进行后续功能研究。差异分析的结果如下所示。</I>
+  </p>
+</div>
+{% endblock %}
+
+{% block diff_table %}
+<div class="part row">
+  <div class="col-md-4" style="margin-top:50px">
+    <h3>差异分析统计表</h3>
+    <p class="haveBg" style="text-indent:32px;font-size:16px">
+      我们使用<a href="http://bioinf.wehi.edu.au/edgeR/">edgeR</a>
+      <a href="#robin">(Robinson MD,et al.2010)</a>对各组生物学重复两两进行差异分析，分析结果如右表所示。
+    </p>
+    <p><a class="btn btn-primary" href="{{diff_table_path}}" target="_blank" role="button">更多详情 &raquo;</a></p>
+  </div>
+  <div class="myTable col-md-8">
+    <table class="table table-striped table-bordered" cellspacing="0" width="100%">
+      <caption></caption>
+        <thead>
+          <tr>
+          {% for key in header %}
+          <th style="text-align:center;">{{key}}</th>
+          {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+            {% for each_list in diff_table %}
+            <tr>
+            {% for value in each_list %}
+               <th style="text-align:center;">{{value}}</th>
+            {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+{% endblock %}
+
+{% block volcano_plot %}
+<div class="part row group_plot">
+  <div class="col-md-4">
+    <h3>差异分析火山图</h3>
+    <p class="haveBg" style="text-indent:32px;font-size:16px">
+      通过差异分析火山图，我们可以非常直观并且合理地筛选出在两个样本间发生差异表达的基因，
+      如右图所示。其中 x 轴为 logFC 值，y 轴为 FDR 值。
+      图中红色点和绿色点为通过差异筛选阈值 (|logFC| >= 1 并且 FDR <= 0.05) 的差异基因。
+    </p>
+    <p><a class="btn btn-primary" href="{{all_volcano_plot_dir}}" target="_blank" role="button">更多详情 &raquo;</a></p>
+  </div>
+  <div class="albumSlider col-md-8" style="margin-left:100px">
+    <div class="fullview"><img src="{{all_volcano_plot_path[0]}}" alt="volcano plot"></div>
+    <div class="slider">
+      <div class="button movebackward" title="向上滚动"></div>
+        <div class="imglistwrap">
+          <ul class="imglist">
+            {% for each_volcano_plot_path in all_volcano_plot_path %}
+              <li><a href="{{each_volcano_plot_path}}" class="example2" title="火山图." rel="example_group3"><img src="{{each_volcano_plot_path}}" alt="example2"></a></li>
+            {% endfor %}
+          </ul>
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block diff_heatmap_plot %}
+<div class="part row">
+    <div class="col-lg-5">
+        <h3>差异性分析聚类热图</h3>
+        <p class="haveBg" style="text-indent:32px;font-size:16px">
+          通过对差异表达基因进行聚类分析，我们能够获得表达模式相近的基因集，
+          而使用热图进行展示则能够清晰的反映基因在不同样品间表达量的高低。
+          如右图所示。其中颜色靠近红色代表基因表达高于平均值，靠近蓝色代表低于平均值。
+        </p>
+        <p><a class="btn btn-primary" href="{{diff_heatmap_plot_dir}}" target="_blank" role="button">更多详情 &raquo;</a></p>
+    </div>
+    <div class="col-lg-6" style="padding-left:150px">
+        <a class="fancybox-effects-d" href="{{diff_heatmap_plot_path}}" title="聚类分析热图"><img src= "{{diff_heatmap_plot_path}}" alt="" class="maxWidth" style="max-width: 450px"/></a>
+    </div>
+</div>
+{% endblock %}
+
+{% block document_diff %}
+<h3>参考文献</h3>
+<br>
+<b id="robin">[1]</b>Robinson MD,McCarthy DJ,and Smyth GK.Bioinformatics,26:139-40.2010.
+{% endblock %}

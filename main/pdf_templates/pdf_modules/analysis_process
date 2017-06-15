@@ -1,0 +1,15 @@
+\section{建库测序}
+获得样品的Total RNA后，按以下流程进行文库构建。对构建好的文库，我们使用 Illumina HiSeq平台进行测序。
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.15]{\VAR{pipeline_path}}
+\caption{建库测序流程} \label{fig:graph}
+\end{figure}
+\newpage
+\section{生物信息分析流程}
+获得测序序列(Sequenced Reads)后，按如下流程进行生物信息分析:\\[1cm]
+\begin{figure}[htbp]
+\centering
+\includegraphics[scale=0.65]{\VAR{mRNAworkflow_path}}
+\caption{生物信息分析流程} \label{fig:graph}
+\end{figure}

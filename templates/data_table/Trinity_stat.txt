@@ -1,14 +1,0 @@
-\begin{tabular}{ccc}
-\toprule
-Stats&Transcript&Gene\\
-\midrule
-Contig N10&3963&3635\\
-Contig N20&2851&2460\\
-Contig N30&2264&1864\\
-Contig N40&1836&1391\\
-Contig N50&1464&987\\
-Median contig length&481&388\\
-Average contig&867.42&672.91\\
-Total assembled base...&179581298&102909698\\
-\bottomrule
-\end{tabular}

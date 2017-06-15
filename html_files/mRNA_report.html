@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>mRNA report</title>
+    <!-- Bootstrap core CSS -->
+    <link href="static/Bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link href="static/Bootstrap/css/main.css" rel="stylesheet">
+    <link href="static/css/main.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <div class="container">
+      <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation"><a href="templates/rendered_data_stat.html">数据统计</a></li>
+                <li role="presentation"><a href="templates/rendered_mapping.html">序列对比</a></li>
+                <li role="presentation"><a href="templates/rendered_rseqc.html">数据质控</a></li>
+                <li role="presentation"><a href="templates/rendered_quantitative_analysis.html">定量分析</a></li>
+                <li role="presentation"><a href="templates/rendered_diff_analysis.html">差异分析</a></li>
+                <li role="presentation"><a href="templates/rendered_enrichment_analysis.html">功能富集</a></li>
+            </ul>
+        </nav>
+        <h3 class="text-muted">mRNA分析报告</h3>
+    </div>
+    <div class="row main_page">
+      <div class="col-lg-5">
+        <h3>建库测序</h3>
+        <p style="text-indent:36px;font-size:18px" class="haveBg">
+          获得样品的Total RNA后，按照以下流程进行文库构建。对构建好的文库，我们使用Illmina HiSeq X Ten平台进行测序。
+        </p>
+      </div>
+      <div class="col-lg-7">
+          <img class="library_pipe" src="static/img/library_pipe.png" alt="workflow">
+      </div>
+	  </div>
+    <hr>
+    <div class="row main_page">
+      <div class="col-lg-4">
+            <h3>生物信息分析流程</h3>
+            <p style="text-indent:36px;font-size:18px" class="haveBg">
+              获得测序序列(Sequenced Reads)后，按照如下流程进行生物信息分析：
+            </p>
+      </div>
+      <div class="col-lg-8" style="padding-left:50px">
+          <img class="workflow" src="static/img/mRNAworkflow.png" alt="workflow">
+      </div>
+    </div>
+    <hr>
+    <div class="row main_page">
+      <div class="col-sm-4">
+          <h3>使用的分析工具与软件</h3>
+            <p style="text-indent:36px;font-size:18px" class="haveBg">
+              我们的所有分析流程工具和软件都来自于各大开源生物信息社区如：bioconductor等，这些工具有稳定的维护与更新。
+            </p>
+      </div>
+        <div class="col-sm-4">
+          <div class="list-group">
+            <a href="http://www.bioinformatics.babraham.ac.uk/projects/fastqc/" target="_blank" class="list-group-item">
+              <h4 class="list-group-item-heading">FastQC</h4>
+              <p class="list-group-item-text">主要用于数据质控，当前使用版本v0.11.5</p>
+            </a>
+            <a href="https://pachterlab.github.io/kallisto/" target="_blank" class="list-group-item">
+              <h4 class="list-group-item-heading">Kallisto</h4>
+              <p class="list-group-item-text">主要用于转录本的定量，当前使用版本v0.43.0</p>
+            </a>
+            <a href="http://bioinf.wehi.edu.au/edgeR/" target="_blank" class="list-group-item">
+              <h4 class="list-group-item-heading">edgeR</h4>
+              <p class="list-group-item-text">主要用于差异分析，当前使用版本v3.12.1</p>
+            </a>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="list-group">
+            <a href="http://bioconductor.org/packages/goseq" target="_blank" class="list-group-item">
+              <h4 class="list-group-item-heading">goseq</h4>
+              <p class="list-group-item-text">主要用于GO富集分析，当前使用版本v1.22.0</p>
+            </a>
+            <a href="http://bioconductor.org/packages/topGO" target="_blank" class="list-group-item">
+              <h4 class="list-group-item-heading">topGO</h4>
+              <p class="list-group-item-text">主要用于GO富集DAG的绘制，当前使用版本v2.22.0</p>
+            </a>
+            <a href="http://kobas.cbi.pku.edu.cn/index.php" target="_blank" class="list-group-item">
+              <h4 class="list-group-item-heading">KOBAS</h4>
+              <p class="list-group-item-text">主要用于KEGGPathway富集分析，当前使用版本v2.0</p>
+            </a>
+            <a href="http://pathview.uucc.edu" target="_blank" class="list-group-item">
+              <h4 class="list-group-item-heading">pathview</h4>
+              <p class="list-group-item-text">主要用于KEGGPathway通路图处理，当前使用版本v1.10.1</p>
+            </a>
+          </div>
+        </div>
+    </div>
+    <!-- Site footer -->
+    <footer class="footer">
+      <div>
+        <p>&copy; <a href="http://www.onmath.com" target="_blank">2014-2017 onmath,Inc.All rights reserved</a>
+         <img class="main_logo" src="static/img/cp_logo/logo.jpg" alt="onmath"/>
+        </p>
+        <div class="contact">
+        <p>联系电话：028-68636933</p>
+        <p>联系地址: 四川省成都市温江区惠民路299号</p>
+        </div>
+    </footer>
+</div> <!-- /container -->
+</body>
+</html>

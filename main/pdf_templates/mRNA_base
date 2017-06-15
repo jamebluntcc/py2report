@@ -1,0 +1,52 @@
+%%%------mRNA_report version3.0 template------%%%
+%%%create on 2016-11-1
+%%%changed on 2017-02-24
+%%%changed on 2017-03-09
+%%%changed on 2017-06-13
+%%%changed on 2017-06-14 将每一个分析模块整合成一个单独页面
+%%%------------------------------------------%%%
+\BLOCK{ include 'pdf_modules/pdf_head' }
+\newpage
+\BLOCK{ include 'pdf_modules/analysis_process' ignore missing }
+\newpage
+\BLOCK{ include 'pdf_modules/data_stat' ignore missing }
+\newpage
+\BLOCK{ include 'pdf_modules/mapping' ignore missing }
+\newpage
+\BLOCK{ include 'pdf_modules/data_control' ignore missing }
+\newpage
+\BLOCK{ include 'pdf_modules/quant' ignore missing }
+\newpage
+\BLOCK{ include 'pdf_modules/diff' ignore missing }
+\newpage
+\BLOCK{ include 'pdf_modules/enrichment' ignore missing }
+\newpage
+\section{附录}
+\subsection{软件列表}
+\begin{table}[H]
+\centering
+\small
+\caption{\label{tab:table}软件列表}
+\begin{tabular}{lllll}
+\toprule
+软件名称 & 软件版本 & 功能 & 参数 & 链接 \\
+\midrule
+FastQC & v0.11.5 & 数据质控 & 默认参数 & \href{http://www.bioinformatics.babraham.ac.uk/projects/fastqc/}{http://www.bioinformatics.babraham.ac.uk/projects/fastqc/} \\
+Kallisto & v0.43.0 & 转录本定量 & 默认参数 & \href{http://pachterlab.github.io/kallisto/}{https://pachterlab.github.io/kallisto/} \\
+edgeR & 3.12.1 & 差异分析 & 默认参数 & \href{http://bioinf.wehi.edu.au/edgeR/}{http://bioinf.wehi.edu.au/edgeR/}\\
+goseq & 1.22.0 & GO 富集分析 & 默认参数 & \href{http://bioconductor.org/packages/goseq/}{http://bioconductor.org/packages/goseq/}\\
+topGO & 2.22.0  & GO 富集 DAG 绘制 & 默认参数 & \href{http://bioconductor.org/packages/topGO/}{http://bioconductor.org/packages/topGO/}\\
+KOBAS & 2.0 & KEGG Pathway 富集分析 & 默认参数 & \href{http://kobas.cbi.pku.edu.cn/index.php}{http://kobas.cbi.pku.edu.cn/index.php}\\
+pathview & 1.10.1 & KEGG Pathway 通路图处理 & 默认参数 & \href{http://pathview.uncc.edu/}{http://pathview.uncc.edu/}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+%------reference--------%
+\newpage
+\subsection{参考文献}
+\renewcommand\refname{}
+\bibliographystyle{unsrt}
+\bibliography{ref}
+
+\end{document}

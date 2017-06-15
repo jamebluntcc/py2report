@@ -1,0 +1,211 @@
+{% extends "single_page_base.html" %}
+{% block title %}{{title}}{% endblock %}
+{% block nav %}
+<li role="presentation"><a href="rendered_data_stat.html">数据统计</a></li>
+<li role="presentation"><a href="rendered_mapping.html">序列比对</a></li>
+<li role="presentation"><a href="rendered_rseqc.html">数据质控</a></li>
+<li role="presentation"><a href="rendered_quantitative_analysis.html">定量分析</a></li>
+<li role="presentation"><a href="rendered_diff_analysis.html">差异分析</a></li>
+<li role="presentation" class="active"><a href="rendered_enrichment_analysis.html">功能富集</a></li>
+{% endblock %}
+
+{% block intro %}
+<div class="intro">
+  <p>
+    <I>通过 KEGG 和 GO 数据库的基因富集分析，
+    我们能够发现差异表达基因是否在某些生物学通路或特定功能基因集中出现的概率超出预期，
+    反映差异基因可能与这些通路或者生物功能相关。功能富集的分析结果如下所示。</I>
+  </p>
+</div>
+{% endblock %}
+
+{% block go_table %}
+<div class="part row">
+  <div class="col-md-4" style="margin-top:50px">
+    <h3>GO 富集分析统计</h3>
+    <p class="haveBg" style="text-indent:32px;font-size:16px">
+    我们利用<a href="http://bioconductor.org/packages/goseq">GOseq</a><a href="#young">（Young et al.2010)</a>
+    基于 Wallenius 非中心超几何分布原理，并能够对基因长度进行校正，适用于 RNAseq 数据的分析。右表展示了 GOseq 的分析结果。 <!--<a href="{{go_enrichment_table_path}}">查看数据文件</a>-->
+    </p>
+    <p><a class="btn btn-primary" href="{{go_table_path}}" target="_blank" role="button">更多详情 &raquo;</a></p>
+  </div>
+  <div class="myTable col-md-8">
+    <table class="table table-striped table-bordered" cellspacing="0" width="100%">
+      <caption></caption>
+    <thead>
+      <tr>
+      {% for key in go_header %}
+      <th style="text-align:center;">{{key}}</th>
+      {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for each_list in go_enrichment_table %}
+      <tr>
+      {% for cell in each_list %}
+         <th style="text-align:center;">{{cell}}</th>
+      {% endfor %}
+      </tr>
+      {% endfor %}
+  </tbody>
+</table>
+</div>
+</div>
+{% endblock %}
+
+{%block go_barplot %}
+<div class="part row group_plot">
+  <div class="col-md-4">
+    <h3>GO 富集分析柱状图</h3>
+    <p class="haveBg" style="text-indent:32px;font-size:16px">
+      右图为 GO 富集分析柱状图。对每个比较组，我们将该比较中所有差异基因，
+      以及分别在两组中上调表达的基因进行 GO 富集分析。
+      对于富集结果，我们各挑选显著富集（ Pvalue < 0.05）的 15 条进行绘图，
+      若不足 15 条，则全部展示。
+    </p>
+    <p><a class="btn btn-primary" href="{{all_go_enrichment_plot_dir}}" target="_blank" role="button">更多详情 &raquo;</a></p>
+  </div>
+  <div class="albumSlider col-md-8" style="margin-left:100px">
+    <div class="fullview"><img src="{{all_go_enrichment_plot_path[0]}}" alt="Go barplot"></div>
+    <div class="slider">
+      <div class="button movebackward" title="向上滚动"></div>
+        <div class="imglistwrap">
+          <ul class="imglist">
+            {% for each_go_enrichment_plot_path in all_go_enrichment_plot_path %}
+              <li><a href="{{each_go_enrichment_plot_path}}" class="example2" title="go barplot." rel="example_group3"><img src="{{each_go_enrichment_plot_path}}" alt="example2"></a></li>
+            {% endfor %}
+          </ul>
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block dag_plot %}
+<div class="part row group_plot">
+  <div class="col-md-4">
+    <h3>GO 富集分析有向无环图</h3>
+    <p class="haveBg" style="text-indent:32px;font-size:16px">
+    我们使用<a href="http://bioconductor.org/packages/topGO">topGO</a><a href="#alexa">(Alexa A and Rahnenfuhrer J. 2016)</a>
+    分别绘制生物过程(biological process)、
+    分子功能(molecular function)
+    和细胞组分(cellular component)
+    有向无环图 (directed acyclic graph, DAG)。
+    从上至下所定义的功能范围精细，颜色越深代表富集程度越高。如右图所示。
+    </p>
+    <p><a class="btn btn-primary" href="{{all_dag_plot_dir}}" target="_blank" role="button">更多详情 &raquo;</a></p>
+  </div>
+  <div class="albumSlider col-md-8" style="margin-left:100px">
+    <div class="fullview"><img src="{{all_dag_plot_path[0]}}" alt="volcano plot"></div>
+    <div class="slider">
+      <div class="button movebackward" title="向上滚动"></div>
+        <div class="imglistwrap">
+          <ul class="imglist">
+            {% for each_dag_plot_path in all_dag_plot_path %}
+              <li><a href="{{each_dag_plot_path}}" class="example2" title="DAG." rel="example_group3"><img src="{{each_dag_plot_path}}" alt="example2"></a></li>
+            {% endfor %}
+          </ul>
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block kegg_table %}
+<div class="part row">
+  <div class="col-md-4" style="margin-top:50px">
+    <h3>KEGG 富集分析统计</h3>
+    <p class="haveBg" style="text-indent:32px;font-size:16px">
+      我们使用<a href="http://bioconductor.org/packages/topGO">KOBAS</a><a href="#xie">（Chen Xie,et al. 2011）</a>
+      对差异基因进行KEGG富集分析。 KOBAS 每3个月会对数据库进行更新，能够保证数据的及时性。
+      <!--<a href="{{kegg_table_path}}">查看数据文件</a>-->
+    </p>
+    <p><a class="btn btn-primary" href="{{kegg_table_path}}" target="_blank" role="button">更多详情 &raquo;</a></p>
+  </div>
+  <div class="myTable col-md-8">
+  <table class="table table-striped table-bordered" cellspacing="0" width="100%">
+    <caption></caption>
+    <thead>
+      <tr>
+      {% for key in kegg_header %}
+      <th style="text-align:center;">{{key}}</th>
+      {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      {% for each_list in kegg_enrichment_table %}
+      <tr>
+      {% for value in each_list %}
+         <th style="text-align:center;">{{value}}</th>
+      {% endfor %}
+      </tr>
+      {% endfor %}
+  </tbody>
+</table>
+</div>
+</div>
+{% endblock %}
+
+{% block kegg_barplot %}
+<div class="part row group_plot">
+  <div class="col-md-4">
+    <h3>KEGG 富集分析柱状图</h3>
+    <p class="haveBg" style="text-indent:32px;font-size:16px">
+      右图为 KEGG 富集分析柱状图。对每个比较组,我们将该比较组中所有差异基因,
+      以及分别在两组中上调表达的基因进行 KEGG 富集分析。
+      对于富集结果,我们各挑选显著富集 (Pvalue < 0.05) 的15条进行绘图,
+      若不足15条,则全部展示。
+    </p>
+    <p><a class="btn btn-primary" href="{{all_kegg_enrichment_plot_dir}}" target="_blank" role="button">更多详情 &raquo;</a></p>
+  </div>
+  <div class="albumSlider col-md-8" style="margin-left:100px">
+    <div class="fullview"><img src="{{all_kegg_enrichment_plot_path[0]}}" alt="kegg barplot"></div>
+    <div class="slider">
+      <div class="button movebackward" title="向上滚动"></div>
+        <div class="imglistwrap">
+          <ul class="imglist">
+            {% for each_kegg_enrichment_plot_path in all_kegg_enrichment_plot_path %}
+              <li><a href="{{each_kegg_enrichment_plot_path}}" class="example2" title="kegg barplot." rel="example_group3"><img src="{{each_kegg_enrichment_plot_path}}" alt="example2"></a></li>
+            {% endfor %}
+          </ul>
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block kegg_pathway %}
+<div class="part row group_plot">
+  <div class="col-md-4">
+    <h3>KEGG 富集分析通路图</h3>
+    <p class="haveBg" style="text-indent:32px;font-size:16px">
+      KEGG 富集分析通路图详细反映了生物学通路中分子之间的相互作用。我们对差异基因所在的 KEGG Pathway 通路进行下载，
+      并使用<a href="http://pathview.uucc.edu">pathview</a><a href="#luo">(Luo,et al.2013)</a>
+      将差异基因在通路图中进行标注，右图展示了其中的部分结果。
+    </p>
+    <p><a class="btn btn-primary" href="{{all_kegg_pathway_plot_dir}}" target="_blank" role="button">更多详情 &raquo;</a></p>
+  </div>
+  <div class="albumSlider col-md-8" style="margin-left:100px">
+    <div class="fullview"><img src="{{all_kegg_pathway_plot_path[0]}}" alt="volcano plot"></div>
+    <div class="slider">
+      <div class="button movebackward" title="向上滚动"></div>
+        <div class="imglistwrap">
+          <ul class="imglist">
+            {% for each_kegg_pathway_plot_path in all_kegg_pathway_plot_path %}
+              <li><a href="{{each_kegg_pathway_plot_path}}" class="example2" title="DAG." rel="example_group3"><img src="{{each_kegg_pathway_plot_path}}" alt="example2"></a></li>
+            {% endfor %}
+          </ul>
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block document_enrichment %}
+<h3>参考文献</h3>
+<br>
+<b id="young">[1]</b>Young MD,Wakefield MJ,Smyth GK,and Oshlack A.Genome Biology,11:R14,2010.<br>
+<b id="alexa">[2]</b>Alexa A and Rahnenfuhrer J.2016.<br>
+<b id="xie">[3]</b>Xie C,X,Huang J,Ding Y,Wu J,Dong S,Kong L,Gao G,Li CY,and Wei L.Nucleic Acids Res,39:W316-W322,2011.<br>
+<b id="lou">[4]</b>Lou,Weijun,Brouwer,and Cory.Bioinformatics,29:14.2013.
+{% endblock %}
