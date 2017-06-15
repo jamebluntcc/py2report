@@ -25,13 +25,15 @@
 \subsection{软件列表}
 \begin{table}[H]
 \centering
-\small
+\footnotesize
 \caption{\label{tab:table}软件列表}
 \begin{tabular}{lllll}
 \toprule
-软件名称 & 软件版本 & 功能 & 参数 & 链接 \\
+名称 & 版本 & 功能 & 参数 & 链接 \\
 \midrule
 FastQC & v0.11.5 & 数据质控 & 默认参数 & \href{http://www.bioinformatics.babraham.ac.uk/projects/fastqc/}{http://www.bioinformatics.babraham.ac.uk/projects/fastqc/} \\
+STAR & v2.5.3a & 参考序列对比 & 具体参数\footnotemark & \href{https://github.com/alexdobin/STAR}{https://github.com/alexdobin/STAR} \\
+RSeQC & v2.6.4 & RNA数据质控 & 默认参数 & \href{http://rseqc.sourceforge.net/}{http://rseqc.sourceforge.net/} \\
 Kallisto & v0.43.0 & 转录本定量 & 默认参数 & \href{http://pachterlab.github.io/kallisto/}{https://pachterlab.github.io/kallisto/} \\
 edgeR & 3.12.1 & 差异分析 & 默认参数 & \href{http://bioinf.wehi.edu.au/edgeR/}{http://bioinf.wehi.edu.au/edgeR/}\\
 goseq & 1.22.0 & GO 富集分析 & 默认参数 & \href{http://bioconductor.org/packages/goseq/}{http://bioconductor.org/packages/goseq/}\\
@@ -41,7 +43,7 @@ pathview & 1.10.1 & KEGG Pathway 通路图处理 & 默认参数 & \href{http://p
 \bottomrule
 \end{tabular}
 \end{table}
-
+\footnotetext{--outSAMstrandField intronMotif --outFilterType BySJout --outFilterMultimapNmax 20 \\ --alignSJoverhangMin 8 --alignSJDBoverhangMin 1 --outFilterMismatchNmax 999 \\ --alignIntronMin 20 --alignIntronMax 1000000 --alignMatesGapMax 1000000}
 %------reference--------%
 \newpage
 \subsection{参考文献}

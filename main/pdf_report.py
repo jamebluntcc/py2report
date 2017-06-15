@@ -12,7 +12,7 @@ from . import mRNA_result_dict,pdf_analysis_path,pdf_jinja_env,pdf_settings,pdf_
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
-ref_file_path = '/home/chencheng/onmath_project/latex2pdf/main/pdf_templates/ref.bib'
+ref_file_path = '/home/chencheng/onmath_project/latex2pdf/main/pdf_templates/latex.ref.bib'
 def cut_overlong_table(row_list,max_len=int(pdf_settings['max_cell_len'])):
     for i in range(len(row_list)):
         if len(row_list[i]) > max_len:
