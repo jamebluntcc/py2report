@@ -14,7 +14,7 @@ from . import mRNA_result_dict,pdf_analysis_path,pdf_jinja_env,pdf_settings,pdf_
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
-ref_file_path = '/home/chencheng/onmath_project/latex2pdf/main/pdf_templates/ref.bib'
+ref_file_path = '/home/chencheng/onmath_project/py2report/main/pdf_templates/ref.bib'
 def cut_overlong_table(row_list,max_len=int(pdf_settings['max_cell_len'])):
     '''
     param:
@@ -48,11 +48,17 @@ def three_line_list(input_path,colunms,split='\t'):
         table_list = []
         table_begin = '\\begin{tabular}{%s}' %('c'*cols)
         table_list.append(table_begin)
-        head_list = cut_overlong_table(thead.strip('\n').split(split))[:cols]
+        if cols > 3:
+            head_list = cut_overlong_table(thead.strip('\n').split(split))[:cols]
+        else:
+            head_list = thead.strip('\n').split(split)
         head_str = '&'.join(head_list).replace('_','\_').replace('%','\%').replace('#','\#') + r'\\'
         table_list.append(head_str)
         for line in tbody:
-            each_list = cut_overlong_table(line.strip('\n').split(split))[:cols]
+            if cols > 3:
+                each_list = cut_overlong_table(line.strip('\n').split(split))[:cols]
+            else:
+                each_list = line.strip('\n').split(split)
             each_str = '&'.join(each_list).replace('_','\_').replace('%','\%').replace('#','\#') + r'\\'
             table_list.append(each_str)
         return table_list
