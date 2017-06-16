@@ -97,7 +97,7 @@ fastqc_analysis_path = dict(gc_barplot_path = 'gc_plot/gc_distribution.line.png'
 for key,value in fastqc_analysis_path.items():
 	fastqc_analysis_path[key] = os.path.join(mRNA_data_path,fastqc_path,value)
 ##mapping part
-mapping_analysis_path = dict(mapping_table_path='mapping_stats.txt',mapping_plot_path='mapping_stats_plot.png')
+mapping_analysis_path = dict(mapping_table_path='mapping_stats.report',mapping_plot_path='mapping_stats_plot.png')
 
 for key,value in mapping_analysis_path.items():
 	mapping_analysis_path[key] = os.path.join(mRNA_data_path,mapping_path,value)
