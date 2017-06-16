@@ -1,11 +1,13 @@
 #coding:UTF-8
 '''
 this is py2report's html_report moudle which a python script generate html mRNA report
+this version only run on 34
 log:
 create by chencheng on 2017-05-05
 add mapping and rseqc moudles on 2017-05-25
 change report dir construction on 2017-06-08
 import function for each part on 2017-06-10
+add all function doc on 2017-06-16
 '''
 import os
 import re
@@ -15,12 +17,25 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 def get_multiple_plots(pattern_dict,generate_report_path,all_file):
+    '''
+    param:
+    pattern_dict:each analysis part's plots pattern
+    generate_report_path:a path where to your analysis's report data
+    all_file:all analysis part's paths(plots path)
+    function:link report data's path when generate each analysis moudle
+    '''
     multiple_plot_path = dict.fromkeys(pattern_dict.keys())
     for key,value in multiple_plot_path.items():
         multiple_plot_path[key] = [file.replace(os.path.join(generate_report_path,'analysis_report'),'..') for file in all_file if re.search(pattern_dict[key],file.rsplit('/',1)[1])]
     return multiple_plot_path
 
 def table2list(table_path,header=True,split='\t',max_row_num = 30,max_col_num = 100,max_cell_num = 15):
+    '''
+    param:
+    table_path:each analysis part's table path
+    other params:threshold values for control table
+    function:transform table to list
+    '''
     if os.path.exists(table_path):
         table_list = []
         head_list = []
@@ -43,7 +58,8 @@ def table2list(table_path,header=True,split='\t',max_row_num = 30,max_col_num = 
 
 def enrichment_analysis(generate_report_path):
     '''
-    param:report path
+    param:a path where to your analysis's report data
+    function:create enrichment analysis moudle
     '''
     enrichment_path = os.path.join(generate_report_path,mRNA_data_dict['enrichment'])
     if not os.path.exists(enrichment_path):
@@ -91,7 +107,8 @@ def enrichment_analysis(generate_report_path):
 
 def fastqc_analysis(generate_report_path):
     '''
-    param:report path
+    param:a path where to your analysis's report data
+    function:create fastqc analysis moudle
     '''
     fastqc_path = os.path.join(generate_report_path,mRNA_data_dict['fastqc'])
     if not os.path.exists(fastqc_path):
@@ -129,7 +146,8 @@ def fastqc_analysis(generate_report_path):
 
 def mapping_analysis(generate_report_path):
     '''
-    param:report path
+    param:a path where to your analysis's report data
+    function:create mapping analysis moudle
     '''
     mapping_path = os.path.join(generate_report_path,mRNA_data_dict['mapping'])
     if not os.path.exists(mapping_path):
@@ -154,7 +172,8 @@ def mapping_analysis(generate_report_path):
 
 def quantification_analysis(generate_report_path):
     '''
-    param:report path
+    param:a path where to your analysis's report data
+    function:create quantification&diff analysis moudle
     '''
     quantification_path = os.path.join(generate_report_path,mRNA_data_dict['quantification'])
     if not os.path.exists(quantification_path):
@@ -210,7 +229,8 @@ def quantification_analysis(generate_report_path):
 
 def rseqc_analysis(generate_report_path):
     '''
-    param:report path
+    param:a path where to your analysis's report data
+    function:create rseqc analysis moudle
     '''
     rseqc_path = os.path.join(generate_report_path,mRNA_data_dict['rseqc'])
     if not os.path.exists(rseqc_path):
