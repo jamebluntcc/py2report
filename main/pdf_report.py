@@ -1,9 +1,11 @@
 #coding:UTF-8
 '''
 this is py2report's pdf_report moudle which a python script generate pdf mRNA report
+this version only run on 34
 log:
 create by chencheng on 2017-06-13
 add all href and plot_size on 2017-06-14
+add all function doc on 2017-06-16
 '''
 import os
 import sys
@@ -14,12 +16,24 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 ref_file_path = '/home/chencheng/onmath_project/latex2pdf/main/pdf_templates/ref.bib'
 def cut_overlong_table(row_list,max_len=int(pdf_settings['max_cell_len'])):
+    '''
+    param:
+    row_list: each analysis part's table rwo list apply in three_line_list function
+    max_cell_len: threshold value to cut table cell
+    function: cut table cell's length when over 20 chars
+    '''
     for i in range(len(row_list)):
         if len(row_list[i]) > max_len:
            row_list[i] = row_list[i][:max_len] + '...'
     return row_list
 
 def three_line_list(input_path,colunms,split='\t'):
+    '''
+    param:
+    input_path: each analysis part's table path
+    colunms: threshold value to table colunms
+    function: transform each analysis part's table into table_list
+    '''
     with open(input_path,'r+') as f:
         data = f.readlines()
         thead = data[0]
@@ -44,6 +58,12 @@ def three_line_list(input_path,colunms,split='\t'):
         return table_list
 
 def check_file(file_dict,generate_report_path):
+    '''
+    param:
+    file_dict:each analysis part's path dict
+    generate_report_path:a path where to your analysis's report data
+    function:check each path's exists and add generate_report_path into them
+    '''
     for key,value in file_dict.items():
         file_dict[key] = os.path.join(generate_report_path,value)
         if not os.path.exists(file_dict[key]):
@@ -51,11 +71,16 @@ def check_file(file_dict,generate_report_path):
             sys.exit(1)
 
 def run_tex(tex_path):
+    '''
+    param:
+    tex_path:generate pdf report's tex path
+    function:transform tex file into pdf file
+    '''
     tex_dir = os.path.dirname(tex_path)
     tex_file = os.path.basename(tex_path)
     os.chdir(tex_dir)
     aux_file = tex_file.replace('tex','aux')
-    rm_set = ['.aux','.log','.out','.toc','.tex','.tmp','.bib','.bbl','.blg']
+    rm_set = ['.aux','.log','.out','.toc','.tmp','.tex','.bib','.bbl','.blg']
     subprocess.call('cp {ref_file} {tex_dir}'.format(ref_file=ref_file_path,tex_dir=tex_dir),shell=True)
     subprocess.call('xelatex {tex_file}'.format(tex_file=tex_file),shell=True)
     subprocess.call('bibtex {aux_file}'.format(aux_file=aux_file),shell=True)
@@ -65,11 +90,14 @@ def run_tex(tex_path):
         if os.path.splitext(each_file)[1] in rm_set:
             subprocess.call('rm {file}'.format(file=os.path.join(tex_dir,each_file)),shell=True)
 
+    print '---------------------'
     print 'pdf mRNA report done!'
+    print '---------------------'
 
 def create_pdf_report(generate_report_path):
     '''
-    param:report path
+    param:a path where to your analysis's report data
+    function:generate report tex file
     '''
     pdf_param_dict = {}
     pdf_param_dict.update(pdf_plots_size_dict)
@@ -148,5 +176,7 @@ def create_pdf_report(generate_report_path):
     #subprocess.call('cp main/pdf_templates/ref.bib {report_path}'.format(report_path=pdf_template_path))
     with open(os.path.join(pdf_template_path,'mRNA_report.tex'),'w+') as f:
         f.write(template.render(pdf_param_dict))
+    print '-------------------------'
     print 'pdf report tex file done!'
+    print '-------------------------'
     run_tex(tex_path=os.path.join(pdf_template_path,'mRNA_report.tex'))
