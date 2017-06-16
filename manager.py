@@ -4,7 +4,7 @@ import argparse
 import subprocess
 from main import html_report,pdf_report
 '''
-this is main 
+this is main python script file to generate html report & pdf report
 '''
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description = '---create mRNA analysis report---')
