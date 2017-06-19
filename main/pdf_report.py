@@ -107,7 +107,8 @@ def create_pdf_report(generate_report_path):
     '''
     pdf_param_dict = {}
     pdf_param_dict.update(pdf_plots_size_dict)
-    pdf_head_dict = dict(project_name=os.path.basename(generate_report_path),
+    pdf_project_name = generate_report_path.rstrip('/').rsplit('/',1)[1].replace('_','\_')
+    pdf_head_dict = dict(project_name=pdf_project_name,
                          report_name=pdf_settings['project_name'],
                          address=pdf_settings['address'],
                          phone=pdf_settings['phone'],
