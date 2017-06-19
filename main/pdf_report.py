@@ -86,12 +86,12 @@ def run_tex(tex_path):
     tex_file = os.path.basename(tex_path)
     os.chdir(tex_dir)
     aux_file = tex_file.replace('tex','aux')
-    rm_set = ['.aux','.log','.out','.toc','.tmp','.tex','.bib','.bbl','.blg']
+    rm_set = ['.aux','.log','.out','.toc','.tmp','.tex','.bib','.bbl','.blg','summary']
     subprocess.call('cp {ref_file} {tex_dir}'.format(ref_file=ref_file_path,tex_dir=tex_dir),shell=True)
-    subprocess.call('xelatex {tex_file}'.format(tex_file=tex_file),shell=True)
+    subprocess.call('xelatex {tex_file} > summary'.format(tex_file=tex_file),shell=True)
     subprocess.call('bibtex {aux_file}'.format(aux_file=aux_file),shell=True)
-    subprocess.call('xelatex {tex_file}'.format(tex_file=tex_file),shell=True)
-    subprocess.call('xelatex {tex_file}'.format(tex_file=tex_file),shell=True)
+    subprocess.call('xelatex {tex_file} > summary'.format(tex_file=tex_file),shell=True)
+    subprocess.call('xelatex {tex_file} > summary'.format(tex_file=tex_file),shell=True)
     for each_file in os.listdir(tex_dir):
         if os.path.splitext(each_file)[1] in rm_set:
             subprocess.call('rm {file}'.format(file=os.path.join(tex_dir,each_file)),shell=True)
