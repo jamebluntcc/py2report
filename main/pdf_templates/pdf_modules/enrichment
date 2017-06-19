@@ -62,6 +62,7 @@ GOseq\cite{goseq}（Young et al, 2010）基于 Wallenius 非中心超几何分�
 \\
 \\
 \VAR{ plot(kegg_barplor_size,kegg_barplot_path,caption='KEGG 富集分析柱状图，其中*号表示该 KEGG Pathway 在BH校正后，依然显著富集(Corrected P-Value < 0.05)') }
+\newpage
 \BLOCK{ endif }
 \BLOCK{if pathview_path }
 \subsection{KEGG 富集分析通路图}
