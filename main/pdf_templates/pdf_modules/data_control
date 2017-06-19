@@ -1,6 +1,7 @@
 \BLOCK{ from 'plots_table' import plot,table }
 \section{数据质控}
 我们使用 RSeQC (Wang, L., Wang, S., \& Li, W. 2012)，对本次测序的数据的文库插入片段，基因区 reads 覆盖度和基因区域 reads 分布3个方面进行评估。下面展示了这3项分析的结果。
+\BLOCK{ if inner_distance_plot_path }
 \subsection{文库插入片段长度分布图}
 下图展示了样品的插入片段长度的分布情况。其中 x 轴代表文库插入片段长度，可以理解为 read1 和 read2在基因组中的距离，该值为负数代表 read1 和 read2 有部分重叠 (overlap)。(文库片段长度 = 插入片段长度 + read1长度 + read2长度)
 \href{run:../analysis_result/rseqc/inner_distance/}{查看全部文库插入片段长度分布图}
@@ -9,6 +10,8 @@
 \\
 \VAR{ plot(inner_distance_plot_size,inner_distance_plot_path,caption='插入片段长度的分布图') }
 \newpage
+\BLOCK{ endif }
+\BLOCK{ if genebody_coverage_plot_path }
 \subsection{基因区域 reads 覆盖情况}
 我们将所有基因的转录本按照比例100等分，分别计算每个区域上的 reads 覆盖情况，进行标准化之后得到基因5'端至3'端的整体表达情况。右图展示了基因区域 reads 覆盖的情况。通常情况下 reads 在5'端和3'端的覆盖度是一致的，若 reads 覆盖在5'或3'端存在明显的偏好，说明样品 RNA可能存在不完整的情况。
 \href{run:../analysis_result/rseqc/genebody_coverage/}{查看全部基因区域 reads 覆盖图}
@@ -19,6 +22,8 @@
 \\
 \VAR{ plot(genebody_coverage_plot_size,genebody_coverage_plot_path,caption='基因区域 reads 覆盖图') }
 \newpage
+\BLOCK{ endif }
+\BLOCK{if read_distribution_plot_path }
 \subsection{reads 在基因区域分布}
 我们统计落在不同基因区域 (包括上下游10kb) 的 reads 的比例。结果如右图所示。对于 RNAseq 数据，大部分的 reads 应该落在基因的 exon 和 cds 区域。
 \href{run:../analysis_result/rseqc/read_distribution/}{查看全部reads 在基因区域分布图}
@@ -29,3 +34,4 @@
 \\
 \\
 \VAR{ plot(read_distribution_plot_size,read_distribution_plot_path,caption='reads 在基因区域分布图') }
+\BLOCK{ endif }
