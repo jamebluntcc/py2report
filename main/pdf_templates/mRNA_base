@@ -4,6 +4,7 @@
 %%%changed on 2017-03-09
 %%%changed on 2017-06-13
 %%%changed on 2017-06-14 将每一个分析模块整合成一个单独页面
+%%% add each analysis if-end block on 2017-06-19 %%%
 %%%------------------------------------------%%%
 \BLOCK{ include 'pdf_modules/pdf_head' }
 \newpage

@@ -9,8 +9,9 @@ this is main python script file to generate html report & pdf report
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description = '---create mRNA analysis report---')
     parser.add_argument('mRNA_report_path',help='a dir where include your analysis results')
-    parser.add_argument('--pdf',action='store_true',help='print out pdf report')
-    parser.add_argument('--html',action='store_true',help='print out html report')
+    parser.add_argument('--pdf','-pdf',action='store_true',help='print out pdf report')
+    parser.add_argument('--html','-html',action='store_true',help='print out html report')
+    parser.add_argument('--part','-part',action='store_false',help='project whether complete,defalut False')
     args = parser.parse_args()
 
     if args.html:
@@ -21,5 +22,6 @@ if __name__ == '__main__':
         html_report.mapping_analysis(args.mRNA_report_path)
         html_report.quantification_analysis(args.mRNA_report_path)
         html_report.rseqc_analysis(args.mRNA_report_path)
+
     if args.pdf:
-        pdf_report.create_pdf_report(args.mRNA_report_path)
+        pdf_report.create_pdf_report(args.mRNA_report_path,args.part)
