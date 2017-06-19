@@ -22,3 +22,4 @@ python manager.py your report_result_path --html #生成 html 报告
 
 python manager.py your report_result_path --pdf #生成 pdf 报告
 ```
+haha
