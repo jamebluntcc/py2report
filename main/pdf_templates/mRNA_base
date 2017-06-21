@@ -10,18 +10,30 @@
 \newpage
 \BLOCK{ include 'pdf_modules/analysis_process' ignore missing }
 \newpage
+\BLOCK{ if data_stat }
 \BLOCK{ include 'pdf_modules/data_stat' ignore missing }
 \newpage
+\BLOCK{ endif }
+\BLOCK{ if mapping }
 \BLOCK{ include 'pdf_modules/mapping' ignore missing }
 \newpage
+\BLOCK{ endif }
+\BLOCK{ if data_control }
 \BLOCK{ include 'pdf_modules/data_control' ignore missing }
 \newpage
+\BLOCK{ endif }
+\BLOCK{ if quant }
 \BLOCK{ include 'pdf_modules/quant' ignore missing }
 \newpage
+\BLOCK{ endif }
+\BLOCK{ if diff }
 \BLOCK{ include 'pdf_modules/diff' ignore missing }
 \newpage
+\BLOCK{ endif }
+\BLOCK{ if enrichment }
 \BLOCK{ include 'pdf_modules/enrichment' ignore missing }
 \newpage
+\BLOCK{ endif }
 \section{附录}
 \subsection{软件列表}
 \begin{table}[H]
