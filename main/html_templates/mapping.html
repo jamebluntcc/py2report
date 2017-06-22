@@ -1,12 +1,12 @@
 {% extends "single_page_base.html" %}
 {% block title %}{{title}}{% endblock %}
 {% block nav %}
-<li role="presentation"><a href="rendered_data_stat.html">数据统计</a></li>
+{% if fastqc %}<li role="presentation"><a href="rendered_data_stat.html">数据统计</a></li>{% endif %}
 <li role="presentation" class="active"><a href="rendered_mapping.html">序列比对</a></li>
-<li role="presentation"><a href="rendered_rseqc.html">数据质控</a></li>
-<li role="presentation"><a href="rendered_quantitative_analysis.html">定量分析</a></li>
-<li role="presentation"><a href="rendered_diff_analysis.html">差异分析</a></li>
-<li role="presentation"><a href="rendered_enrichment_analysis.html">功能富集</a></li>
+{% if rsqec %}<li role="presentation"><a href="rendered_rseqc.html">数据质控</a></li>{% endif %}
+{% if quantification %}<li role="presentation"><a href="rendered_quantitative_analysis.html">定量分析</a></li>{% endif %}
+{% if quantification %}<li role="presentation"><a href="rendered_diff_analysis.html">差异分析</a></li>{% endif %}
+{% if enrichment %}<li role="presentation"><a href="rendered_enrichment_analysis.html">功能富集</a></li>{% endif %}
 {% endblock %}
 
 {% block intro %}
