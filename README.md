@@ -22,7 +22,7 @@ mRNAworkflow_path =  command.get('mRNA-pdf-static-167','mRNAworkflow_path')
 
 一切准备就绪后，在主程序`manager.py`下运行:(注意到report_result_path必须为绝对路径)
 ```sh
-python manager.py your report_result_path --html #生成 html 报告
+python manager.py your_report_result_path --html #生成 html 报告
 
-python manager.py your report_result_path --pdf #生成 pdf 报告
+python manager.py your_report_result_path --pdf #生成 pdf 报告
 ```
