@@ -46,9 +46,9 @@ phone = command.get('mRNA-pdf-info','phone')
 table_rows = command.get('mRNA-pdf-info','table_rows')
 max_cell_len = command.get('mRNA-pdf-info','max_cell_len')
 project_name = command.get('mRNA-pdf-info','project_name')
-logo_path =  command.get('mRNA-pdf-static-34','logo_path')
-pipeline_path =  command.get('mRNA-pdf-static-34','pipeline_path')
-mRNAworkflow_path =  command.get('mRNA-pdf-static-34','mRNAworkflow_path')
+logo_path =  command.get('mRNA-pdf-static-167','logo_path')
+pipeline_path =  command.get('mRNA-pdf-static-167','pipeline_path')
+mRNAworkflow_path =  command.get('mRNA-pdf-static-167','mRNAworkflow_path')
 #all plots size:
 reads_quality_path_size = command.get('mRNA-pdf-size','reads_quality_path_size')
 gc_plot_size = command.get('mRNA-pdf-size','gc_plot_size')
@@ -81,8 +81,8 @@ for key,value in mRNA_result_dict.items():
 #################
 
 ##enrichment part
-enrichment_analysis_path = dict(go_barplot_path='go.enrichment.barplot.png',
-							    kegg_barplot_path='kegg.enrichment.barplot.png',
+enrichment_analysis_path = dict(go_barplot_path='go.enrichment.barplot.pdf.png',
+							    kegg_barplot_path='kegg.enrichment.barplot.pdf.png',
 								pathview_path='kegg.pathview.png',dag_bp_path='BP.GO.DAG.png',
 								dag_cc_path='CC.GO.DAG.png',dag_mf_path='MF.GO.DAG.png',
 								go_table_path='report.go.table.txt',kegg_table_path='report.kegg.table.txt')
@@ -90,22 +90,22 @@ enrichment_analysis_path = dict(go_barplot_path='go.enrichment.barplot.png',
 for key,value in enrichment_analysis_path.items():
 	enrichment_analysis_path[key] = os.path.join(mRNA_data_path,enrichment_path,value)
 ##fastqc part
-fastqc_analysis_path = dict(gc_barplot_path = 'gc_plot/gc_distribution.line.png',
-							reads_quality_path = 'reads_quality_plot/reads_quality.bar.png',
+fastqc_analysis_path = dict(gc_barplot_path = 'gc_plot/gc_distribution.line.pdf.png',
+							reads_quality_path = 'reads_quality_plot/reads_quality.bar.pdf.png',
 							qc_table_path='fastqc_general_stats.txt')
 
 for key,value in fastqc_analysis_path.items():
 	fastqc_analysis_path[key] = os.path.join(mRNA_data_path,fastqc_path,value)
 ##mapping part
-mapping_analysis_path = dict(mapping_table_path='mapping_stats.report',mapping_plot_path='mapping_stats_plot.png')
+mapping_analysis_path = dict(mapping_table_path='mapping_stats.report',mapping_plot_path='mapping_stats_plot.pdf.png')
 
 for key,value in mapping_analysis_path.items():
 	mapping_analysis_path[key] = os.path.join(mRNA_data_path,mapping_path,value)
 ##quantification part
 expression_summary_dir = 'expression_summary'
 quantification_analysis_path = dict(
-									correlation_heatmap_path='Sample.correlation.heatmap.png',
-									gene_expression_path='Gene_expression.png',
+									correlation_heatmap_path='Sample.correlation.heatmap.pdf.png',
+									gene_expression_path='Gene_expression.pdf.png',
 									pca_plot_path='PCA_plot.png',
 									gene_table_path='pdf.example.Gene.tpm.txt',
 									)
@@ -113,16 +113,16 @@ quantification_analysis_path = dict(
 for key,value in quantification_analysis_path.items():
 	quantification_analysis_path[key] = os.path.join(mRNA_data_path,quantification_path,expression_summary_dir,value)
 ##diff part
-diff_analysis_path = dict(volcano_plot_path='ALL.Volcano_plot.png',
-						  diff_heatmap_path='Diff.genes.heatmap.png',
+diff_analysis_path = dict(volcano_plot_path='ALL.Volcano_plot.pdf.png',
+						  diff_heatmap_path='Diff.genes.heatmap.pdf.png',
 						  diff_table_path='pdf.example.diff.table.txt')
 
 for key,value in diff_analysis_path.items():
 	diff_analysis_path[key] = os.path.join(mRNA_data_path,quantification_path,expression_summary_dir,value)
 ##rseqc part
-rseqc_analysis_path = dict(genebody_coverage_plot_path='genebody_coverage/genebody_coverage.point.png',
-						   inner_distance_plot_path='inner_distance/inner_distance.bar.png',
-						   read_distribution_plot_path='read_distribution/read_distribution.bar.png')
+rseqc_analysis_path = dict(genebody_coverage_plot_path='genebody_coverage/genebody_coverage.point.pdf.png',
+						   inner_distance_plot_path='inner_distance/inner_distance.bar.pdf.png',
+						   read_distribution_plot_path='read_distribution/read_distribution.bar.pdf.png')
 
 for key,value in rseqc_analysis_path.items():
 	rseqc_analysis_path[key] = os.path.join(mRNA_data_path,rseqc_path,value)

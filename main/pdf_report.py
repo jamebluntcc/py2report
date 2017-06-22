@@ -10,11 +10,11 @@ add all function doc on 2017-06-16
 import os
 import sys
 import subprocess
-from . import mRNA_result_dict,pdf_analysis_path,pdf_jinja_env,pdf_settings,pdf_plots_size_dict
+from . import mRNA_data_dict,pdf_analysis_path,pdf_jinja_env,pdf_settings,pdf_plots_size_dict
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
-ref_file_path = '/home/chencheng/onmath_project/py2report/main/pdf_templates/ref.bib'
+ref_file_path = '/home/chencheng/myproject/py2report/main/pdf_templates/ref.bib'
 def cut_overlong_table(row_list,max_len=int(pdf_settings['max_cell_len'])):
     '''
     param:
@@ -96,7 +96,7 @@ def run_tex(tex_path):
     tex_file = os.path.basename(tex_path)
     os.chdir(tex_dir)
     aux_file = tex_file.replace('tex','aux')
-    rm_set = ['.aux','.log','.out','.toc','.tmp','.tex','.bib','.bbl','.blg','summary']
+    rm_set = ['.aux','.log','.out','.toc','.tmp','.bib','.bbl','.blg','.tex']
     subprocess.call('cp {ref_file} {tex_dir}'.format(ref_file=ref_file_path,tex_dir=tex_dir),shell=True)
     subprocess.call('xelatex {tex_file} > summary'.format(tex_file=tex_file),shell=True)
     subprocess.call('bibtex {aux_file}'.format(aux_file=aux_file),shell=True)
@@ -130,16 +130,18 @@ def create_pdf_report(generate_report_path,part):
     #for all table
     ##enrichment part
     enrichment_analysis_path = pdf_analysis_path['enrichment']
-    check_file(enrichment_analysis_path,generate_report_path,part)
-    kegg_list = three_line_list(enrichment_analysis_path['kegg_table_path'],colunms=7)
-    go_list = three_line_list(enrichment_analysis_path['go_table_path'],colunms=7)
-    
-    if enrichment_analysis_path['dag_bp_path'] and enrichment_analysis_path['dag_cc_path'] and enrichment_analysis_path['dag_mf_path']:
-        dag_plots = True
-    else:
-        dag_plots = False
+    if os.path.exists(os.path.join(generate_report_path,mRNA_data_dict['enrichment'])):
+        check_file(enrichment_analysis_path,generate_report_path,part)
+        kegg_list = three_line_list(enrichment_analysis_path['kegg_table_path'],colunms=7)
+        go_list = three_line_list(enrichment_analysis_path['go_table_path'],colunms=7)
 
-    enrichment_dict = dict(kegg_begin=kegg_list[0],kegg_head=kegg_list[1],kegg_body=kegg_list[2:],
+        if enrichment_analysis_path['dag_bp_path'] and enrichment_analysis_path['dag_cc_path'] and enrichment_analysis_path['dag_mf_path']:
+            dag_plots = True
+        else:
+            dag_plots = False
+
+        enrichment_dict = dict(enrichment = 'enrichment',kegg_begin=kegg_list[0],
+                                 kegg_head=kegg_list[1],kegg_body=kegg_list[2:],
                                  go_begin=go_list[0],go_head=go_list[1],go_body=go_list[2:],
                                  go_barplot_path=enrichment_analysis_path['go_barplot_path'],
                                  dag_plots=dag_plots,
@@ -150,53 +152,89 @@ def create_pdf_report(generate_report_path,part):
                                  pathview_path=enrichment_analysis_path['pathview_path'],
                                  go_table_path=enrichment_analysis_path['go_table_path'],
                                  kegg_table_path=enrichment_analysis_path['kegg_table_path'])
+    else:
+        enrichment_dict = dict(enrichment = None)
+        print '----------------------------------'
+        print '-enrichment analysis part missing-'
+        print '----------------------------------'
     pdf_param_dict.update(enrichment_dict)
     ##fastqc part
     fastqc_analysis_path = pdf_analysis_path['fastqc']
-    check_file(fastqc_analysis_path,generate_report_path,part)
-    qc_list = three_line_list(fastqc_analysis_path['qc_table_path'],colunms=6)
-    fastqc_dict = dict(qc_begin=qc_list[0],qc_head=qc_list[1],qc_body=qc_list[2:],
+    if os.path.exists(os.path.join(generate_report_path,mRNA_data_dict['fastqc'])):
+        check_file(fastqc_analysis_path,generate_report_path,part)
+        qc_list = three_line_list(fastqc_analysis_path['qc_table_path'],colunms=6)
+        fastqc_dict = dict(data_stat='data_stat',qc_begin=qc_list[0],qc_head=qc_list[1],qc_body=qc_list[2:],
                        gc_barplot_path=fastqc_analysis_path['gc_barplot_path'],
                        reads_quality_path=fastqc_analysis_path['reads_quality_path'],
                        qc_table_path=fastqc_analysis_path['qc_table_path']
                        )
+    else:
+        fastqc_dict = dict(data_stat = None)
+        print '------------------------------'
+        print '-fastqc analysis part missing-'
+        print '------------------------------'
     pdf_param_dict.update(fastqc_dict)
     ##mapping part
     mapping_analysis_path = pdf_analysis_path['mapping']
-    check_file(mapping_analysis_path,generate_report_path,part)
-    mapping_list = three_line_list(mapping_analysis_path['mapping_table_path'],colunms=7)
-    mapping_dict = dict(mapping_begin=mapping_list[0],mapping_head=mapping_list[1],mapping_body=mapping_list[2:],
+    if os.path.exists(os.path.join(generate_report_path,mRNA_data_dict['mapping'])):
+        check_file(mapping_analysis_path,generate_report_path,part)
+        mapping_list = three_line_list(mapping_analysis_path['mapping_table_path'],colunms=7)
+        mapping_dict = dict(mapping='mapping',mapping_begin=mapping_list[0],
+                        mapping_head=mapping_list[1],mapping_body=mapping_list[2:],
                         mapping_plot_path=mapping_analysis_path['mapping_plot_path'],
                         mapping_table_path=mapping_analysis_path['mapping_table_path'])
+    else:
+        mapping_dict = dict(mapping = None)
+        print '-------------------------------'
+        print '-mapping analysis part missing-'
+        print '-------------------------------'
     pdf_param_dict.update(mapping_dict)
     ##rseqc part
     rseqc_analysis_path = pdf_analysis_path['rseqc']
-    check_file(rseqc_analysis_path,generate_report_path,part)
-    rseqc_dict = dict(genebody_coverage_plot_path=rseqc_analysis_path['genebody_coverage_plot_path'],
+    if os.path.exists(os.path.join(generate_report_path,mRNA_data_dict['rseqc'])):
+        check_file(rseqc_analysis_path,generate_report_path,part)
+        rseqc_dict = dict(data_control='data_control',
+                      genebody_coverage_plot_path=rseqc_analysis_path['genebody_coverage_plot_path'],
                       inner_distance_plot_path=rseqc_analysis_path['inner_distance_plot_path'],
                       read_distribution_plot_path=rseqc_analysis_path['read_distribution_plot_path'])
+    else:
+        rseqc_dict = dict(data_control = None)
+        print '-----------------------------'
+        print '-rseqc analysis part missing-'
+        print '-----------------------------'
     pdf_param_dict.update(rseqc_dict)
     ##quantification part
     quantification_analysis_path = pdf_analysis_path['quantification']
-    check_file(quantification_analysis_path,generate_report_path,part)
-    gene_count_list = three_line_list(quantification_analysis_path['gene_table_path'],colunms=6)
-    quantification_dict = dict(gene_count_begin=gene_count_list[0],
+    if os.path.exists(os.path.join(generate_report_path,mRNA_data_dict['quantification'])):
+        check_file(quantification_analysis_path,generate_report_path,part)
+        gene_count_list = three_line_list(quantification_analysis_path['gene_table_path'],colunms=6)
+        quantification_dict = dict(quant='quant',
+                               gene_count_begin=gene_count_list[0],
                                gene_count_head=gene_count_list[1],
                                gene_count_body=gene_count_list[2:],
                                correlation_heatmap_path=quantification_analysis_path['correlation_heatmap_path'],
                                gene_expression_path=quantification_analysis_path['gene_expression_path'],
                                pca_plot_path=quantification_analysis_path['pca_plot_path'],
                                gene_table_path=quantification_analysis_path['gene_table_path'])
-    pdf_param_dict.update(quantification_dict)
-    ##diff part
-    diff_analysis_path = pdf_analysis_path['diff']
-    check_file(diff_analysis_path,generate_report_path,part)
-    diff_list = three_line_list(diff_analysis_path['diff_table_path'],colunms=5)
-    diff_dict=dict(diff_begin=diff_list[0],diff_head=diff_list[1],diff_body=diff_list[2:],
-                   volcano_plot_path=diff_analysis_path['volcano_plot_path'],
-                   diff_heatmap_path=diff_analysis_path['diff_heatmap_path'],
-                   diff_table_path=diff_analysis_path['diff_table_path'])
-    pdf_param_dict.update(diff_dict)
+        pdf_param_dict.update(quantification_dict)
+        ##diff part
+        diff_analysis_path = pdf_analysis_path['diff']
+        check_file(diff_analysis_path,generate_report_path,part)
+        diff_list = three_line_list(diff_analysis_path['diff_table_path'],colunms=5)
+        diff_dict=dict(diff='diff',
+                       diff_begin=diff_list[0],diff_head=diff_list[1],diff_body=diff_list[2:],
+                       volcano_plot_path=diff_analysis_path['volcano_plot_path'],
+                       diff_heatmap_path=diff_analysis_path['diff_heatmap_path'],
+                       diff_table_path=diff_analysis_path['diff_table_path'])
+        pdf_param_dict.update(diff_dict)
+    else:
+        quantification_dict = dict(quant = None)
+        pdf_param_dict.update(quantification_dict)
+        diff_dict = dict(diff = None)
+        pdf_param_dict.update(diff_dict)
+        print '-------------------------------------------'
+        print '-quantification&diff analysis part missing-'
+        print '-------------------------------------------'
 
     template = pdf_jinja_env.get_template('mRNA_base')
     pdf_template_path = os.path.join(generate_report_path,'analysis_report')
