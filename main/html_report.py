@@ -16,6 +16,23 @@ from . import mRNA_data_dict,mRNA_result_dict,html_jinja_env
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
+def check_modules(generate_report_path):
+    '''
+    param:
+    generate_report_path:a path where to your analysis's report data
+    function:check each analysis moudle whether its missing
+    '''
+    analysis_modules = dict(mapping='mapping',rseqc='rseqc',
+                            quantification='quantification',
+                            enrichment='enrichment',
+                            fastqc='fastqc')
+    for key,value in analysis_modules.items():
+        if not os.path.exists(os.path.join(generate_report_path,mRNA_data_dict[value])):
+            del analysis_modules[key]
+
+    return analysis_modules
+
+
 def get_multiple_plots(pattern_dict,generate_report_path,all_file):
     '''
     param:
@@ -56,15 +73,17 @@ def table2list(table_path,header=True,split='\t',max_row_num = 30,max_col_num = 
         print 'no exists {file}'.format(file=table_path)
         sys.exit(1)
 
-def enrichment_analysis(generate_report_path):
+def enrichment_analysis(generate_report_path,analysis_modules):
     '''
-    param:a path where to your analysis's report data
+    param:
+    generate_report_path:a path where to your analysis's report data
+    analysis_modules:a dict for mRNA report exists analysis moudles
     function:create enrichment analysis moudle
     '''
     enrichment_path = os.path.join(generate_report_path,mRNA_data_dict['enrichment'])
     if not os.path.exists(enrichment_path):
-        print "enrichment analysis's dir not exists,please check your input path"
-        sys.exit(1)
+        print "enrichment analysis part missing"
+        return
     go_list = table2list(os.path.join(enrichment_path,'report.go.table.txt'))
     kegg_list = table2list(os.path.join(enrichment_path,'report.kegg.table.txt'))
     sample_num = len(os.listdir(os.path.join(enrichment_path,'go')))
@@ -101,19 +120,24 @@ def enrichment_analysis(generate_report_path):
 		all_go_enrichment_plot_dir = kegg_href,
 		all_dag_plot_dir = go_href,
 		all_kegg_enrichment_plot_dir = kegg_href,
-		all_kegg_pathway_plot_dir = kegg_href
+		all_kegg_pathway_plot_dir = kegg_href,
+        fastqc = analysis_modules.get('fastqc'),
+        mapping = analysis_modules.get('mapping'),
+        rsqec = analysis_modules.get('rsqec'),
+        quantification = analysis_modules.get('quantification'),
 		))
     print 'enrichment analysis page done!'
 
-def fastqc_analysis(generate_report_path):
+def fastqc_analysis(generate_report_path,analysis_modules):
     '''
-    param:a path where to your analysis's report data
+    generate_report_path:a path where to your analysis's report data
+    analysis_modules:a dict for mRNA report exists analysis moudles
     function:create fastqc analysis moudle
     '''
     fastqc_path = os.path.join(generate_report_path,mRNA_data_dict['fastqc'])
     if not os.path.exists(fastqc_path):
-        print "fastqc analysis's dir not exists,please check your input path"
-        sys.exit(1)
+        print "fastqc analysis part missing"
+        return
     qc_list = table2list(os.path.join(fastqc_path,'fastqc_general_stats.txt'))
 
     all_file = []
@@ -140,19 +164,24 @@ def fastqc_analysis(generate_report_path):
         all_gc_plot_path=multiple_plot_path['gc_plots'],
         qc_table_path=fastqc_stat_href,
         quality_barplot_dir=reads_quality_href,
-        gc_plot_dir=gc_plot_href
+        gc_plot_dir=gc_plot_href,
+        mapping=analysis_modules.get('mapping'),
+        rseqc=analysis_modules.get('rseqc'),
+        quantification=analysis_modules.get('quantification'),
+        enrichment=analysis_modules.get('enrichment')
         ))
     print 'fastqc analysis page done!'
 
-def mapping_analysis(generate_report_path):
+def mapping_analysis(generate_report_path,analysis_modules):
     '''
-    param:a path where to your analysis's report data
+    generate_report_path:a path where to your analysis's report data
+    analysis_modules:a dict for mRNA report exists analysis moudles
     function:create mapping analysis moudle
     '''
     mapping_path = os.path.join(generate_report_path,mRNA_data_dict['mapping'])
     if not os.path.exists(mapping_path):
-        print "mapping analysis's dir not exists,please check your input path"
-        sys.exit(1)
+        print "mapping analysis part missing"
+        return
     mapping_list = table2list(os.path.join(mapping_path,'mapping_stats.txt'))
     mapping_stats_plot = os.path.join(mapping_path,'mapping_stats_plot.png').replace(os.path.join(generate_report_path,'analysis_report'),'..')
     mapping_href = mRNA_result_dict['mapping'].replace(generate_report_path,'../..')
@@ -166,19 +195,24 @@ def mapping_analysis(generate_report_path):
     		header=mapping_list[0],mapping_table=mapping_list[1],
     		mapping_stat_plot_path = mapping_stats_plot,
     		mapping_table_path=mapping_href,
-    		mapping_stat_plot_dir=mapping_href
+    		mapping_stat_plot_dir=mapping_href,
+            fastqc=analysis_modules.get('fastqc'),
+            rsqec=analysis_modules.get('rsqec'),
+            quantification=analysis_modules.get('quantification'),
+            enrichment=analysis_modules.get('enrichment')
     		))
     print 'mapping analysis page done!'
 
-def quantification_analysis(generate_report_path):
+def quantification_analysis(generate_report_path,analysis_modules):
     '''
-    param:a path where to your analysis's report data
+    generate_report_path:a path where to your analysis's report data
+    analysis_modules:a dict for mRNA report exists analysis moudles
     function:create quantification&diff analysis moudle
     '''
     quantification_path = os.path.join(generate_report_path,mRNA_data_dict['quantification'])
     if not os.path.exists(quantification_path):
-        print "quantification analysis's dir not exists,please check your input path"
-        sys.exit(1)
+        print "quantification analysis part missing"
+        return
     expression_summary_dir = os.path.join(quantification_path,'expression_summary')
     diff_analysis_dir = os.path.join(quantification_path,'differential_analysis')
 
@@ -212,7 +246,11 @@ def quantification_analysis(generate_report_path):
         gene_count_table_path=expression_summary_href,
         gene_merge_plot_dir=expression_summary_href,
         sample_correlation_plot_dir=expression_summary_href,
-        PCA_plot_dir=expression_summary_href
+        PCA_plot_dir=expression_summary_href,
+        fastqc=analysis_modules.get('fastqc'),
+        mapping=analysis_modules.get('mapping'),
+        rseqc=analysis_modules.get('rseqc'),
+        enrichment=analysis_modules.get('enrichment')
         ))
     print 'quantification analysis page done!'
     diff_template = html_jinja_env.get_template('diff_analysis.html')
@@ -223,19 +261,24 @@ def quantification_analysis(generate_report_path):
 		diff_heatmap_plot_path = expression_summary_plots['diff_heatmap_plot'],
 		diff_table_path = expression_summary_href,
 		all_volcano_plot_dir = diff_analysis_href,
-		diff_heatmap_plot_dir = expression_summary_href
+		diff_heatmap_plot_dir = expression_summary_href,
+        fastqc=analysis_modules.get('fastqc'),
+        mapping=analysis_modules.get('mapping'),
+        rsqec=analysis_modules.get('rsqec'),
+        enrichment=analysis_modules.get('enrichment')
 		))
     print 'diff analysis page done!'
 
-def rseqc_analysis(generate_report_path):
+def rseqc_analysis(generate_report_path,analysis_modules):
     '''
-    param:a path where to your analysis's report data
+    generate_report_path:a path where to your analysis's report data
+    analysis_modules:a dict for mRNA report exists analysis moudles
     function:create rseqc analysis moudle
     '''
     rseqc_path = os.path.join(generate_report_path,mRNA_data_dict['rseqc'])
     if not os.path.exists(rseqc_path):
-        print "rseqc analysis's dir not exists,please check your input path"
-        sys.exit(1)
+        print "rseqc analysis part missing"
+        return
 
     all_file = []
     for root,dirs,files in os.walk(rseqc_path):
@@ -267,6 +310,30 @@ def rseqc_analysis(generate_report_path):
     		inner_distance_plot_dir=inner_distance_href,
     		read_duplication_plot_dir=read_duplication_href,
     		genebody_coverage_plot_dir=genebody_coverage_href,
-    		read_distrbution_plot_dir=read_distribution_href
+    		read_distrbution_plot_dir=read_distribution_href,
+            fastqc=analysis_modules.get('fastqc'),
+            mapping=analysis_modules.get('mapping'),
+            quantification=analysis_modules.get('quantification'),
+            enrichment=analysis_modules.get('enrichment')
     		))
     print 'rseqc analysis page done!'
+
+
+def create_main_page_nav(generate_report_path,analysis_modules):
+    '''
+    generate_report_path:a path where to your analysis's report data
+    analysis_modules:a dict for mRNA report exists analysis moudles
+    '''
+    html_template_path = os.path.join(generate_report_path,'analysis_report')
+    if not os.path.exists(html_template_path):
+        os.makedirs(html_template_path)
+    template = html_jinja_env.get_template('mRNA_report.html')
+    with open(os.path.join(html_template_path,'mRNA_report.html'),'w+') as f:
+    		f.write(template.render(
+            fastqc=analysis_modules.get('fastqc'),
+            mapping=analysis_modules.get('mapping'),
+            quantification=analysis_modules.get('quantification'),
+            rsqec=analysis_modules.get('rsqec'),
+            enrichment=analysis_modules.get('enrichment')
+            ))
+    print 'mRNA report main page done!'
