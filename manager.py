@@ -17,11 +17,13 @@ if __name__ == '__main__':
     if args.html:
         subprocess.call('cp -r {html_files} {report_path}'.format(html_files = 'html_files/*',
                                                                   report_path = os.path.join(args.mRNA_report_path,'analysis_report')),shell=True)
-        html_report.enrichment_analysis(args.mRNA_report_path)
-        html_report.fastqc_analysis(args.mRNA_report_path)
-        html_report.mapping_analysis(args.mRNA_report_path)
-        html_report.quantification_analysis(args.mRNA_report_path)
-        html_report.rseqc_analysis(args.mRNA_report_path)
+        analysis_modules = html_report.check_modules(args.mRNA_report_path)
+        html_report.enrichment_analysis(args.mRNA_report_path,analysis_modules)
+        html_report.fastqc_analysis(args.mRNA_report_path,analysis_modules)
+        html_report.mapping_analysis(args.mRNA_report_path,analysis_modules)
+        html_report.quantification_analysis(args.mRNA_report_path,analysis_modules)
+        html_report.rseqc_analysis(args.mRNA_report_path,analysis_modules)
+        html_report.create_main_page_nav(args.mRNA_report_path,analysis_modules)
 
     if args.pdf:
         pdf_report.create_pdf_report(args.mRNA_report_path,args.part)
