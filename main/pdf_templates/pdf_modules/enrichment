@@ -2,7 +2,7 @@
 \section{富集分析}
 通过 KEGG 和 GO 数据库的基因富集分析，我们能够发现差异表达基因是否在某些生物学通路或特定功能基因集中出现的概率超出预期，反映差异基因可能与这些通路或者生物功能相关。功能富集的分析结果如下所示。
 \BLOCK{ if go_table_path }
-\subsection{ GO 富集分析统计}
+\subsection{GO 富集分析统计}
 GOseq\cite{goseq}（Young et al, 2010）基于 Wallenius 非中心超几何分布原理，并能够对基因长度进行校正，适用于 RNAseq 数据的分析。下表展示了 GOseq 的分析结果。
 \href{run:../analysis_result/enrichment/go/}{查看样本GO富集分析文件}
 \VAR{ table(go_begin,go_head,go_body,caption='GO 富集分析结果',size='\\footnotesize') }

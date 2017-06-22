@@ -1,6 +1,6 @@
 \BLOCK{ from 'plots_table' import plot,table }
 \section{数据质控}
-我们使用 RSeQC (Wang, L., Wang, S., \& Li, W. 2012)，对本次测序的数据的文库插入片段，基因区 reads 覆盖度和基因区域 reads 分布3个方面进行评估。下面展示了这3项分析的结果。
+我们使用 RSeQC\cite{rseqc} (Wang, L., Wang, S., \& Li, W. 2012)，对本次测序的数据的文库插入片段，基因区 reads 覆盖度和基因区域 reads 分布3个方面进行评估。下面展示了这3项分析的结果。
 \BLOCK{ if inner_distance_plot_path }
 \subsection{文库插入片段长度分布图}
 下图展示了样品的插入片段长度的分布情况。其中 x 轴代表文库插入片段长度，可以理解为 read1 和 read2在基因组中的距离，该值为负数代表 read1 和 read2 有部分重叠 (overlap)。(文库片段长度 = 插入片段长度 + read1长度 + read2长度)

@@ -1,7 +1,7 @@
 \BLOCK{ from 'plots_table' import plot,table }
 \BLOCK{ if mapping_table_path }
 \section{序列比对}
-此部分展示了测序数据比对到基因组的情况。我们使用 STAR 软件，将测序获得的 reads 比对到基因组，得到的包含 reads 在基因组位置信息的 bam 文件。样品的比对率受到样品情况以及物种基因组情况等多个因素的影响，一般来说这个比例在 60~90% 之间。
+此部分展示了测序数据比对到基因组的情况。我们使用 STAR\cite{star}(Donbin A,et al.2013)软件，将测序获得的 reads 比对到基因组，得到的包含 reads 在基因组位置信息的 bam 文件。样品的比对率受到样品情况以及物种基因组情况等多个因素的影响，一般来说这个比例在 60~90% 之间。
 各样品比对结果如表所示。\href{run:../analysis_result/mapping/}{查看完整的比对结果统计表}
 \VAR{ table(mapping_begin,mapping_head,mapping_body,caption='数据过滤统计分析表') }
 \newpage
