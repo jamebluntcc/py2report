@@ -14,7 +14,7 @@ from . import mRNA_data_dict,pdf_analysis_path,pdf_jinja_env,pdf_settings,pdf_pl
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
-ref_file_path = '/home/chencheng/myproject/py2report/main/pdf_templates/ref.bib'
+ref_file_path = '/home/chencheng/onmath_project/py2report/main/pdf_templates/ref.bib'
 def cut_overlong_table(row_list,max_len=int(pdf_settings['max_cell_len'])):
     '''
     param:

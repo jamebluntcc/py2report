@@ -4,7 +4,11 @@ py2report 是一个以 Python 模板语言 [**jinja2**](http://jinja.pocoo.org/d
 ## 参数
 - option: -html(--html) 生成html版本报告；
 - option: -pdf(--pdf) 生成pdf版本报告；
-- option: -part(--part) 当报告缺少一部分分析结果的时候保证能够顺利生成报告；
+- option: -part(--part) 当报告缺少一部分分析结果的时候保证能够顺利生成报告；(需要注意的是参数 part 只能用于 pdf 报告的生成)
+
+```
+python manager.py your_report_result_path -pdf -part 
+```
 
 ## 运行
 确定运行前执行 `pip install -r requirment.txt` 安装程序所需要的依赖保证能够正常的运行，程序可以部署在34(onmath 的服务器)和167(另一个onmath的服务器)上，需要进入 `main/__init__.py` 文件更改配置:
