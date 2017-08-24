@@ -7,7 +7,7 @@ py2report 是一个以 Python 模板语言 [**jinja2**](http://jinja.pocoo.org/d
 - option: -part(--part) 当报告缺少一部分分析结果的时候保证能够顺利生成报告；(需要注意的是参数 part 只能用于 pdf 报告的生成)
 
 ```
-python manager.py your_report_result_path -pdf -part 
+python main.py your_report_result_path -pdf -part 
 ```
 
 ## 运行
@@ -24,9 +24,9 @@ mRNAworkflow_path =  command.get('mRNA-pdf-static-167','mRNAworkflow_path')
 ```
 如果以后需要运行在更多的服务器上请进入 `report_conf.conf` 中进行设置。
 
-一切准备就绪后，在主程序`manager.py`下运行:(注意到report_result_path必须为绝对路径)
+一切准备就绪后，在主程序`main.py`下运行:(注意到report_result_path必须为绝对路径)
 ```sh
-python manager.py your_report_result_path --html #生成 html 报告
+python main.py your_report_result_path --html #生成 html 报告
 
-python manager.py your_report_result_path --pdf #生成 pdf 报告
+python main.py your_report_result_path --pdf #生成 pdf 报告
 ```
